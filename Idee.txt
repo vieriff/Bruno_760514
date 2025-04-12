@@ -1,1 +1,57 @@
-Mettete qua le idee
+linee guida
+1) 2 file di testo: ristorante,utente.
+
+a) record ristorante: 
+
+• Nome del ristorante
+• Nazione
+• Città
+• Indirizzo
+• Latitudine
+• Longitudine
+• Fascia di prezzo (prezzo medio in euro)
+• Disponibilità del servizio di delivery (si/no)
+• Disponibilità del servizio di prenotazione online (si/no)
+• Tipo di cucina
+
+b) record utente: 
+
+• Nome
+• Cognome
+• Username
+• Password (cifrata)
+• Data di nascita (facoltativa)
+• Luogo del domicilio
+• Ruolo (cliente/ristoratore)
+• preferiti
+
+c) file recensioni
+•  Username
+•  Nome del ristorante
+•  valutazione
+•  testo
+•  risposta
+
+
+2) classe GestioneTheKnife (nLogin o login)
+
+ a)cercaRistorante() nLogin
+ b)visualizzaRistorante() nLogin
+ c)visualizzaRecensioni() nLogin
+ d)registrazione() nlogin
+ e)aggiungiPreferito() login
+ f)rimuoviPreferito() login
+ g)visualizzaPreferiti() login
+ h)aggiungiRecensione() login
+ i)modificaRecensione() login
+ j)eliminaRecensione() login
+
+per ristoratori
+ a)aggiungiRistorante() login
+ b)visualizzaRiepilogo() login
+ c)visualizzaRecensioni() login
+ d)rispostaRecensioni() login
+
+
+
+
