@@ -3,7 +3,7 @@ package dto;
 import java.util.Calendar;
 
 public class ristorante{
-    private ENUM Nazione;
+    private String Nazione;
     private String  Città;
     private String Indirizzo;
     private int Latitudine;
@@ -11,5 +11,5 @@ public class ristorante{
     private int  prezzo;
     private boolean Disponibilità_delivery;
     private boolean Disponibilità_delivery;
-    private ENUM Tipo_Cucina;
+    private String Tipo_Cucina;
 }
