@@ -2,6 +2,10 @@ package dto;
 
 public class Ristorante{
 
+<<<<<<< HEAD
+=======
+public class ristorante{
+>>>>>>> 9125cacc623cd7bace9d79d0165528b8836afc47
     private String Nazione;
     private String  Città;
     private String Indirizzo;
@@ -9,6 +13,7 @@ public class Ristorante{
     private int  Longitudine;
     private int  prezzo;
     private boolean Disponibilità_delivery;
+<<<<<<< HEAD
     private boolean Disponibilità_prenotazione;
     private String Tipo_Cucina;
     
@@ -68,4 +73,8 @@ public class Ristorante{
 		Tipo_Cucina = tipo_Cucina;
 	}
     
+=======
+    private boolean Disponibilità_delivery;
+    private String Tipo_Cucina;
+>>>>>>> 9125cacc623cd7bace9d79d0165528b8836afc47
 }
