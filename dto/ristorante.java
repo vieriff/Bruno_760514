@@ -27,6 +27,14 @@ public class Ristorante {
 		this.disponibilità_prenotazione = disponibilità_prenotazione;
 		this.tipo_Cucina = tipo_Cucina;
 	}
+	
+	
+	
+
+	public Ristorante() {
+		super();
+	}
+
 
 	public String getNome() {
 		return nome;

@@ -54,4 +54,9 @@ per ristoratori
 
 
 
+per la mappatura utente:
+1)in utente è tutto separato dalla virgola ","
+2)ristoranti preferiti da un punto "."
+3)i vari campi dei ristoranti sono separati da un punto e virgola ";"
+
 

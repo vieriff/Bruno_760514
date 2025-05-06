@@ -1,6 +1,6 @@
 package dto;
 
-public class Recensioni{
+public class Recensione{
 
     private String username;
     private String nomeRistorante;
