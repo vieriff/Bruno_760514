@@ -1,10 +1,8 @@
 package dto;
 
-import java.util.Calendar;
-
 public class Recensioni{
 
-    private String Username;
+    private String username;
     private String nomeRistorante;
     private int valutazione;
     private String testo;
@@ -12,10 +10,10 @@ public class Recensioni{
     
     
     public String getUsername() {
-		return Username;
+		return username;
 	}
 	public void setUsername(String username) {
-		Username = username;
+		username = username;
 	}
 	public String getNomeRistorante() {
 		return nomeRistorante;

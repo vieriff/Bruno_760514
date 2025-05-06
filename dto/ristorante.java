@@ -1,71 +1,111 @@
 package dto;
 
-public class Ristorante{
+public class Ristorante {
 
-    private String Nazione;
-    private String  Città;
-    private String Indirizzo;
-    private int Latitudine;
-    private int  Longitudine;
-    private int  prezzo;
-    private boolean Disponibilità_delivery;
-    private boolean Disponibilità_prenotazione;
-    private String Tipo_Cucina;
-    
-    
+	private String nome;
+	private String nazione;
+	private String città;
+	private String indirizzo;
+	private int latitudine;
+	private int longitudine;
+	private int prezzo;
+	private boolean disponibilità_delivery;
+	private boolean disponibilità_prenotazione;
+	private String tipo_Cucina;
+
+	public Ristorante(String nome, String nazione, String città, String indirizzo, int latitudine, int longitudine,
+			int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione, String tipo_Cucina) {
+		super();
+		this.nome = nome;
+		this.nazione = nazione;
+		this.città = città;
+		this.indirizzo = indirizzo;
+		this.latitudine = latitudine;
+		this.longitudine = longitudine;
+		this.prezzo = prezzo;
+		this.disponibilità_delivery = disponibilità_delivery;
+		this.disponibilità_prenotazione = disponibilità_prenotazione;
+		this.tipo_Cucina = tipo_Cucina;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getNazione() {
-		return Nazione;
+		return nazione;
 	}
+
 	public void setNazione(String nazione) {
-		Nazione = nazione;
+		nazione = nazione;
 	}
+
 	public String getCittà() {
-		return Città;
+		return città;
 	}
+
 	public void setCittà(String città) {
-		Città = città;
+		città = città;
 	}
+
 	public String getIndirizzo() {
-		return Indirizzo;
+		return indirizzo;
 	}
+
 	public void setIndirizzo(String indirizzo) {
-		Indirizzo = indirizzo;
+		indirizzo = indirizzo;
 	}
+
 	public int getLatitudine() {
-		return Latitudine;
+		return latitudine;
 	}
+
 	public void setLatitudine(int latitudine) {
-		Latitudine = latitudine;
+		latitudine = latitudine;
 	}
+
 	public int getLongitudine() {
-		return Longitudine;
+		return longitudine;
 	}
+
 	public void setLongitudine(int longitudine) {
-		Longitudine = longitudine;
+		longitudine = longitudine;
 	}
+
 	public int getPrezzo() {
 		return prezzo;
 	}
+
 	public void setPrezzo(int prezzo) {
 		this.prezzo = prezzo;
 	}
+
 	public boolean isDisponibilità_delivery() {
-		return Disponibilità_delivery;
+		return disponibilità_delivery;
 	}
+
 	public void setDisponibilità_delivery(boolean disponibilità_delivery) {
-		Disponibilità_delivery = disponibilità_delivery;
+		disponibilità_delivery = disponibilità_delivery;
 	}
+
 	public boolean isDisponibilità_prenotazione() {
-		return Disponibilità_prenotazione;
+		return disponibilità_prenotazione;
 	}
+
 	public void setDisponibilità_prenotazione(boolean disponibilità_prenotazione) {
-		Disponibilità_prenotazione = disponibilità_prenotazione;
+		disponibilità_prenotazione = disponibilità_prenotazione;
 	}
+
 	public String getTipo_Cucina() {
-		return Tipo_Cucina;
+		return tipo_Cucina;
 	}
+
 	public void setTipo_Cucina(String tipo_Cucina) {
-		Tipo_Cucina = tipo_Cucina;
+		tipo_Cucina = tipo_Cucina;
 	}
-    
+
 }
