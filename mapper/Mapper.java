@@ -7,7 +7,7 @@ import java.util.Calendar;
 import dto.Recensione;
 import dto.Ristorante;
 import dto.Utente;
-import sicurezzaPassword.CriptazioneSemplice;
+import sicurezzaPassword.Criptazione;
 
 public class Mapper {
 
@@ -17,7 +17,7 @@ public class Mapper {
 		u.setNome(valori[0]);
 		u.setCognome(valori[1]);
 		u.setUsername(valori[2]);
-		u.setPassword(CriptazioneSemplice.decritta(valori[3]));
+		u.setPassword(Criptazione.decritta(valori[3]));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar dat = Calendar.getInstance();
@@ -68,7 +68,7 @@ public class Mapper {
 	public static String mapStrUtente(Utente u) {
 		// Mappatura dell'utente
 		String result = u.getNome() + "," + u.getCognome() + "," + u.getUsername() + ","
-				+ CriptazioneSemplice.critta(u.getPassword()) + ","; // Criptazione della password
+				+ Criptazione.critta(u.getPassword()) + ","; // Criptazione della password
 
 		// Mappatura della data di nascita (in formato "yyyy-MM-dd")
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
