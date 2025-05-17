@@ -4,6 +4,7 @@ linee guida
 a) record ristorante: 
 
 • Nome del ristorante
+• username istoratore
 • Nazione
 • Città
 • Indirizzo
