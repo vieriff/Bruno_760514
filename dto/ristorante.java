@@ -3,6 +3,7 @@ package dto;
 public class Ristorante {
 
 	private String nome;
+	private String usarname_ristoratore;
 	private String nazione;
 	private String città;
 	private String indirizzo;
@@ -13,10 +14,13 @@ public class Ristorante {
 	private boolean disponibilità_prenotazione;
 	private String tipo_Cucina;
 
-	public Ristorante(String nome, String nazione, String città, String indirizzo, int latitudine, int longitudine,
-			int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione, String tipo_Cucina) {
+
+	public Ristorante(String nome, String usarname_ristoratore, String nazione, String città, String indirizzo,
+			int latitudine, int longitudine, int prezzo, boolean disponibilità_delivery,
+			boolean disponibilità_prenotazione, String tipo_Cucina) {
 		super();
 		this.nome = nome;
+		this.usarname_ristoratore = usarname_ristoratore;
 		this.nazione = nazione;
 		this.città = città;
 		this.indirizzo = indirizzo;
@@ -27,9 +31,7 @@ public class Ristorante {
 		this.disponibilità_prenotazione = disponibilità_prenotazione;
 		this.tipo_Cucina = tipo_Cucina;
 	}
-	
-	
-	
+
 
 	public Ristorante() {
 		super();
@@ -115,5 +117,17 @@ public class Ristorante {
 	public void setTipo_Cucina(String tipo_Cucina) {
 		tipo_Cucina = tipo_Cucina;
 	}
+
+
+	public String getUsarname_ristoratore() {
+		return usarname_ristoratore;
+	}
+
+
+	public void setUsarname_ristoratore(String usarname_ristoratore) {
+		this.usarname_ristoratore = usarname_ristoratore;
+	}
+	
+	
 
 }
