@@ -1,5 +1,8 @@
 package dto;
 
+import java.util.List;
+import java.util.LinkedList;
+
 public class Ristorante {
 
 	private String nome;
@@ -128,6 +131,65 @@ public class Ristorante {
 		this.usarname_ristoratore = usarname_ristoratore;
 	}
 	
-	
+        public static List<Ristorante> cercaRistorante(
+            List<Ristorante> ristoranti,
+            String città, 
+            String nazione, 
+            String tipoCucina, 
+            Integer prezzoMin, 
+            Integer prezzoMax, 
+            Boolean richiedeDelivery, 
+            Boolean richiedePrenotazione 
+    ) {
+        List<Ristorante> risultati = new LinkedList<>();
+
+        for (Ristorante r : ristoranti) {
+            
+            if (!r.getCittà().equalsIgnoreCase(città) || !r.getNazione().equalsIgnoreCase(nazione)) {
+                continue;
+            }
+
+        
+            if (tipoCucina != null && !r.getTipo_Cucina().equalsIgnoreCase(tipoCucina)) {
+                continue;
+            }
+
+           
+            if (prezzoMin != null && r.getPrezzo() < prezzoMin) {
+                continue;
+            }
+            if (prezzoMax != null && r.getPrezzo() > prezzoMax) {
+                continue;
+            }
+
+           
+            if (richiedeDelivery != null && r.isDisponibilità_delivery() != richiedeDelivery) {
+                continue;
+            }
+
+            
+            if (richiedePrenotazione != null && r.isDisponibilità_prenotazione() != richiedePrenotazione) {
+                continue;
+            }
+
+            
+            risultati.add(r);
+        }
+
+        return risultati;
+    }
+
+	public void visualizzaRistorante() {
+    System.out.println("Dettagli ristorante:");
+    System.out.println("Nome: " + nome);
+    System.out.println("Ristoratore: " + usarname_ristoratore);
+    System.out.println("Indirizzo: " + indirizzo + ", " + città + ", " + nazione);
+    System.out.println("Coordinate: latitudine = " + latitudine + ", longitudine = " + longitudine);
+    System.out.println("Tipologia di cucina: " + tipo_Cucina);
+    System.out.println("Fascia di prezzo: " + prezzo + "€");
+    System.out.println("Servizio Delivery: " + (disponibilità_delivery ? "Disponibile" : "Non disponibile"));
+    System.out.println("Prenotazione Online: " + (disponibilità_prenotazione ? "Disponibile" : "Non disponibile"));  
+}
+
 
 }
