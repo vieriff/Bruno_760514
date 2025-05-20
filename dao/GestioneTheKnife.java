@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -219,5 +220,224 @@ public class GestioneTheKnife {
 
         return true;
     }
+
+    public static boolean aggiungiPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {    //aggiunge un ristorante al campo preferiti dell'utente che ha effettuato il login
+        String fileUtentiPath = "dati/utenti.txt";
+        List<String> utentiAggiornati = new ArrayList<>();
+        boolean aggiornato = false;
+
+        if (usernameCliente == null || nomeRistorante == null || luogoRistorante == null ||
+            usernameCliente.isEmpty() || nomeRistorante.isEmpty() || luogoRistorante.isEmpty()) {   //se uno di questi campi non esiste il codice non può essere eseguito
+            return false;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] campi = linea.split(",", -1);
+
+                if (campi.length < 8) {     //questa parte permette di evitare la IndexOutOfBoundsException
+                    utentiAggiornati.add(linea);
+                    continue;
+                }
+
+                if (campi[2].equalsIgnoreCase(usernameCliente)) {
+                    String preferiti = campi[7].trim();
+                    String nuovoPreferito = nomeRistorante + ";" + luogoRistorante;
+
+                    boolean giàPresente = false;
+                    if (!preferiti.isEmpty()) {
+                        String[] ristoranti = preferiti.split("\\.");
+                        for (String ristorante : ristoranti) {      //se il ristorante è già tra i preferiti non viene inserito nuovamente
+                            if (ristorante.trim().equalsIgnoreCase(nuovoPreferito)) {
+                                giàPresente = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!giàPresente) {     //se tutto è andato a buon fine aggiungo il nuovo ristorante preferito
+                        if (preferiti.isEmpty()) {
+                            preferiti = nuovoPreferito;
+                        } else {
+                            preferiti += "." + nuovoPreferito;
+                        }
+                        campi[7] = preferiti;
+                        aggiornato = true;
+                    }
+
+                    String nuovaLinea = String.join(",", campi);
+                    utentiAggiornati.add(nuovaLinea);
+                } else {
+                    utentiAggiornati.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Errore durante la lettura del file utenti: " + e.getMessage());
+            return false;
+        }
+
+        if (!aggiornato) {
+            System.out.println("Utente non trovato o ristorante già nei preferiti.");
+            return false;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileUtentiPath))) {
+            for (String linea : utentiAggiornati) {
+                writer.write(linea);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Errore durante la scrittura del file utenti: " + e.getMessage());
+            return false;
+        }
+
+        return true;       //se tutto è andato a buon fine ritorno true
+    }
+
+    public static boolean rimuoviPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {     //rimuove un ristorante al campo preferiti dell'utente che ha effettuato il login
+        String fileUtentiPath = "dati/utenti.txt";
+        List<String> utentiAggiornati = new ArrayList<>();
+        boolean aggiornato = false;
+
+        if (usernameCliente == null || nomeRistorante == null || luogoRistorante == null ||
+            usernameCliente.isEmpty() || nomeRistorante.isEmpty() || luogoRistorante.isEmpty()) {       //se uno di questi campi non esiste il codice non può essere eseguito
+            return false;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] campi = linea.split(",", -1);
+
+                if (campi.length < 8) {     //questa parte permette di evitare la IndexOutOfBoundsException
+                    utentiAggiornati.add(linea);
+                    continue;
+                }
+
+                if (campi[2].equalsIgnoreCase(usernameCliente)) {
+                    String preferiti = campi[7].trim();
+                    String daRimuovere = nomeRistorante + ";" + luogoRistorante;
+
+                    if (!preferiti.isEmpty()) {     //se il campo preferiti è vuoto allora non può esserci un ristorante da rimuovere
+                        String[] ristoranti = preferiti.split("\\.");
+                        List<String> preferitiAggiornati = new ArrayList<>();
+
+                        for (String ristorante : ristoranti) {
+                            if (!ristorante.trim().equalsIgnoreCase(daRimuovere)) {
+                                preferitiAggiornati.add(ristorante);
+                            } else {
+                                aggiornato = true; //in questo caso il ristorante è stato trovato e rimosso
+                            }
+                        }
+
+                        campi[7] = String.join(".", preferitiAggiornati);
+                    }
+
+                    String nuovaLinea = String.join(",", campi);
+                    utentiAggiornati.add(nuovaLinea);
+                } else {
+                    utentiAggiornati.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Errore durante la lettura del file utenti: " + e.getMessage());
+            return false;
+        }
+
+        if (!aggiornato) {
+            System.out.println("Utente non trovato o ristorante non presente nei preferiti.");
+            return false;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileUtentiPath))) {
+            for (String linea : utentiAggiornati) {
+                writer.write(linea);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Errore durante la scrittura del file utenti: " + e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void visualizzaPreferiti(String usernameCliente) {        //permetti di visualizzare tutti i preferiti dell'utente che ha effettuato l'accesso
+        String fileUtentiPath = "dati/utenti.txt";
+    
+        if (usernameCliente == null || usernameCliente.isEmpty()) {     //se questo campo è vuoto o è null non si può eseguire il codice
+            System.out.println("Username non valido.");
+            return;
+        }
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
+            String linea;
+            boolean trovato = false;
+    
+            while ((linea = br.readLine()) != null) {
+                String[] campi = linea.split(",", -1);
+    
+                if (campi.length < 8) continue;
+    
+                if (campi[2].equalsIgnoreCase(usernameCliente)) {
+                    trovato = true;
+                    String preferiti = campi[7].trim();
+    
+                    if (preferiti.isEmpty()) {      //se preferiti è vuoto allora stampa che non ci sono preferiti
+                        System.out.println("Nessun ristorante preferito trovato.");
+                    } else {
+                        String[] ristoranti = preferiti.split("\\.");
+                        System.out.println("Ristoranti preferiti di " + usernameCliente + ":");
+                        for (String ristorante : ristoranti) {
+                            String[] dettagli = ristorante.split(";");
+                            if (dettagli.length == 2) {     //non dovrebbe succedere ma, se c'è solo il nome del ristorante senza il luogo, allora stampa solo il nome
+                                System.out.println("- " + dettagli[0].trim() + " (" + dettagli[1].trim() + ")");
+                            } else {
+                                System.out.println("- " + ristorante.trim());
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+    
+            if (!trovato) {
+                System.out.println("Utente non trovato.");
+            }
+    
+        } catch (IOException e) {
+            System.err.println("Errore durante la lettura del file utenti: " + e.getMessage());
+        }
+    }
+
+    public static boolean aggiungiRecensione(String username, String nomeRistorante, String luogoRistorante, String valutazione, String testoRecensione) {  //permette di aggiungere una recensione ad un ristorante
+        String fileRecensioniPath = "dati/recensioni.txt";
+    
+        if (username == null || nomeRistorante == null || luogoRistorante == null || 
+            valutazione == null || testoRecensione == null ||                                   //se uno di questi campi non è presente non è possibile andare avanti
+            username.isEmpty() || nomeRistorante.isEmpty() || luogoRistorante.isEmpty() ||
+            valutazione.isEmpty() || testoRecensione.isEmpty()) {
+            System.out.println("Campi non validi.");
+            return false;
+        }
+    
+        String ristorante = nomeRistorante + ";" + luogoRistorante;
+        String nuovaRecensione = String.join(",", username, ristorante, valutazione, testoRecensione, "Nrisposta");
+    
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioniPath, true))) {
+            writer.write(nuovaRecensione);      //qui scrive la recensione nel file
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Errore durante la scrittura del file recensioni: " + e.getMessage());
+            return false;
+        }
+    
+        return true;
+    }
+    
+
 
 }
