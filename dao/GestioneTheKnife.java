@@ -1,3 +1,7 @@
+/**
+ * Classe DAO per la gestione delle funzionalità principali dell'applicazione TheKnife.
+ * Fornisce metodi per l'aggiunta e gestione di ristoranti, recensioni, e preferiti.
+ */
 package dao;
 
 import java.io.BufferedReader;
@@ -19,16 +23,25 @@ public class GestioneTheKnife {
 	private static String fileRistorantiPath = "dati/ristoranti.txt";
 	private static String fileRecensioniPath = "dati/recensioni.txt";
 	
-	
+	/**
+     * Imposta il percorso del file dei ristoranti.
+     * @param path percorso del file ristoranti
+     */
 	public static void setFileRistorantiPath(String path) {
         fileRistorantiPath = path;
     }
-
+    /**
+     * Imposta il percorso del file delle recensioni.
+     * @param path percorso del file recensioni
+     */
     public static void setFileRecensioniPath(String path) {
         fileRecensioniPath = path;
     }
 	
-
+    /**
+     * Aggiunge un nuovo ristorante al file.
+     * @return true se aggiunto correttamente, false altrimenti
+     */
 	public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
 	        int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
 	        String tipo_Cucina) {
@@ -53,7 +66,9 @@ public class GestioneTheKnife {
 	        return false;
 	    }
 	}
-
+    /**
+     * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
+     */
     public void visualizzaRiepilogo() {
 
         LinkedList<String> righeRecensioni = new LinkedList<>();
@@ -102,6 +117,10 @@ public class GestioneTheKnife {
         }
     }
 
+    /**
+     * Visualizza tutte le recensioni relative ai ristoranti gestiti da un dato utente.
+     * @param usernameLoggato username del ristoratore loggato
+     */
     public static void visualizzaRecensioni(String usernameLoggato) {
 
         if (fileRistorantiPath == null || fileRecensioniPath == null) {
@@ -154,6 +173,10 @@ public class GestioneTheKnife {
         }
     }
 
+    /**
+     * Permette a un ristoratore di rispondere a una recensione.
+     * @return true se risposta salvata correttamente, false altrimenti
+     */
     public static boolean rispondiARecensione(String usernameLoggato, String nomeRistorante, String usernameCliente,
             String risposta) {
         if (fileRecensioniPath == null || fileRistorantiPath == null) {
@@ -221,6 +244,10 @@ public class GestioneTheKnife {
         return true;
     }
 
+    /**
+     * Aggiunge un ristorante ai preferiti dell'utente.
+     * @return true se aggiunto con successo, false altrimenti
+     */
     public static boolean aggiungiPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {    //aggiunge un ristorante al campo preferiti dell'utente che ha effettuato il login
         String fileUtentiPath = "dati/utenti.txt";
         List<String> utentiAggiornati = new ArrayList<>();
@@ -296,6 +323,10 @@ public class GestioneTheKnife {
         return true;       //se tutto è andato a buon fine ritorno true
     }
 
+    /**
+     * Rimuove un ristorante dai preferiti dell'utente.
+     * @return true se rimosso con successo, false altrimenti
+     */
     public static boolean rimuoviPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {     //rimuove un ristorante al campo preferiti dell'utente che ha effettuato il login
         String fileUtentiPath = "dati/utenti.txt";
         List<String> utentiAggiornati = new ArrayList<>();
@@ -365,6 +396,10 @@ public class GestioneTheKnife {
         return true;
     }
 
+    /**
+     * Visualizza tutti i ristoranti preferiti dell'utente specificato.
+     * @param usernameCliente username dell'utente
+     */
     public static void visualizzaPreferiti(String usernameCliente) {        //permetti di visualizzare tutti i preferiti dell'utente che ha effettuato l'accesso
         String fileUtentiPath = "dati/utenti.txt";
     
@@ -413,6 +448,10 @@ public class GestioneTheKnife {
         }
     }
 
+    /**
+     * Aggiunge una recensione per un ristorante da parte di un utente.
+     * @return true se la recensione è stata aggiunta con successo, false altrimenti
+     */
     public static boolean aggiungiRecensione(String username, String nomeRistorante, String luogoRistorante, String valutazione, String testoRecensione) {  //permette di aggiungere una recensione ad un ristorante
         String fileRecensioniPath = "dati/recensioni.txt";
     

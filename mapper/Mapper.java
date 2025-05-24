@@ -8,9 +8,20 @@ import dto.Recensione;
 import dto.Ristorante;
 import dto.Utente;
 import sicurezzaPassword.Criptazione;
-
+/**
+ * La classe {@code Mapper} è utilizzata per mappare oggetti di tipo {@link Utente}, {@link Ristorante} e {@link Recensione}
+ * da e verso stringhe di testo. Queste stringhe sono solitamente utilizzate per la serializzazione e la deserializzazione
+ * di oggetti a partire da file o database.
+ * La classe include metodi per la conversione di oggetti in stringhe e viceversa, con particolare attenzione alla gestione
+ * della criptazione delle password.
+ */
 public class Mapper {
-
+  	/**
+     * Mappa una stringa contenente i dati di un utente in un oggetto {@link Utente}.
+     * 
+     * @param linea La stringa contenente i dati dell'utente, separati da virgole.
+     * @return Un oggetto {@link Utente} con i dati mappati dalla stringa.
+     */
 	public static Utente mapObjUtente(String linea) {
 	    Utente u = new Utente();
 	    String[] valori = linea.split(",");
@@ -63,7 +74,12 @@ public class Mapper {
 	    return u;
 	}
 	
-
+   	/**
+     * Mappa un oggetto {@link Utente} in una stringa di testo separata da virgole.
+     * 
+     * @param u L'oggetto {@link Utente} da mappare.
+     * @return Una stringa contenente i dati dell'utente, separati da virgole.
+     */
 	public static String mapStrUtente(Utente u) {
 		// Mappatura dell'utente
 		String result = u.getNome() + "," + u.getCognome() + "," + u.getUsername() + ","
@@ -93,7 +109,12 @@ public class Mapper {
 		return result;
 	}
 	
-	
+	 /**
+     * Mappa una stringa contenente i dati di un ristorante in un oggetto {@link Ristorante}.
+     * 
+     * @param linea La stringa contenente i dati del ristorante, separati da virgole.
+     * @return Un oggetto {@link Ristorante} con i dati mappati dalla stringa.
+     */
 	public static Ristorante mapObjRistorante(String linea) {
 	    String[] valori = linea.split(",");
 	    // valori[0] = nome
@@ -122,7 +143,12 @@ public class Mapper {
 	        valori[10]
 	    );
 	}
-
+	/**
+     * Mappa un oggetto {@link Ristorante} in una stringa di testo separata da virgole.
+     * 
+     * @param r L'oggetto {@link Ristorante} da mappare.
+     * @return Una stringa contenente i dati del ristorante, separati da virgole.
+     */
 	public static String mapStrRistorante(Ristorante r) {
 	    // restituisce stringa con i campi separati da virgola in ordine corretto
 	    return r.getNome() + "," 
@@ -138,7 +164,12 @@ public class Mapper {
 	         + r.getTipo_Cucina();
 	}
 
-    //mappatura recensioni
+    /**
+     * Mappa una stringa contenente i dati di una recensione in un oggetto {@link Recensione}.
+     * 
+     * @param linea La stringa contenente i dati della recensione, separati da virgole.
+     * @return Un oggetto {@link Recensione} con i dati mappati dalla stringa.
+     */
     public static Recensione mapObjRecensioni(String linea) {
         Recensione r = new Recensione();
         String[] valori = linea.split(",");
@@ -149,7 +180,12 @@ public class Mapper {
         r.setRisposta(valori[4]);
         return r;
     }
-    
+    /**
+     * Mappa un oggetto {@link Recensione} in una stringa di testo separata da virgole.
+     * 
+     * @param r L'oggetto {@link Recensione} da mappare.
+     * @return Una stringa contenente i dati della recensione, separati da virgole.
+     */
     public static String mapStrRecensione(Recensione r) {
         String s = new String();
         String username = r.getUsername();
