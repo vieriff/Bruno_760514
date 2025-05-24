@@ -8,12 +8,23 @@ import java.nio.file.Files;
 import org.junit.jupiter.api.*;
 
 import dao.GestioneTheKnife;
+/**
+ * Classe di test per la classe {@link dao.GestioneTheKnife}.
+ * Utilizza JUnit per verificare il comportamento delle operazioni sui file di ristoranti e recensioni.
+ */
 
 public class TestDao {
-
+    /** File temporaneo per i ristoranti. */
     private File tempRistorantiFile;
+    /** File temporaneo per le recensioni. */
     private File tempRecensioniFile;
 
+    /**
+     * Inizializza l'ambiente di test prima di ogni test.
+     * Crea file temporanei vuoti per ristoranti e recensioni e configura la classe GestioneTheKnife.
+     *
+     * @throws IOException se si verifica un errore nella creazione dei file temporanei
+     */
     @BeforeEach
     public void setUp() throws IOException {
         // Crea file temporanei
@@ -32,14 +43,18 @@ public class TestDao {
             pw.print("");
         }
     }
-
+    /**
+     * Elimina i file temporanei creati durante i test dopo ogni esecuzione.
+     */
     @AfterEach
     public void tearDown() {
         // Cancella i file temporanei dopo ogni test
         tempRistorantiFile.delete();
         tempRecensioniFile.delete();
     }
-
+    /**
+     * Test di aggiunta ristorante successivo.
+     */
     @Test
     public void testAggiungiRistoranteSuccesso() {
         boolean result = GestioneTheKnife.aggiungiRistorante(
@@ -57,6 +72,9 @@ public class TestDao {
         }
     }
 
+    /**
+     * Test di visualizza riepilogo con recensioni
+     */
     @Test
     public void testVisualizzaRiepilogoConRecensioni() throws IOException {
         // Scrivi ristorante nel file
@@ -78,6 +96,9 @@ public class TestDao {
         // Se vuoi, puoi catturare l'output System.out e testare il contenuto stampato.
     }
 
+    /**
+     * Test di visualizza recensioni con ristorante gestito
+     */
     @Test
     public void testVisualizzaRecensioniConRistoranteGestito() throws IOException {
         // Scrivi ristorante nel file con username ristoratore 'userRistoratore'
@@ -94,6 +115,9 @@ public class TestDao {
         GestioneTheKnife.visualizzaRecensioni("userRistoratore");
     }
 
+    /**
+     * Test di risposta a recensione
+     */
     @Test
     public void testRispondiARecensione() throws IOException {
         // Scrivi ristorante nel file con username ristoratore 'userRistoratore'
@@ -115,7 +139,9 @@ public class TestDao {
             assertTrue(line.endsWith("Grazie!"));
         }
     }
-    
+    /**
+     * Test di aggiunta ristorante con dati null
+     */
     @Test
     public void testAggiuntaRistoranteConDatiNull() {
         // Parametri null o non validi
@@ -125,6 +151,9 @@ public class TestDao {
         assertFalse(result, "L'aggiunta dovrebbe fallire con parametri nulli o invalidi");
     }
 
+    /**
+     * Test di risposta a recensione non gestita
+     */
     @Test
     public void testRispondiARecensioneNonGestita() throws IOException {
         // Scrivi ristorante gestito da un altro utente
@@ -142,6 +171,9 @@ public class TestDao {
         assertFalse(result, "Non dovrebbe permettere di rispondere se l'utente non gestisce il ristorante");
     }
 
+    /**
+     * Test di visualizzazione recensioni con file recensioni corrotto
+     */
     @Test
     public void testVisualizzaRecensioniConFileRecensioniCorrotto() throws IOException {
         // Scrivi ristorante valido
@@ -160,6 +192,9 @@ public class TestDao {
         });
     }
 
+    /**
+     * Test di scrittura su file non scrivibile
+     */
     @Test
     public void testScritturaSuFileNonScrivibile() throws IOException {
         // Rende il file ristoranti di sola lettura
@@ -174,7 +209,9 @@ public class TestDao {
         // Ripristina i permessi per evitare problemi nei test successivi
         tempRistorantiFile.setWritable(true);
     }
-
+/**
+     * Test di risposta a recensione non esistente
+     */
     @Test
     public void testRecensioneNonEsistente() throws IOException {
         // Scrivi ristorante valido
