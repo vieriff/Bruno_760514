@@ -44,7 +44,7 @@ c) file recensioni
  f)rimuoviPreferito() login
  g)visualizzaPreferiti() login
  h)aggiungiRecensione() login
- i)modificaRecensione() login
+ ----i)modificaRecensione() login
  j)eliminaRecensione() login
 
 per ristoratori
