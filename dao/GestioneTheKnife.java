@@ -22,6 +22,7 @@ public class GestioneTheKnife {
 
 	private static String fileRistorantiPath = "dati/ristoranti.txt";
 	private static String fileRecensioniPath = "dati/recensioni.txt";
+	private static String fileUtentiPath = "dati/utenti.txt";
 	
 	/**
      * Imposta il percorso del file dei ristoranti.
@@ -485,7 +486,6 @@ public class GestioneTheKnife {
      * @return true se le credenziali sono corrette, false altrimenti
      */
     public static boolean loginUtente(String username, String password) {
-        String fileUtentiPath = "dati/utenti.txt";
 
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             System.out.println("Username o password vuoti.");
@@ -498,12 +498,10 @@ public class GestioneTheKnife {
             while ((linea = br.readLine()) != null) {
                 String[] campi = linea.split(",", -1);
 
-                if (campi.length < 4) continue;
-
                 String usernameFile = campi[2].trim();
                 String passwordCifrataFile = campi[3].trim();
 
-                if (usernameFile.equalsIgnoreCase(username)) {
+                if (usernameFile.equals(username)) {
                     String passwordInseritaCifrata = Criptazione.criptaPassword(password);
                     if (passwordInseritaCifrata.equals(passwordCifrataFile)) {
                         return true;
