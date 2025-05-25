@@ -225,5 +225,31 @@ public class TestDao {
         assertFalse(result, "Non dovrebbe poter rispondere a una recensione che non esiste");
     }
 
-    // Puoi aggiungere anche test con file non scrivibili o lettura fallita simulando permessi o mock.
+    /**
+     * Test del metodo login con utente valido e password cifrata.
+     */
+    @Test
+    public void testLoginConPasswordCifrata() throws IOException {
+        // Prepara un file temporaneo per gli utenti
+        File tempUtentiFile = Files.createTempFile("utenti", ".txt").toFile();
+        GestioneTheKnife.setFileUtentiPath(tempUtentiFile.getAbsolutePath());
+
+        // Crea una password cifrata come fa l'applicazione reale
+        String Username = "utenteTest";
+        String passwordChiara = "password123";
+        String passwordCifrata = Criptazione.cifra(passwordChiara);
+        String ruolo = "cliente"; // oppure "ristoratore"
+
+        // Scrive l'utente nel file
+        try (PrintWriter pw = new PrintWriter(tempUtentiFile)) {
+            pw.println(username + "," + passwordCifrata + "," + ruolo);
+        }
+
+        // Esegui login con le credenziali in chiaro
+        String ruoloOttenuto = GestioneTheKnife.login(username, passwordChiara);
+
+        assertEquals(ruolo, ruoloOttenuto, "Il login dovrebbe restituire il ruolo corretto con password cifrata");
+        
+        tempUtentiFile.delete(); // pulizia finale
+    }
 }

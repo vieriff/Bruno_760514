@@ -477,6 +477,51 @@ public class GestioneTheKnife {
         return true;
     }
     
+    
+    /**
+     * Esegue il login verificando username e password cifrata.
+     * @param username username inserito
+     * @param password password inserita in chiaro
+     * @return true se le credenziali sono corrette, false altrimenti
+     */
+    public static boolean loginUtente(String username, String password) {
+        String fileUtentiPath = "dati/utenti.txt";
+
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+            System.out.println("Username o password vuoti.");
+            return false;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] campi = linea.split(",", -1);
+
+                if (campi.length < 4) continue;
+
+                String usernameFile = campi[2].trim();
+                String passwordCifrataFile = campi[3].trim();
+
+                if (usernameFile.equalsIgnoreCase(username)) {
+                    String passwordInseritaCifrata = Criptazione.criptaPassword(password);
+                    if (passwordInseritaCifrata.equals(passwordCifrataFile)) {
+                        return true;
+                    } else {
+                        System.out.println("Password errata.");
+                        return false;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Errore nella lettura del file utenti: " + e.getMessage());
+            return false;
+        }
+
+        System.out.println("Username non trovato.");
+        return false;
+    }
+    
 
 
 }
