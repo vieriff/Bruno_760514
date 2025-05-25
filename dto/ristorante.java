@@ -13,7 +13,7 @@ import java.util.LinkedList;
 public class Ristorante {
 
 	private String nome;
-	private String usarname_ristoratore;
+	private String username_ristoratore;
 	private String nazione;
 	private String città;
 	private String indirizzo;
@@ -28,7 +28,7 @@ public class Ristorante {
      * Costruttore completo per inizializzare tutti i campi del ristorante.
      * 
      * @param nome                        nome del ristorante
-     * @param usarname_ristoratore       username del ristoratore
+     * @param username_ristoratore       username del ristoratore
      * @param nazione                     nazione in cui si trova il ristorante
      * @param città                       città in cui si trova il ristorante
      * @param indirizzo                   indirizzo del ristorante
@@ -39,12 +39,12 @@ public class Ristorante {
      * @param disponibilità_prenotazione  disponibilità della prenotazione online
      * @param tipo_Cucina                 tipologia di cucina offerta
      */
-	public Ristorante(String nome, String usarname_ristoratore, String nazione, String città, String indirizzo,
+	public Ristorante(String nome, String username_ristoratore, String nazione, String città, String indirizzo,
 			int latitudine, int longitudine, int prezzo, boolean disponibilità_delivery,
 			boolean disponibilità_prenotazione, String tipo_Cucina) {
 		super();
 		this.nome = nome;
-		this.usarname_ristoratore = usarname_ristoratore;
+		this.username_ristoratore = username_ristoratore;
 		this.nazione = nazione;
 		this.città = città;
 		this.indirizzo = indirizzo;
@@ -227,9 +227,9 @@ public class Ristorante {
 	/**
 	 * Imposta l'username del ristoratore.
 	 * 
-	 * @param usarname_ristoratore username del ristoratore da impostare
+	 * @param username_ristoratore username del ristoratore da impostare
 	 */
-	public void setUsarname_ristoratore(String usarname_ristoratore) {
+	public void setusername_ristoratore(String username_ristoratore) {
 		this.username_ristoratore = username_ristoratore;
 	}
 

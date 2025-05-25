@@ -51,7 +51,7 @@ public class Mapper {
 	            String[] dettagli = ristorantiData[i].split(";"); // separa i dettagli del ristorante
 	            if (dettagli.length >= 11) { // Ora almeno 11 campi
 	                String nome = dettagli[0];
-	                String usarname_ristoratore = dettagli[1];
+	                String username_ristoratore = dettagli[1];
 	                String nazione = dettagli[2];
 	                String città = dettagli[3];
 	                String indirizzo = dettagli[4];
@@ -62,7 +62,7 @@ public class Mapper {
 	                boolean disponibilità_prenotazione = Boolean.parseBoolean(dettagli[9]);
 	                String tipo_cucina = dettagli[10];
 
-	                preferiti[i] = new Ristorante(nome, usarname_ristoratore, nazione, città, indirizzo, latitudine,
+	                preferiti[i] = new Ristorante(nome, username_ristoratore, nazione, città, indirizzo, latitudine,
 	                        longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_cucina);
 	            }
 	        }
@@ -118,7 +118,7 @@ public class Mapper {
 	public static Ristorante mapObjRistorante(String linea) {
 	    String[] valori = linea.split(",");
 	    // valori[0] = nome
-	    // valori[1] = usarname_ristoratore
+	    // valori[1] = username_ristoratore
 	    // valori[2] = nazione
 	    // valori[3] = città
 	    // valori[4] = indirizzo
@@ -152,7 +152,7 @@ public class Mapper {
 	public static String mapStrRistorante(Ristorante r) {
 	    // restituisce stringa con i campi separati da virgola in ordine corretto
 	    return r.getNome() + "," 
-	         + r.getUsarname_ristoratore() + "," 
+	         + r.getUsername_ristoratore() + "," 
 	         + r.getNazione() + "," 
 	         + r.getCittà() + "," 
 	         + r.getIndirizzo() + "," 
