@@ -1,65 +1,83 @@
 package Gui;
 
-import dto.Utente;
-
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    private HashMap<String, JPanel> mappaPannelli;
+    private String utenteCorrente;
+    private String frameAttuale = "";
 
     public MainFrame() {
-        setTitle("The Knife - GUI");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("TheKnife");
         setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
+        mappaPannelli = new HashMap<>();
 
-        // Pannelli
-        LoginUtentePanel loginUtentePanel = new LoginUtentePanel(this);
-        LoginRistorantePanel loginRistoratorePanel = new LoginRistorantePanel(this);
-        RegistrazioneUtentePanel registrazioneUtentePanel = new RegistrazioneUtentePanel(this);
-        RegistrazioneRistorantePanel registrazioneRistorantePanel = new RegistrazioneRistorantePanel(this);
-        VisualizzaRistorantePanel visualizzaRistorantePanel = new VisualizzaRistorantePanel();
+        aggiungiPannello("home", new HomePanel(this));
+        aggiungiPannello("loginUtente", new LoginUtentePanel(this));
+        aggiungiPannello("loginRistoratore", new LoginRistorantePanel(this));
+        aggiungiPannello("registrazioneUtente", new RegistraUtentePanel(this));
+        aggiungiPannello("registrazioneRistorante", new RegistraRistorantePanel(this));
+        aggiungiPannello("cercaRistorantiNLogin", new CercaRistorantiNLoginPanel(this));
+        aggiungiPannello("cercaPerLuogoNLogin", new CercaPerLuogoNLoginPanel(this));
+        aggiungiPannello("cercaPerNomeNLogin", new CercaPerNomeNLoginPanel(this));
 
-        mainPanel.add(loginUtentePanel, "loginUtente");
-        mainPanel.add(loginRistoratorePanel, "loginRistoratore");
-        mainPanel.add(registrazioneUtentePanel, "registrazioneUtente");
-        mainPanel.add(registrazioneRistorantePanel, "registrazioneRistorante");
-        mainPanel.add(visualizzaRistorantePanel, "visualizzaRistoranti");
-
+        aggiungiEMostra("home", new HomePanel(this));
         add(mainPanel);
-        setVisible(true);
-
     }
 
-    public void mostraLoginUtente() {
-        cardLayout.show(mainPanel, "loginUtente");
+    public void aggiungiPannello(String nome, JPanel pannello) {
+        mappaPannelli.put(nome, pannello);
+        mainPanel.add(pannello, nome);
     }
 
-    public void mostraLoginRistoratore() {
-        cardLayout.show(mainPanel, "loginRistoratore");
+    public void mostraPannello(String nome) {
+        if (mappaPannelli.containsKey(nome)) {
+            cardLayout.show(mainPanel, nome);
+        }
     }
 
-    public void mostraRegistrazioneUtente() {
-        cardLayout.show(mainPanel, "registrazioneUtente");
+    public void aggiungiEMostra(String nome, JPanel pannello) {
+        if (!mappaPannelli.containsKey(nome)) {
+            aggiungiPannello(nome, pannello);
+        }
+        mostraPannello(nome);
     }
 
-    public void mostraRegistrazioneRistorante() {
-        cardLayout.show(mainPanel, "registrazioneRistorante");
+    public void setUtenteCorrente(String username) {
+        this.utenteCorrente = username;
     }
 
-    public void mostraVisualizzaRistoranti() {
-        cardLayout.show(mainPanel, "visualizzaRistoranti");
+    public String getUtenteCorrente() {
+        return utenteCorrente;
     }
 
-    public void mostraUtentePanel(Utente utente) {
-        UtentePanel utentePanel = new UtentePanel(utente);
-        mainPanel.add(utentePanel, "utente");
-        cardLayout.show(mainPanel, "utente");
+    public void logout() {
+        utenteCorrente = null;
+        mostraPannello("home");
+    }
+
+    public void tornaZonaUtente() {
+        aggiungiEMostra("utentePanel", new UtentePanel(this, utenteCorrente));
+    }
+
+    public void tornaZonaRistoratore() {
+        aggiungiEMostra("ristoratorePanel", new RistorantePanel(this, utenteCorrente));
+    }
+    
+    public void setFrameAttuale(String frameAttuale) {
+        this.frameAttuale = frameAttuale;
+    }
+
+    public String getFrameAttuale() {
+        return frameAttuale;
     }
 }
-

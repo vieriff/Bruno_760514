@@ -5,18 +5,18 @@ import java.awt.*;
 import dao.GestioneTheKnife;
 import sicurezzaPassword.Criptazione;
 
-public class LoginRistorantePanel extends JPanel {
+public class LoginUtentePanel extends JPanel {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private MainFrame mainFrame;
 
-    public LoginRistorantePanel(MainFrame frame) {
+    public LoginUtentePanel(MainFrame frame) {
         this.mainFrame = frame;
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        JLabel titolo = new JLabel("Login Ristoratore", SwingConstants.CENTER);
+        JLabel titolo = new JLabel("Login Utente", SwingConstants.CENTER);
         titolo.setFont(new Font("SansSerif", Font.BOLD, 24));
         titolo.setForeground(Color.DARK_GRAY);
         add(titolo, BorderLayout.NORTH);
@@ -27,9 +27,11 @@ public class LoginRistorantePanel extends JPanel {
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameField = new JTextField();
+        usernameField.setPreferredSize(new Dimension(150, 25));
 
         JLabel passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField();
+        passwordField.setPreferredSize(new Dimension(150, 25));
 
         JButton loginButton = new JButton("Login");
         JButton backButton = new JButton("Torna alla Home");
@@ -48,16 +50,17 @@ public class LoginRistorantePanel extends JPanel {
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
-            String ruolo = "ristoratore";
+            String ruolo = "utente";
             password = Criptazione.critta(password);
-            boolean success = GestioneTheKnife.loginUtenteR(username, password, ruolo);
+            boolean success = GestioneTheKnife.loginUtenteU(username, password, ruolo);
             if (success) {
                 usernameField.setText("");
                 passwordField.setText("");
-                frame.setFrameAttuale("ristoratorePanel");
-                frame.aggiungiEMostra("ristoratorePanel", new RistorantePanel(frame, username));
+                frame.setUtenteCorrente(username);
+                frame.setFrameAttuale("utentePanel");
+                mainFrame.aggiungiEMostra("utentePanel", new UtentePanel(mainFrame, username));
             } else {
-                JOptionPane.showMessageDialog(this, "Username o password errati.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Username o password errati o sezione sbagliata.", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
 

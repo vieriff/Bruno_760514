@@ -4,11 +4,7 @@
  */
 package dao;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +13,7 @@ import java.util.Scanner;
 import dto.Recensione;
 import dto.Ristorante;
 import mapper.Mapper;
+import sicurezzaPassword.Criptazione;
 
 public class GestioneTheKnife {
 
@@ -44,29 +41,30 @@ public class GestioneTheKnife {
      * @return true se aggiunto correttamente, false altrimenti
      */
 	public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
-	        int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
-	        String tipo_Cucina) {
-		
-		if (nome == null || usernameRistoratore == null || nazione == null || città == null || indirizzo == null || tipo_Cucina == null)
-	        return false;
+        int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
+        String tipo_Cucina) {
 
-	    if (latitudine < 0 || longitudine < 0 || prezzo <= 0)
-	        return false;
+        if (nome == null || usernameRistoratore == null || nazione == null || città == null || indirizzo == null || tipo_Cucina == null)
+            return false;
 
-	    Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
-	            longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
+        if (latitudine < 0 || longitudine < 0 || prezzo <= 0)
+            return false;
 
-	    String riga = Mapper.mapStrRistorante(nuovoRistorante);
+        Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
+                longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
 
-	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistorantiPath, true))) {
-	        writer.write(riga);
-	        writer.newLine();
-	        return true;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-	    }
-	}
+        String riga = Mapper.mapStrRistorante(nuovoRistorante);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistorantiPath, true))) {
+            writer.write(riga);
+            writer.newLine();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
      */
@@ -485,9 +483,9 @@ public class GestioneTheKnife {
      * @param password password inserita in chiaro
      * @return true se le credenziali sono corrette, false altrimenti
      */
-    public static boolean loginUtente(String username, String password) {
+    public static boolean loginUtenteU(String username, String password, String ruolo) {
 
-        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+        if (username == null || password == null || ruolo == null || username.isEmpty() || password.isEmpty() || ruolo.isEmpty()) {
             System.out.println("Username o password vuoti.");
             return false;
         }
@@ -500,11 +498,13 @@ public class GestioneTheKnife {
 
                 String usernameFile = campi[2].trim();
                 String passwordCifrataFile = campi[3].trim();
+                String ruoloFile = campi[6].trim();
 
                 if (usernameFile.equals(username)) {
-                    String passwordInseritaCifrata = Criptazione.criptaPassword(password);
-                    if (passwordInseritaCifrata.equals(passwordCifrataFile)) {
-                        return true;
+                    if (password.equals(passwordCifrataFile)) {
+                        if(ruolo.equals(ruoloFile)){
+                            return true;
+                        }
                     } else {
                         System.out.println("Password errata.");
                         return false;
@@ -519,7 +519,166 @@ public class GestioneTheKnife {
         System.out.println("Username non trovato.");
         return false;
     }
-    
+
+    public static boolean loginUtenteR(String username, String password, String ruolo) {
+
+        if (username == null || password == null || ruolo == null || username.isEmpty() || password.isEmpty() || ruolo.isEmpty()) {
+            System.out.println("Username o password vuoti.");
+            return false;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] campi = linea.split(",", -1);
+
+                String usernameFile = campi[2].trim();
+                String passwordFile = campi[3].trim();
+                String ruoloFile = campi[6].trim();
+
+                if (usernameFile.equals(username)) {
+                    if (passwordFile.equals(password)) {
+                        if(ruolo.equals(ruoloFile)){
+                            return true;
+                        }
+                    } else {
+                        System.out.println("Password errata.");
+                        return false;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Errore nella lettura del file utenti: " + e.getMessage());
+            return false;
+        }
+
+        System.out.println("Username non trovato.");
+        return false;
+    }
+
+    public static boolean registraUtente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo, String preferiti) {
+        File file = new File("dati/utenti.txt");
+
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] campi = line.split(",");
+                if (campi.length > 2 && campi[2].equals(username)) {
+                    reader.close();
+                    return false;
+                }
+            }
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            String riga = nome + "," + cognome + "," + username + "," + password + "," + dataNascita + "," + domicilio + "," + ruolo + "," + preferiti;
+            writer.write(riga);
+            writer.newLine();
+            writer.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static List<String> CercaRistorantiN(String nomeCercato) {
+        List<String> risultati = new ArrayList<>();
+        File file = new File("dati/ristoranti.txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] campi = linea.split(";");
+                if (campi.length >= 11 && campi[0].toLowerCase().contains(nomeCercato.toLowerCase())) {
+                    risultati.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
+
+    public static List<String> CercaRistorantiL(String zona) {
+        List<String> risultati = new ArrayList<>();
+        zona = zona.toLowerCase();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("dati/ristoranti.txt"))) {
+            String riga;
+            while ((riga = reader.readLine()) != null) {
+                String[] campi = riga.split(";");
+                if (campi.length >= 11) {
+                    String nome = campi[0];
+                    String username = campi[1];
+                    String nazione = campi[2];
+                    String citta = campi[3];
+                    String indirizzo = campi[4];
+                    String lat = campi[5];
+                    String lon = campi[6];
+                    String prezzo = campi[7];
+                    String delivery = campi[8];
+                    String prenotazione = campi[9];
+                    String cucina = campi[10];
+
+                    if (nazione.toLowerCase().contains(zona) || citta.toLowerCase().contains(zona)) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Nome: ").append(nome).append("\n");
+                        sb.append("Username Ristoratore: ").append(username).append("\n");
+                        sb.append("Nazione: ").append(nazione).append("\n");
+                        sb.append("Città: ").append(citta).append("\n");
+                        sb.append("Indirizzo: ").append(indirizzo).append("\n");
+                        sb.append("Coordinate: ").append(lat).append(", ").append(lon).append("\n");
+                        sb.append("Prezzo Medio: €").append(prezzo).append("\n");
+                        sb.append("Delivery: ").append(delivery).append("\n");
+                        sb.append("Prenotazione Online: ").append(prenotazione).append("\n");
+                        sb.append("Tipo di Cucina: ").append(cucina);
+                        risultati.add(sb.toString());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
+
+    public static boolean aggiungiRecensione(String username, String nomeRistorante, int voto, String testo) {
+        File file = new File("dati/recensioni.txt");
+        try {
+            if (!file.exists()) file.createNewFile();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    String[] campi = linea.split(",", -1);
+                    if (campi.length >= 2 && campi[0].equals(username) && campi[1].equalsIgnoreCase(nomeRistorante)) {
+                        return false;
+                    }
+                }
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+                String nuovaRiga = username + "," + nomeRistorante + "," + voto + "," + testo.replace(",", " ") + ",";
+                bw.write(nuovaRiga);
+                bw.newLine();
+            }
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 }
