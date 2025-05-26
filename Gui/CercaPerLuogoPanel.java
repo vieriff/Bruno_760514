@@ -2,6 +2,7 @@ package Gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import dao.GestioneTheKnife;
 
@@ -11,7 +12,8 @@ public class CercaPerLuogoPanel extends JPanel {
     private JList<String> listaRistoranti;
     private JTextArea dettagliArea;
     private JButton visualizzaRecensioni;
-    private List<String> risultatiCorrenti;
+    private List<String> risultatiCorretti;
+    private JTextField campoLuogo;
 
     public CercaPerLuogoPanel(MainFrame frame, String pannelloChiamante) {
         this.frame = frame;
@@ -27,7 +29,7 @@ public class CercaPerLuogoPanel extends JPanel {
         centro.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         centro.setBackground(Color.WHITE);
 
-        JTextField campoLuogo = new JTextField();
+        campoLuogo = new JTextField();
         JButton cercaButton = new JButton("Cerca");
 
         JPanel ricerca = new JPanel(new BorderLayout(5, 5));
@@ -50,20 +52,20 @@ public class CercaPerLuogoPanel extends JPanel {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollLista, scrollDettagli);
         splitPane.setResizeWeight(0.5);
 
-        centro.add(ricerca, BorderLayout.NORTH);
-        centro.add(splitPane, BorderLayout.CENTER);
-
         visualizzaRecensioni = new JButton("Visualizza Recensioni");
         visualizzaRecensioni.setEnabled(false);
         visualizzaRecensioni.addActionListener(e -> {
             int index = listaRistoranti.getSelectedIndex();
-            if (index >= 0 && index < risultatiCorrenti.size()) {
-                String selezione = listaRistoranti.getSelectedValue();
+            if (index >= 0 && index < risultatiCorretti.size()) {
+                String selezione = risultatiCorretti.get(index);
                 frame.aggiungiEMostra("visualizzaRecensioniPanel", new VisualizzaRecensioniPanel(frame, selezione));
             }
         });
 
+        centro.add(ricerca, BorderLayout.NORTH);
+        centro.add(splitPane, BorderLayout.CENTER);
         centro.add(visualizzaRecensioni, BorderLayout.SOUTH);
+
         add(centro, BorderLayout.CENTER);
 
         JButton tornaIndietro = new JButton("Torna indietro");
@@ -77,32 +79,52 @@ public class CercaPerLuogoPanel extends JPanel {
         listaRistoranti.addListSelectionListener(ev -> {
             if (!ev.getValueIsAdjusting()) {
                 int index = listaRistoranti.getSelectedIndex();
-                if (index >= 0 && risultatiCorrenti != null && index < risultatiCorrenti.size()) {
-                    dettagliArea.setText(formattaDettagli(risultatiCorrenti.get(index)));
+                if (index >= 0 && index < risultatiCorretti.size()) {
+                    dettagliArea.setText(formattaDettagli(risultatiCorretti.get(index)));
                     visualizzaRecensioni.setEnabled(true);
+                } else {
+                    dettagliArea.setText("");
+                    visualizzaRecensioni.setEnabled(false);
                 }
             }
         });
 
         cercaButton.addActionListener(e -> {
-            String luogo = campoLuogo.getText().trim();
-            if (!luogo.isEmpty()) {
-                risultatiCorrenti = GestioneTheKnife.CercaRistorantiL(luogo);
+            String zona = campoLuogo.getText().trim();
+            if (!zona.isEmpty()) {
+                List<String> risultati = GestioneTheKnife.CercaRistorantiL(zona);
+                risultatiCorretti = new ArrayList<>();
                 listModel.clear();
                 dettagliArea.setText("");
                 visualizzaRecensioni.setEnabled(false);
-                if (risultatiCorrenti.isEmpty()) {
-                    listModel.addElement("Nessun ristorante trovato.");
-                } else {
-                    for (String r : risultatiCorrenti) {
-                        String nomeRistorante = r.split(";")[0];
-                        listModel.addElement(nomeRistorante);
+
+                for (String r : risultati) {
+                    String[] campi = r.split(";");
+                    if (campi.length >= 11) {
+                        risultatiCorretti.add(r);
+                        listModel.addElement(campi[0]);
                     }
+                }
+
+                if (risultatiCorretti.isEmpty()) {
+                    listModel.addElement("Nessun ristorante trovato.");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Inserisci una zona o città per la ricerca.", "Attenzione", JOptionPane.WARNING_MESSAGE);
             }
         });
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            campoLuogo.setText("");
+            listModel.clear();
+            dettagliArea.setText("");
+            visualizzaRecensioni.setEnabled(false);
+            risultatiCorretti = new ArrayList<>();
+        }
     }
 
     private String formattaDettagli(String ristoranteInfo) {
