@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package Gui;
 
 import java.awt.*;
@@ -69,3 +70,5 @@ public class RistorantePanel extends JPanel {
         
     }
 }
+=======
+>>>>>>> parent of bbd308a (Finita la GUI)

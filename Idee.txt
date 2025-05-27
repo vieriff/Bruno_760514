@@ -36,22 +36,22 @@ c) file recensioni
 
 2) classe GestioneTheKnife (nLogin o login)
 
-a)cercaRistorante() nLogin
-b)visualizzaRistorante() nLogin
-c)visualizzaRecensioni() nLogin
-d)registrazione() nlogin
-e)aggiungiPreferito() login
-f)rimuoviPreferito() login
-g)visualizzaPreferiti() login
-h)aggiungiRecensione() login
-i)modificaRecensione() login
-j)eliminaRecensione() login
+ a)cercaRistorante() nLogin
+ b)visualizzaRistorante() nLogin
+ c)visualizzaRecensioni() nLogin
+ d)registrazione() nlogin
+ e)aggiungiPreferito() login
+ f)rimuoviPreferito() login
+ g)visualizzaPreferiti() login
+ h)aggiungiRecensione() login
+ ----i)modificaRecensione() login
+ j)eliminaRecensione() login
 
 per ristoratori
-a)aggiungiRistorante() login
-b)visualizzaRiepilogo() login
-c)visualizzaRecensioni() login
-d)rispostaRecensioni() login
+ a)aggiungiRistorante() login
+ b)visualizzaRiepilogo() login
+ c)visualizzaRecensioni() login
+ d)rispostaRecensioni() login
 
 
 

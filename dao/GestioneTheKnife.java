@@ -4,7 +4,11 @@
  */
 package dao;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +17,6 @@ import java.util.Scanner;
 import dto.Recensione;
 import dto.Ristorante;
 import mapper.Mapper;
-import sicurezzaPassword.Criptazione;
 
 public class GestioneTheKnife {
 
@@ -41,30 +44,29 @@ public class GestioneTheKnife {
      * @return true se aggiunto correttamente, false altrimenti
      */
 	public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
-        int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
-        String tipo_Cucina) {
+	        int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
+	        String tipo_Cucina) {
+		
+		if (nome == null || usernameRistoratore == null || nazione == null || città == null || indirizzo == null || tipo_Cucina == null)
+	        return false;
 
-        if (nome == null || usernameRistoratore == null || nazione == null || città == null || indirizzo == null || tipo_Cucina == null)
-            return false;
+	    if (latitudine < 0 || longitudine < 0 || prezzo <= 0)
+	        return false;
 
-        if (latitudine < 0 || longitudine < 0 || prezzo <= 0)
-            return false;
+	    Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
+	            longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
 
-        Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
-                longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
+	    String riga = Mapper.mapStrRistorante(nuovoRistorante);
 
-        String riga = Mapper.mapStrRistorante(nuovoRistorante);
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistorantiPath, true))) {
-            writer.write(riga);
-            writer.newLine();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistorantiPath, true))) {
+	        writer.write(riga);
+	        writer.newLine();
+	        return true;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
     /**
      * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
      */
@@ -483,9 +485,9 @@ public class GestioneTheKnife {
      * @param password password inserita in chiaro
      * @return true se le credenziali sono corrette, false altrimenti
      */
-    public static boolean loginUtenteU(String username, String password, String ruolo) {
+    public static boolean loginUtente(String username, String password) {
 
-        if (username == null || password == null || ruolo == null || username.isEmpty() || password.isEmpty() || ruolo.isEmpty()) {
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             System.out.println("Username o password vuoti.");
             return false;
         }
@@ -498,13 +500,11 @@ public class GestioneTheKnife {
 
                 String usernameFile = campi[2].trim();
                 String passwordCifrataFile = campi[3].trim();
-                String ruoloFile = campi[6].trim();
 
                 if (usernameFile.equals(username)) {
-                    if (password.equals(passwordCifrataFile)) {
-                        if(ruolo.equals(ruoloFile)){
-                            return true;
-                        }
+                    String passwordInseritaCifrata = Criptazione.criptaPassword(password);
+                    if (passwordInseritaCifrata.equals(passwordCifrataFile)) {
+                        return true;
                     } else {
                         System.out.println("Password errata.");
                         return false;
@@ -519,6 +519,7 @@ public class GestioneTheKnife {
         System.out.println("Username non trovato.");
         return false;
     }
+<<<<<<< HEAD
 
     public static boolean loginUtenteR(String username, String password, String ruolo) {
 
@@ -659,6 +660,9 @@ public class GestioneTheKnife {
             return false;
         }
     }
+=======
+    
+>>>>>>> parent of bbd308a (Finita la GUI)
 
 
 }
