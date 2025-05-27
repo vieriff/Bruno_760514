@@ -1,18 +1,18 @@
 package Gui;
 
-import dao.GestioneTheKnife;
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import javax.swing.*;
+import dao.GestioneTheKnife;
 
 public class CercaPerNomePanel extends JPanel {
-    private final MainFrame frame;
-    private final DefaultListModel<String> listModel;
-    private final JList<String> listaRistoranti;
-    private final JTextArea dettagliArea;
-    private final JButton visualizzaRecensioni;
+    private MainFrame frame;
+    private DefaultListModel<String> listModel;
+    private JList<String> listaRistoranti;
+    private JTextArea dettagliArea;
+    private JButton visualizzaRecensioni;
     private List<String> risultatiCorrenti;
-    private final JTextField campoNome;
+    private JTextField campoNome;
 
     public CercaPerNomePanel(MainFrame frame, String pannelloChiamante) {
         this.frame = frame;
@@ -55,8 +55,8 @@ public class CercaPerNomePanel extends JPanel {
         visualizzaRecensioni.setEnabled(false);
         visualizzaRecensioni.addActionListener(e -> {
             int index = listaRistoranti.getSelectedIndex();
-            if (index >= 0 && risultatiCorrenti != null && index < risultatiCorrenti.size()) {
-                String selezione = risultatiCorrenti.get(index); // Passo la stringa completa
+            if (index >= 0 && index < risultatiCorrenti.size()) {
+                String selezione = listaRistoranti.getSelectedValue();
                 frame.aggiungiEMostra("visualizzaRecensioniPanel", new VisualizzaRecensioniPanel(frame, selezione));
             }
         });
@@ -96,7 +96,7 @@ public class CercaPerNomePanel extends JPanel {
                 listModel.clear();
                 dettagliArea.setText("");
                 visualizzaRecensioni.setEnabled(false);
-                if (risultatiCorrenti == null || risultatiCorrenti.isEmpty()) {
+                if (risultatiCorrenti.isEmpty()) {
                     listModel.addElement("Nessun ristorante trovato.");
                 } else {
                     for (String r : risultatiCorrenti) {

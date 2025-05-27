@@ -1,7 +1,7 @@
 package Gui;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class RistorantePanel extends JPanel {
     public RistorantePanel(MainFrame frame, String username) {
@@ -20,17 +20,10 @@ public class RistorantePanel extends JPanel {
 
         Dimension buttonSize = new Dimension(250, 40);
 
-        Dimension smallButtonSize = new Dimension(150, 30);
-  
-        
-
         JButton aggiungiRistorante = new JButton("Aggiungi ristorante");
         JButton cercaRistoranti = new JButton("Cerca ristoranti");
         JButton logout = new JButton("Logout");
         JButton esci = new JButton("Esci");
-
-        logout.setMaximumSize(smallButtonSize);
-        esci.setMaximumSize(smallButtonSize);
 
         aggiungiRistorante.setMaximumSize(buttonSize);
         cercaRistoranti.setMaximumSize(buttonSize);
@@ -65,7 +58,5 @@ public class RistorantePanel extends JPanel {
         sud.setBackground(Color.WHITE);
         sud.add(esci);
         add(sud, BorderLayout.SOUTH);
-
-        
     }
 }

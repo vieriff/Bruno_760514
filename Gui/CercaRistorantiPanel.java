@@ -1,11 +1,11 @@
 package Gui;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class CercaRistorantiPanel extends JPanel {
-    private final MainFrame frame;
-    private final String pannelloChiamante;
+    private MainFrame frame;
+    private String pannelloChiamante;
 
     public CercaRistorantiPanel(MainFrame frame, String pannelloChiamante) {
         this.frame = frame;
@@ -26,11 +26,16 @@ public class CercaRistorantiPanel extends JPanel {
         JButton cercaZona = new JButton("Cerca per zona");
         JButton cercaNome = new JButton("Cerca per nome");
 
-        cercaZona.addActionListener(e -> frame.aggiungiEMostra("cercaPerLuogoPanel", new CercaPerLuogoPanel(frame, pannelloChiamante)));
-        cercaNome.addActionListener(e -> frame.aggiungiEMostra("cercaPerNomePanel", new CercaPerNomePanel(frame, pannelloChiamante)));
-
         bottoni.add(cercaZona);
         bottoni.add(cercaNome);
+
+        cercaZona.addActionListener(e -> {
+            frame.aggiungiEMostra("cercaPerLuogoPanel", new CercaPerLuogoPanel(frame, pannelloChiamante));
+        });
+
+        cercaNome.addActionListener(e -> {
+            frame.aggiungiEMostra("cercaPerNomePanel", new CercaPerNomePanel(frame, pannelloChiamante));
+        });
 
         JButton tornaIndietro = new JButton("Torna indietro");
         tornaIndietro.addActionListener(e -> frame.mostraPannello(frame.getFrameAttuale()));

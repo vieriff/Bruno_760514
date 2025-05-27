@@ -1,8 +1,8 @@
 package Gui;
 
-import dao.GestioneTheKnife;
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import dao.GestioneTheKnife;
 import sicurezzaPassword.Criptazione;
 
 public class LoginUtentePanel extends JPanel {
@@ -56,8 +56,8 @@ public class LoginUtentePanel extends JPanel {
             if (success) {
                 usernameField.setText("");
                 passwordField.setText("");
-                mainFrame.setUtenteCorrente(username);
-                mainFrame.setFrameAttuale("utentePanel");
+                frame.setUtenteCorrente(username);
+                frame.setFrameAttuale("utentePanel");
                 mainFrame.aggiungiEMostra("utentePanel", new UtentePanel(mainFrame, username));
             } else {
                 JOptionPane.showMessageDialog(this, "Username o password errati o sezione sbagliata.", "Errore", JOptionPane.ERROR_MESSAGE);

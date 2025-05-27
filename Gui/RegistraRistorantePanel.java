@@ -1,8 +1,10 @@
 package Gui;
 
-import dao.GestioneTheKnife;
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import dao.GestioneTheKnife;
 import sicurezzaPassword.Criptazione;
 
 public class RegistraRistorantePanel extends JPanel {
@@ -59,43 +61,34 @@ public class RegistraRistorantePanel extends JPanel {
 
         add(formPanel, BorderLayout.CENTER);
 
-        registraButton.addActionListener(e -> {
-            String nome = nomeField.getText().trim();
-            String cognome = cognomeField.getText().trim();
-            String username = usernameField.getText().trim();
-            String password = new String(passwordField.getPassword()).trim();
-            String dataNascita = dataNascitaField.getText().trim();
-            String domicilio = domicilioField.getText().trim();
-            String ruolo = "ristoratore";
-            String preferiti = "";
+        registraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = nomeField.getText();
+                String cognome = cognomeField.getText();
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+                String dataNascita = dataNascitaField.getText();
+                String domicilio = domicilioField.getText();
+                String ruolo = "ristoratore";
+                String preferiti = "";
+                password = Criptazione.critta(password);
 
-            if (nome.isEmpty() || cognome.isEmpty() || username.isEmpty() || password.isEmpty()
-                    || dataNascita.isEmpty() || domicilio.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Compila tutti i campi.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            password = Criptazione.critta(password);
-
-            boolean success = GestioneTheKnife.registraUtente(nome, cognome, username, password, dataNascita, domicilio, ruolo, preferiti);
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Utente registrato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
-                resetFields();
-                mainFrame.mostraPannello("home");
-            } else {
-                JOptionPane.showMessageDialog(this, "Username già esistente.", "Errore", JOptionPane.ERROR_MESSAGE);
+                boolean success = GestioneTheKnife.registraUtente(nome, cognome, username, password, dataNascita, domicilio, ruolo, preferiti);
+                if (success) {
+                    JOptionPane.showMessageDialog(RegistraRistorantePanel.this, "Utente registrato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
+                    mainFrame.mostraPannello("home");
+                } else {
+                    JOptionPane.showMessageDialog(RegistraRistorantePanel.this, "Username già esistente.", "Errore", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
-        backButton.addActionListener(e -> mainFrame.mostraPannello("home"));
-    }
-
-    private void resetFields() {
-        nomeField.setText("");
-        cognomeField.setText("");
-        usernameField.setText("");
-        passwordField.setText("");
-        dataNascitaField.setText("");
-        domicilioField.setText("");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.mostraPannello("home");
+            }
+        });
     }
 }

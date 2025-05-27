@@ -1,8 +1,8 @@
 package Gui;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import javax.swing.*;
 
 public class VisualizzaRecensioniPanel extends JPanel {
     private MainFrame frame;
@@ -73,8 +73,6 @@ public class VisualizzaRecensioniPanel extends JPanel {
                             "Testo: " + campi[2] + "\n" +
                             "Risposta: " + (campi[3].isEmpty() ? "Nessuna" : campi[3])
                         );
-                        // Abilita il bottone rispondi solo se la recensione non ha risposta, 
-                        // l'utente loggato è il ristoratore (username), e non è l'autore della recensione
                         rispondiButton.setEnabled(campi[3].isEmpty() && username.equals(frame.getUtenteCorrente()) && !campi[0].equals(username));
                     } else {
                         dettaglioRecensione.setText("");
@@ -102,7 +100,6 @@ public class VisualizzaRecensioniPanel extends JPanel {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] campi = linea.split(",", -1);
-                // Controlla che la recensione sia per questo ristorante
                 if (campi.length >= 5 && campi[1].equalsIgnoreCase(nomeRistorante)) {
                     String voce = campi[0] + " | " + campi[2] + " | " + campi[3] + " | " + campi[4];
                     listModel.addElement(voce);

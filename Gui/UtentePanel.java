@@ -1,7 +1,7 @@
 package Gui;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class UtentePanel extends JPanel {
     public UtentePanel(MainFrame mainFrame, String username) {
@@ -13,7 +13,7 @@ public class UtentePanel extends JPanel {
         titolo.setForeground(Color.DARK_GRAY);
         add(titolo, BorderLayout.NORTH);
 
-        JPanel centro = new JPanel(new GridLayout(2, 1, 20, 20));  // modificato a 2 righe
+        JPanel centro = new JPanel(new GridLayout(3, 1, 20, 20));
         centro.setBorder(BorderFactory.createEmptyBorder(40, 150, 40, 150));
         centro.setBackground(Color.WHITE);
 
@@ -26,12 +26,12 @@ public class UtentePanel extends JPanel {
         add(centro, BorderLayout.CENTER);
 
         cercaRistoranti.addActionListener(e -> {
-            String nomePannello = "cercaRistorantiN_" + username;  // nome unico per ogni utente
-            mainFrame.aggiungiEMostra(nomePannello, new CercaRistorantiPanel(mainFrame, "utentePanel_" + username));
+            mainFrame.aggiungiEMostra("cercaRistorantiN", new CercaRistorantiPanel(mainFrame, "utentePanel_" + username));
         });
 
         logout.addActionListener(e -> {
-            mainFrame.logout();  // usa il metodo logout per pulire utente e tornare a home
+            mainFrame.setUtenteCorrente(null);
+            mainFrame.mostraPannello("home");
         });
     }
 }
