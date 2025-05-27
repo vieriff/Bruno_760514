@@ -58,6 +58,7 @@ public class LoginUtentePanel extends JPanel {
                 passwordField.setText("");
                 frame.setUtenteCorrente(username);
                 frame.setFrameAttuale("utentePanel");
+                frame.setUtenteCorrente(username);
                 mainFrame.aggiungiEMostra("utentePanel", new UtentePanel(mainFrame, username));
             } else {
                 JOptionPane.showMessageDialog(this, "Username o password errati o sezione sbagliata.", "Errore", JOptionPane.ERROR_MESSAGE);

@@ -75,6 +75,7 @@ public class AggiungiRistorantePanel extends JPanel {
                 boolean deliv = delivery.isSelected();
                 boolean pren = prenotazione.isSelected();
                 String cucina = tipoCucina.getText().trim();
+                System.out.println(nomeR + username + naz + city + addr + lat + lon + cost + deliv + pren + cucina);
 
                 boolean successo = GestioneTheKnife.aggiungiRistorante(nomeR, username, naz, city, addr, lat, lon, cost, deliv, pren, cucina);
 

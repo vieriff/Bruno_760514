@@ -55,6 +55,7 @@ public class LoginRistorantePanel extends JPanel {
                 usernameField.setText("");
                 passwordField.setText("");
                 frame.setFrameAttuale("ristoratorePanel");
+                frame.setUtenteCorrente(username);
                 frame.aggiungiEMostra("ristoratorePanel", new RistorantePanel(frame, username));
             } else {
                 JOptionPane.showMessageDialog(this, "Username o password errati.", "Errore", JOptionPane.ERROR_MESSAGE);

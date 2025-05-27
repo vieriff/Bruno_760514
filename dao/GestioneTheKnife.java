@@ -44,10 +44,15 @@ public class GestioneTheKnife {
         int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
         String tipo_Cucina) {
 
-        if (nome == null || usernameRistoratore == null || nazione == null || città == null || indirizzo == null || tipo_Cucina == null)
+        if (nome == null || nome.isEmpty() ||
+            usernameRistoratore == null || usernameRistoratore.isEmpty() ||
+            nazione == null || nazione.isEmpty() ||
+            città == null || città.isEmpty() ||
+            indirizzo == null || indirizzo.isEmpty() ||
+            tipo_Cucina == null || tipo_Cucina.isEmpty())
             return false;
 
-        if (latitudine < 0 || longitudine < 0 || prezzo <= 0)
+        if (prezzo <= 0)
             return false;
 
         Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
@@ -55,15 +60,35 @@ public class GestioneTheKnife {
 
         String riga = Mapper.mapStrRistorante(nuovoRistorante);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistorantiPath, true))) {
+        try {
+            File file = new File(fileRistorantiPath);
+            boolean addNewline = false;
+
+            if (file.exists() && file.length() > 0) {
+                RandomAccessFile raf = new RandomAccessFile(file, "r");
+                raf.seek(file.length() - 1);
+                int lastByte = raf.read();
+                raf.close();
+                if (lastByte != '\n') {
+                    addNewline = true;
+                }
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            if (addNewline) writer.newLine();
             writer.write(riga);
             writer.newLine();
+            writer.close();
+
             return true;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
+
 
     /**
      * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
