@@ -619,11 +619,31 @@ public class GestioneTheKnife {
             while ((riga = reader.readLine()) != null) {
                 String[] campi = riga.split(";");
                 if (campi.length >= 11) {
-                    String nazione = campi[2].toLowerCase();
-                    String citta = campi[3].toLowerCase();
+                    String nome = campi[0];
+                    String username = campi[1];
+                    String nazione = campi[2];
+                    String citta = campi[3];
+                    String indirizzo = campi[4];
+                    String lat = campi[5];
+                    String lon = campi[6];
+                    String prezzo = campi[7];
+                    String delivery = campi[8];
+                    String prenotazione = campi[9];
+                    String cucina = campi[10];
 
-                    if (nazione.contains(zona) || citta.contains(zona)) {
-                        risultati.add(riga);
+                    if (nazione.toLowerCase().contains(zona) || citta.toLowerCase().contains(zona)) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Nome: ").append(nome).append("\n");
+                        sb.append("Username Ristoratore: ").append(username).append("\n");
+                        sb.append("Nazione: ").append(nazione).append("\n");
+                        sb.append("Città: ").append(citta).append("\n");
+                        sb.append("Indirizzo: ").append(indirizzo).append("\n");
+                        sb.append("Coordinate: ").append(lat).append(", ").append(lon).append("\n");
+                        sb.append("Prezzo Medio: €").append(prezzo).append("\n");
+                        sb.append("Delivery: ").append(delivery).append("\n");
+                        sb.append("Prenotazione Online: ").append(prenotazione).append("\n");
+                        sb.append("Tipo di Cucina: ").append(cucina);
+                        risultati.add(sb.toString());
                     }
                 }
             }

@@ -12,7 +12,10 @@ public class CercaPerNomePanel extends JPanel {
     private final JTextArea dettagliArea;
     private final JButton visualizzaRecensioni;
     private List<String> risultatiCorrenti;
+<<<<<<< HEAD
     private final JTextField campoNome;
+=======
+>>>>>>> parent of 6c542e8 (Aggiustati problemi GUI)
 
     public CercaPerNomePanel(MainFrame frame, String pannelloChiamante) {
         this.frame = frame;
@@ -28,7 +31,7 @@ public class CercaPerNomePanel extends JPanel {
         centro.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         centro.setBackground(Color.WHITE);
 
-        campoNome = new JTextField();
+        JTextField campoNome = new JTextField();
         JButton cercaButton = new JButton("Cerca");
 
         JPanel ricerca = new JPanel(new BorderLayout(5, 5));
@@ -51,6 +54,9 @@ public class CercaPerNomePanel extends JPanel {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollLista, scrollDettagli);
         splitPane.setResizeWeight(0.5);
 
+        centro.add(ricerca, BorderLayout.NORTH);
+        centro.add(splitPane, BorderLayout.CENTER);
+
         visualizzaRecensioni = new JButton("Visualizza Recensioni");
         visualizzaRecensioni.setEnabled(false);
         visualizzaRecensioni.addActionListener(e -> {
@@ -61,10 +67,7 @@ public class CercaPerNomePanel extends JPanel {
             }
         });
 
-        centro.add(ricerca, BorderLayout.NORTH);
-        centro.add(splitPane, BorderLayout.CENTER);
         centro.add(visualizzaRecensioni, BorderLayout.SOUTH);
-
         add(centro, BorderLayout.CENTER);
 
         JButton tornaIndietro = new JButton("Torna indietro");
@@ -73,7 +76,6 @@ public class CercaPerNomePanel extends JPanel {
         JPanel sud = new JPanel(new FlowLayout(FlowLayout.CENTER));
         sud.setBackground(Color.WHITE);
         sud.add(tornaIndietro);
-
         add(sud, BorderLayout.SOUTH);
 
         listaRistoranti.addListSelectionListener(ev -> {
@@ -82,9 +84,6 @@ public class CercaPerNomePanel extends JPanel {
                 if (index >= 0 && risultatiCorrenti != null && index < risultatiCorrenti.size()) {
                     dettagliArea.setText(formattaDettagli(risultatiCorrenti.get(index)));
                     visualizzaRecensioni.setEnabled(true);
-                } else {
-                    dettagliArea.setText("");
-                    visualizzaRecensioni.setEnabled(false);
                 }
             }
         });
@@ -100,26 +99,14 @@ public class CercaPerNomePanel extends JPanel {
                     listModel.addElement("Nessun ristorante trovato.");
                 } else {
                     for (String r : risultatiCorrenti) {
-                        String[] dati = r.split(";");
-                        listModel.addElement(dati.length > 0 ? dati[0] : "Ristorante");
+                        String nomeRistorante = r.split(";")[0];
+                        listModel.addElement(nomeRistorante);
                     }
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Inserisci il nome del ristorante.", "Attenzione", JOptionPane.WARNING_MESSAGE);
             }
         });
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        if (visible) {
-            campoNome.setText("");
-            listModel.clear();
-            dettagliArea.setText("");
-            visualizzaRecensioni.setEnabled(false);
-            risultatiCorrenti = null;
-        }
     }
 
     private String formattaDettagli(String ristoranteInfo) {
