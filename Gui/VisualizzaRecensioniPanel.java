@@ -6,6 +6,7 @@ import java.io.*;
 
 public class VisualizzaRecensioniPanel extends JPanel {
     private MainFrame frame;
+    private String recordRistorante;
     private String nomeRistorante;
     private String username;
     private DefaultListModel<String> listModel;
@@ -15,9 +16,13 @@ public class VisualizzaRecensioniPanel extends JPanel {
     private JButton aggiungiRecensioneButton;
     private static final String pathRecensioni = "dati/recensioni.txt";
 
-    public VisualizzaRecensioniPanel(MainFrame frame, String nomeRistorante) {
+    public VisualizzaRecensioniPanel(MainFrame frame, String recordRistorante) {
         this.frame = frame;
-        this.nomeRistorante = nomeRistorante;
+        this.recordRistorante = recordRistorante;
+
+        String[] campi = recordRistorante.split(";");
+        this.nomeRistorante = campi[0];
+
         this.username = frame.getUtenteCorrente();
 
         setLayout(new BorderLayout());
@@ -65,15 +70,15 @@ public class VisualizzaRecensioniPanel extends JPanel {
                 int index = listaRecensioni.getSelectedIndex();
                 if (index >= 0) {
                     String linea = listaRecensioni.getSelectedValue();
-                    String[] campi = linea.split(" \\| ");
-                    if (campi.length >= 4) {
+                    String[] campo = linea.split(" \\| ");
+                    if (campo.length >= 4) {
                         dettaglioRecensione.setText(
-                            "Utente: " + campi[0] + "\n" +
-                            "Valutazione: " + campi[1] + "/5\n" +
-                            "Testo: " + campi[2] + "\n" +
-                            "Risposta: " + (campi[3].isEmpty() ? "Nessuna" : campi[3])
+                            "Utente: " + campo[0] + "\n" +
+                            "Valutazione: " + campo[1] + "/5\n" +
+                            "Testo: " + campo[2] + "\n" +
+                            "Risposta: " + (campo[3].isEmpty() ? "Nessuna" : campo[3])
                         );
-                        rispondiButton.setEnabled(campi[3].isEmpty() && username.equals(frame.getUtenteCorrente()) && !campi[0].equals(username));
+                        rispondiButton.setEnabled(campo[3].isEmpty() && username.equals(frame.getUtenteCorrente()) && !campo[0].equals(username));
                     } else {
                         dettaglioRecensione.setText("");
                         rispondiButton.setEnabled(false);
@@ -99,9 +104,9 @@ public class VisualizzaRecensioniPanel extends JPanel {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                String[] campi = linea.split(",", -1);
-                if (campi.length >= 5 && campi[1].equalsIgnoreCase(nomeRistorante)) {
-                    String voce = campi[0] + " | " + campi[2] + " | " + campi[3] + " | " + campi[4];
+                String[] campo = linea.split(",", -1);
+                if (campo.length >= 5 && campo[1].equalsIgnoreCase(nomeRistorante)) {
+                    String voce = campo[0] + " | " + campo[2] + " | " + campo[3] + " | " + campo[4];
                     listModel.addElement(voce);
                 }
             }
@@ -114,9 +119,9 @@ public class VisualizzaRecensioniPanel extends JPanel {
         int index = listaRecensioni.getSelectedIndex();
         if (index >= 0) {
             String linea = listaRecensioni.getSelectedValue();
-            String[] campi = linea.split(" \\| ");
-            if (campi.length >= 1) {
-                String usernameCliente = campi[0].trim();
+            String[] campo = linea.split(" \\| ");
+            if (campo.length >= 1) {
+                String usernameCliente = campo[0].trim();
                 String risposta = JOptionPane.showInputDialog(this, "Inserisci la tua risposta:");
                 if (risposta != null && !risposta.trim().isEmpty()) {
                     boolean ok = dao.GestioneTheKnife.rispondiARecensione(username, nomeRistorante, usernameCliente, risposta.trim());
