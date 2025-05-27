@@ -1,10 +1,10 @@
 package Gui;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class CercaRistorantiNLoginPanel extends JPanel {
-    public CercaRistorantiNLoginPanel(MainFrame frame) {
+    public CercaRistorantiNLoginPanel(final MainFrame frame) {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 

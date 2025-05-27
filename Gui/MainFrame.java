@@ -1,8 +1,8 @@
 package Gui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
         aggiungiPannello("cercaPerLuogoNLogin", new CercaPerLuogoNLoginPanel(this));
         aggiungiPannello("cercaPerNomeNLogin", new CercaPerNomeNLoginPanel(this));
 
-        aggiungiEMostra("home", new HomePanel(this));
+        mostraPannello("home");
         add(mainPanel);
     }
 
@@ -42,6 +42,7 @@ public class MainFrame extends JFrame {
     public void mostraPannello(String nome) {
         if (mappaPannelli.containsKey(nome)) {
             cardLayout.show(mainPanel, nome);
+            frameAttuale = nome;
         }
     }
 
@@ -72,7 +73,7 @@ public class MainFrame extends JFrame {
     public void tornaZonaRistoratore() {
         aggiungiEMostra("ristoratorePanel", new RistorantePanel(this, utenteCorrente));
     }
-    
+
     public void setFrameAttuale(String frameAttuale) {
         this.frameAttuale = frameAttuale;
     }

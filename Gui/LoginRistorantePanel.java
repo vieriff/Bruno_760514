@@ -1,8 +1,8 @@
 package Gui;
 
-import javax.swing.*;
-import java.awt.*;
 import dao.GestioneTheKnife;
+import java.awt.*;
+import javax.swing.*;
 import sicurezzaPassword.Criptazione;
 
 public class LoginRistorantePanel extends JPanel {
@@ -54,8 +54,8 @@ public class LoginRistorantePanel extends JPanel {
             if (success) {
                 usernameField.setText("");
                 passwordField.setText("");
-                frame.setFrameAttuale("ristoratorePanel");
-                frame.aggiungiEMostra("ristoratorePanel", new RistorantePanel(frame, username));
+                mainFrame.setFrameAttuale("ristoratorePanel");
+                mainFrame.aggiungiEMostra("ristoratorePanel", new RistorantePanel(mainFrame, username));
             } else {
                 JOptionPane.showMessageDialog(this, "Username o password errati.", "Errore", JOptionPane.ERROR_MESSAGE);
             }

@@ -1,7 +1,7 @@
 package Gui;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class HomePanel extends JPanel {
     public HomePanel(MainFrame frame) {
@@ -13,8 +13,7 @@ public class HomePanel extends JPanel {
         titolo.setForeground(Color.DARK_GRAY);
         add(titolo, BorderLayout.NORTH);
 
-        JPanel pulsanti = new JPanel();
-        pulsanti.setLayout(new GridLayout(3, 2, 20, 20));
+        JPanel pulsanti = new JPanel(new GridLayout(3, 2, 20, 20));
         pulsanti.setBorder(BorderFactory.createEmptyBorder(40, 100, 40, 100));
         pulsanti.setBackground(Color.WHITE);
 
