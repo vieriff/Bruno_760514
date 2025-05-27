@@ -23,7 +23,7 @@ public class VisualizzaRecensioniPanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        JLabel titolo = new JLabel("Recensioni per " + nomeRistorante, SwingConstants.CENTER);
+        JLabel titolo = new JLabel(nomeRistorante, SwingConstants.CENTER);
         titolo.setFont(new Font("SansSerif", Font.BOLD, 22));
         titolo.setForeground(Color.DARK_GRAY);
         add(titolo, BorderLayout.NORTH);
