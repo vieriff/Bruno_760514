@@ -6,6 +6,11 @@ import java.util.List;
 import dao.GestioneTheKnife;
 
 public class CercaPerLuogoNLoginPanel extends JPanel {
+    private JTextField campoLuogo;
+    private DefaultListModel<String> listaModel;
+    private JTextArea dettagliArea;
+    private List<String> risultatiCorrenti;
+
     public CercaPerLuogoNLoginPanel(MainFrame frame) {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -19,7 +24,7 @@ public class CercaPerLuogoNLoginPanel extends JPanel {
         centro.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         centro.setBackground(Color.WHITE);
 
-        JTextField campoLuogo = new JTextField();
+        campoLuogo = new JTextField();
         JButton cercaButton = new JButton("Cerca");
 
         JPanel ricerca = new JPanel(new BorderLayout(5, 5));
@@ -28,13 +33,15 @@ public class CercaPerLuogoNLoginPanel extends JPanel {
         ricerca.add(campoLuogo, BorderLayout.CENTER);
         ricerca.add(cercaButton, BorderLayout.EAST);
 
-        DefaultListModel<String> listaModel = new DefaultListModel<>();
+        listaModel = new DefaultListModel<>();
         JList<String> risultatiLista = new JList<>(listaModel);
         risultatiLista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollLista = new JScrollPane(risultatiLista);
 
-        JTextArea dettagliArea = new JTextArea();
+        dettagliArea = new JTextArea();
         dettagliArea.setEditable(false);
+        dettagliArea.setLineWrap(true);
+        dettagliArea.setWrapStyleWord(true);
         JScrollPane scrollDettagli = new JScrollPane(dettagliArea);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollLista, scrollDettagli);
@@ -43,7 +50,6 @@ public class CercaPerLuogoNLoginPanel extends JPanel {
 
         centro.add(ricerca, BorderLayout.NORTH);
         centro.add(splitPane, BorderLayout.CENTER);
-
         add(centro, BorderLayout.CENTER);
 
         JButton tornaHome = new JButton("Torna alla Home");
@@ -52,23 +58,20 @@ public class CercaPerLuogoNLoginPanel extends JPanel {
         JPanel sud = new JPanel(new FlowLayout(FlowLayout.CENTER));
         sud.setBackground(Color.WHITE);
         sud.add(tornaHome);
-
         add(sud, BorderLayout.SOUTH);
 
         cercaButton.addActionListener(e -> {
             String luogo = campoLuogo.getText().trim();
             if (!luogo.isEmpty()) {
-                List<String> risultati = GestioneTheKnife.CercaRistorantiL(luogo);
+                risultatiCorrenti = GestioneTheKnife.CercaRistorantiL(luogo);
                 listaModel.clear();
                 dettagliArea.setText("");
-                if (risultati.isEmpty()) {
+                if (risultatiCorrenti.isEmpty()) {
                     listaModel.addElement("Nessun ristorante trovato.");
                 } else {
-                    for (String r : risultati) {
-                        String[] righe = r.split("\n");
-                        if (righe.length > 0) {
-                            listaModel.addElement(righe[0]); // Solo il nome
-                        }
+                    for (String r : risultatiCorrenti) {
+                        String[] dati = r.split(";");
+                        listaModel.addElement(dati.length > 0 ? dati[0] : "Ristorante");
                     }
                 }
             } else {
@@ -79,14 +82,37 @@ public class CercaPerLuogoNLoginPanel extends JPanel {
         risultatiLista.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int index = risultatiLista.getSelectedIndex();
-                String luogo = campoLuogo.getText().trim();
-                if (index >= 0 && !luogo.isEmpty()) {
-                    List<String> risultati = GestioneTheKnife.CercaRistorantiL(luogo);
-                    if (index < risultati.size()) {
-                        dettagliArea.setText(risultati.get(index));
+                if (index >= 0 && risultatiCorrenti != null && index < risultatiCorrenti.size()) {
+                    String[] dati = risultatiCorrenti.get(index).split(";");
+                    if (dati.length >= 11) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Nome: ").append(dati[0]).append("\n");
+                        sb.append("Username Ristoratore: ").append(dati[1]).append("\n");
+                        sb.append("Nazione: ").append(dati[2]).append("\n");
+                        sb.append("Città: ").append(dati[3]).append("\n");
+                        sb.append("Indirizzo: ").append(dati[4]).append("\n");
+                        sb.append("Coordinate: ").append(dati[5]).append(", ").append(dati[6]).append("\n");
+                        sb.append("Prezzo Medio: €").append(dati[7]).append("\n");
+                        sb.append("Delivery: ").append(dati[8]).append("\n");
+                        sb.append("Prenotazione Online: ").append(dati[9]).append("\n");
+                        sb.append("Tipo di Cucina: ").append(dati[10]);
+                        dettagliArea.setText(sb.toString());
+                    } else {
+                        dettagliArea.setText("Dati ristorante incompleti.");
                     }
                 }
             }
         });
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            campoLuogo.setText("");
+            listaModel.clear();
+            dettagliArea.setText("");
+            risultatiCorrenti = null;
+        }
     }
 }

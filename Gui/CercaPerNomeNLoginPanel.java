@@ -9,6 +9,8 @@ public class CercaPerNomeNLoginPanel extends JPanel {
     private DefaultListModel<String> listModel;
     private JList<String> listaRistoranti;
     private JTextArea dettagliArea;
+    private JTextField campoNome;
+    private List<String> risultatiCorrenti;
 
     public CercaPerNomeNLoginPanel(MainFrame frame) {
         setLayout(new BorderLayout());
@@ -23,7 +25,7 @@ public class CercaPerNomeNLoginPanel extends JPanel {
         centro.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         centro.setBackground(Color.WHITE);
 
-        JTextField campoNome = new JTextField();
+        campoNome = new JTextField();
         JButton cercaButton = new JButton("Cerca");
 
         JPanel ricerca = new JPanel(new BorderLayout(5, 5));
@@ -48,7 +50,6 @@ public class CercaPerNomeNLoginPanel extends JPanel {
 
         centro.add(ricerca, BorderLayout.NORTH);
         centro.add(splitPane, BorderLayout.CENTER);
-
         add(centro, BorderLayout.CENTER);
 
         JButton tornaHome = new JButton("Torna alla Home");
@@ -57,32 +58,32 @@ public class CercaPerNomeNLoginPanel extends JPanel {
         JPanel sud = new JPanel(new FlowLayout(FlowLayout.CENTER));
         sud.setBackground(Color.WHITE);
         sud.add(tornaHome);
-
         add(sud, BorderLayout.SOUTH);
+
+        listaRistoranti.addListSelectionListener(ev -> {
+            if (!ev.getValueIsAdjusting()) {
+                int index = listaRistoranti.getSelectedIndex();
+                if (index >= 0 && risultatiCorrenti != null && index < risultatiCorrenti.size()) {
+                    dettagliArea.setText(formattaDettagli(risultatiCorrenti.get(index)));
+                } else {
+                    dettagliArea.setText("");
+                }
+            }
+        });
 
         cercaButton.addActionListener(e -> {
             String nome = campoNome.getText().trim();
             if (!nome.isEmpty()) {
-                List<String> risultati = GestioneTheKnife.CercaRistorantiN(nome);
+                risultatiCorrenti = GestioneTheKnife.CercaRistorantiN(nome);
                 listModel.clear();
                 dettagliArea.setText("");
-
-                if (risultati.isEmpty()) {
+                if (risultatiCorrenti.isEmpty()) {
                     listModel.addElement("Nessun ristorante trovato.");
                 } else {
-                    for (String r : risultati) {
-                        String nomeRistorante = r.split(";")[0]; // Prima riga: nome
-                        listModel.addElement(nomeRistorante);
+                    for (String r : risultatiCorrenti) {
+                        String[] dati = r.split(";");
+                        listModel.addElement(dati.length > 0 ? dati[0] : "Ristorante");
                     }
-
-                    listaRistoranti.addListSelectionListener(ev -> {
-                        if (!ev.getValueIsAdjusting()) {
-                            int index = listaRistoranti.getSelectedIndex();
-                            if (index >= 0 && index < risultati.size()) {
-                                dettagliArea.setText(formattaDettagli(risultati.get(index)));
-                            }
-                        }
-                    });
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Inserisci un nome per la ricerca.", "Attenzione", JOptionPane.WARNING_MESSAGE);
@@ -90,11 +91,20 @@ public class CercaPerNomeNLoginPanel extends JPanel {
         });
     }
 
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            campoNome.setText("");
+            listModel.clear();
+            dettagliArea.setText("");
+            risultatiCorrenti = null;
+        }
+    }
+
     private String formattaDettagli(String ristoranteInfo) {
-        // Splitta i campi in base al formato nel file txt (assunto separatore ;)
         String[] dati = ristoranteInfo.split(";");
         if (dati.length < 11) return "Dati ristorante incompleti.";
-
         return String.format("""
                 Nome: %s
                 Username Ristoratore: %s
@@ -107,9 +117,6 @@ public class CercaPerNomeNLoginPanel extends JPanel {
                 Delivery: %s
                 Prenotazione Online: %s
                 Tipo di Cucina: %s
-                """,
-                dati[0], dati[1], dati[2], dati[3], dati[4],
-                dati[5], dati[6], dati[7], dati[8], dati[9], dati[10]
-        );
+                """, dati[0], dati[1], dati[2], dati[3], dati[4], dati[5], dati[6], dati[7], dati[8], dati[9], dati[10]);
     }
 }
