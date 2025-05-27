@@ -2,16 +2,22 @@ package Gui;
 
 import dao.GestioneTheKnife;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.*;
 import javax.swing.*;
 import sicurezzaPassword.Criptazione;
 =======
+=======
+>>>>>>> parent of bbd308a (Finita la GUI)
 import dto.Ristorante;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
+>>>>>>> parent of bbd308a (Finita la GUI)
+=======
 >>>>>>> parent of bbd308a (Finita la GUI)
 
 public class LoginRistorantePanel extends JPanel {
@@ -49,6 +55,7 @@ public class LoginRistorantePanel extends JPanel {
         add(formPanel, BorderLayout.CENTER);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
@@ -63,6 +70,8 @@ public class LoginRistorantePanel extends JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Username o password errati.", "Errore", JOptionPane.ERROR_MESSAGE);
 =======
+=======
+>>>>>>> parent of bbd308a (Finita la GUI)
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,6 +85,9 @@ public class LoginRistorantePanel extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(LoginRistorantePanel.this, "Username o password errati.", "Errore", JOptionPane.ERROR_MESSAGE);
                 }
+<<<<<<< HEAD
+>>>>>>> parent of bbd308a (Finita la GUI)
+=======
 >>>>>>> parent of bbd308a (Finita la GUI)
             }
         });

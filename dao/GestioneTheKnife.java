@@ -520,6 +520,7 @@ public class GestioneTheKnife {
         return false;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public static boolean loginUtenteR(String username, String password, String ruolo) {
 
@@ -660,6 +661,9 @@ public class GestioneTheKnife {
             return false;
         }
     }
+=======
+    
+>>>>>>> parent of bbd308a (Finita la GUI)
 =======
     
 >>>>>>> parent of bbd308a (Finita la GUI)
