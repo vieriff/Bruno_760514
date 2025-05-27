@@ -1,12 +1,9 @@
 package Gui;
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 import java.awt.*;
 import javax.swing.*;
 =======
-=======
->>>>>>> parent of bbd308a (Finita la GUI)
 import dao.GestioneTheKnife;
 import dto.Utente;
 
@@ -14,9 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
->>>>>>> parent of bbd308a (Finita la GUI)
-=======
 >>>>>>> parent of bbd308a (Finita la GUI)
 
 public class UtentePanel extends JPanel {
@@ -31,14 +25,9 @@ public class UtentePanel extends JPanel {
         add(welcomeLabel, BorderLayout.NORTH);
 
 <<<<<<< HEAD
-<<<<<<< HEAD
         JPanel centro = new JPanel(new GridLayout(2, 1, 20, 20));  // modificato a 2 righe
         centro.setBorder(BorderFactory.createEmptyBorder(40, 150, 40, 150));
         centro.setBackground(Color.WHITE);
-=======
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(6, 1, 10, 10));
->>>>>>> parent of bbd308a (Finita la GUI)
 =======
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(6, 1, 10, 10));
@@ -61,7 +50,6 @@ public class UtentePanel extends JPanel {
         add(buttonPanel, BorderLayout.CENTER);
 
 <<<<<<< HEAD
-<<<<<<< HEAD
         cercaRistoranti.addActionListener(e -> {
             String nomePannello = "cercaRistorantiN_" + username;  // nome unico per ogni utente
             mainFrame.aggiungiEMostra(nomePannello, new CercaRistorantiPanel(mainFrame, "utentePanel_" + username));
@@ -76,14 +64,6 @@ public class UtentePanel extends JPanel {
             JOptionPane.showMessageDialog(this, elenco, "Tutti i ristoranti", JOptionPane.INFORMATION_MESSAGE);
         });
 
-=======
-        // Azioni (placeholders da collegare ai metodi veri)
-        btnVisualizzaRistoranti.addActionListener(e -> {
-            String elenco = dao.GestioneTheKnife.visualizzaRistoranti();
-            JOptionPane.showMessageDialog(this, elenco, "Tutti i ristoranti", JOptionPane.INFORMATION_MESSAGE);
-        });
-
->>>>>>> parent of bbd308a (Finita la GUI)
         btnCercaRistorante.addActionListener(e -> {
             String nome = JOptionPane.showInputDialog(this, "Nome ristorante da cercare:");
             String risultato = GestioneTheKnife.cercaRistorante(nome);
@@ -120,9 +100,6 @@ public class UtentePanel extends JPanel {
                 SwingUtilities.getWindowAncestor(UtentePanel.this).dispose();
                 new MainFrame();
             }
-<<<<<<< HEAD
->>>>>>> parent of bbd308a (Finita la GUI)
-=======
 >>>>>>> parent of bbd308a (Finita la GUI)
         });
     }

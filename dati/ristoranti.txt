@@ -1,10 +1,7 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 La Trattoria;ristoratore1;Italia;Roma;Via dei Fiori 12;41.9028;12.4964;2;Sì;Sì;Italiana
 Sushi World;ristoratore2;Italia;Milano;Corso Como 22;45.4642;9.1900;3;Sì;No;Giapponese
 El Mariachi;ristoratore4;Italia;Napoli;Via Toledo 45;40.8518;14.2681;2;Sì;Sì;Messicana
 Dragon Palace;ristoratore5;Italia;Firenze;Via Roma 3;43.7696;11.2558;3;No;No;Cinese
-=======
->>>>>>> parent of bbd308a (Finita la GUI)
 =======
 >>>>>>> parent of bbd308a (Finita la GUI)

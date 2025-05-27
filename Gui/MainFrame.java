@@ -1,20 +1,14 @@
 package Gui;
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 import java.awt.*;
 import java.util.HashMap;
 import javax.swing.*;
 =======
-=======
->>>>>>> parent of bbd308a (Finita la GUI)
 import dto.Utente;
 
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
->>>>>>> parent of bbd308a (Finita la GUI)
-=======
 >>>>>>> parent of bbd308a (Finita la GUI)
 
 public class MainFrame extends JFrame {
@@ -36,7 +30,6 @@ public class MainFrame extends JFrame {
         RegistrazioneUtentePanel registrazioneUtentePanel = new RegistrazioneUtentePanel(this);
         RegistrazioneRistorantePanel registrazioneRistorantePanel = new RegistrazioneRistorantePanel(this);
         VisualizzaRistorantePanel visualizzaRistorantePanel = new VisualizzaRistorantePanel();
-<<<<<<< HEAD
 
         mainPanel.add(loginUtentePanel, "loginUtente");
         mainPanel.add(loginRistoratorePanel, "loginRistoratore");
@@ -48,15 +41,6 @@ public class MainFrame extends JFrame {
         mostraPannello("home");
 =======
 >>>>>>> parent of bbd308a (Finita la GUI)
-=======
-
-        mainPanel.add(loginUtentePanel, "loginUtente");
-        mainPanel.add(loginRistoratorePanel, "loginRistoratore");
-        mainPanel.add(registrazioneUtentePanel, "registrazioneUtente");
-        mainPanel.add(registrazioneRistorantePanel, "registrazioneRistorante");
-        mainPanel.add(visualizzaRistorantePanel, "visualizzaRistoranti");
-
->>>>>>> parent of bbd308a (Finita la GUI)
         add(mainPanel);
         setVisible(true);
 
@@ -67,16 +51,11 @@ public class MainFrame extends JFrame {
     }
 
 <<<<<<< HEAD
-<<<<<<< HEAD
     public void mostraPannello(String nome) {
         if (mappaPannelli.containsKey(nome)) {
             cardLayout.show(mainPanel, nome);
             frameAttuale = nome;
         }
-=======
-    public void mostraLoginRistoratore() {
-        cardLayout.show(mainPanel, "loginRistoratore");
->>>>>>> parent of bbd308a (Finita la GUI)
 =======
     public void mostraLoginRistoratore() {
         cardLayout.show(mainPanel, "loginRistoratore");
@@ -95,7 +74,6 @@ public class MainFrame extends JFrame {
         cardLayout.show(mainPanel, "visualizzaRistoranti");
     }
 
-<<<<<<< HEAD
 <<<<<<< HEAD
     public void logout() {
         utenteCorrente = null;
@@ -117,15 +95,10 @@ public class MainFrame extends JFrame {
     public String getFrameAttuale() {
         return frameAttuale;
 =======
-=======
->>>>>>> parent of bbd308a (Finita la GUI)
     public void mostraUtentePanel(Utente utente) {
         UtentePanel utentePanel = new UtentePanel(utente);
         mainPanel.add(utentePanel, "utente");
         cardLayout.show(mainPanel, "utente");
-<<<<<<< HEAD
->>>>>>> parent of bbd308a (Finita la GUI)
-=======
 >>>>>>> parent of bbd308a (Finita la GUI)
     }
 }
