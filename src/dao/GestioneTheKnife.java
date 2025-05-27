@@ -6,15 +6,10 @@ package src.dao;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
-
-import src.dto.Recensione;
 import src.dto.ristorante;
 import src.mapper.Mapper;
-import src.sicurezzaPassword.Criptazione;
 
 public class GestioneTheKnife {
 
@@ -94,7 +89,7 @@ public class GestioneTheKnife {
     /**
      * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
      */
-    public void visualizzaRiepilogo() {
+    public static void visualizzaRiepilogo() {
 
         LinkedList<String> righeRecensioni = new LinkedList<>();
 
