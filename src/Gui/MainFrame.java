@@ -80,4 +80,14 @@ public class MainFrame extends JFrame {
     public String getFrameAttuale() {
         return frameAttuale;
     }
+
+    public void rimuovi(String nome) {
+        JPanel pannello = mappaPannelli.remove(nome);
+        if (pannello != null) {
+            mainPanel.remove(pannello);
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+    }
+
 }

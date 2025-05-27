@@ -46,7 +46,7 @@ public class VisualizzaRecensioniPanel extends JPanel {
         aggiungiButton.addActionListener(e -> aggiungiRecensione());
 
         JButton indietroButton = new JButton("Torna indietro");
-        indietroButton.addActionListener(e -> frame.mostraPannello(frame.getFrameAttuale()));
+        indietroButton.addActionListener(e -> esci());
 
         JPanel sud = new JPanel();
         sud.add(aggiungiButton);
@@ -184,5 +184,10 @@ public class VisualizzaRecensioniPanel extends JPanel {
             return false;
         }
         return false;
+    }
+
+    private void esci() {
+        frame.rimuovi("visualizzaRecensioniPanel");
+        frame.mostraPannello(frame.getFrameAttuale());
     }
 }
