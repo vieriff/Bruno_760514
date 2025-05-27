@@ -2,7 +2,7 @@
  * Classe DAO per la gestione delle funzionalità principali dell'applicazione TheKnife.
  * Fornisce metodi per l'aggiunta e gestione di ristoranti, recensioni, e preferiti.
  */
-package dao;
+package src.dao;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import dto.Recensione;
-import dto.Ristorante;
-import mapper.Mapper;
-import sicurezzaPassword.Criptazione;
+import src.dto.Recensione;
+import src.dto.Ristorante;
+import src.mapper.Mapper;
+import src.sicurezzaPassword.Criptazione;
 
 public class GestioneTheKnife {
 

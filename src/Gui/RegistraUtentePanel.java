@@ -1,11 +1,12 @@
-package Gui;
+package src.Gui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import dao.GestioneTheKnife;
-import sicurezzaPassword.Criptazione;
+
+import src.dao.GestioneTheKnife;
+import src.sicurezzaPassword.Criptazione;
 
 public class RegistraUtentePanel extends JPanel {
     private JTextField nomeField;

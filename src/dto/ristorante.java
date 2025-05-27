@@ -1,4 +1,4 @@
-package dto;
+package src.dto;
 
 import java.util.List;
 import java.util.LinkedList;

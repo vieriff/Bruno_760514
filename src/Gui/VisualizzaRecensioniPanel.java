@@ -1,4 +1,4 @@
-package Gui;
+package src.Gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -124,7 +124,7 @@ public class VisualizzaRecensioniPanel extends JPanel {
                 String usernameCliente = campo[0].trim();
                 String risposta = JOptionPane.showInputDialog(this, "Inserisci la tua risposta:");
                 if (risposta != null && !risposta.trim().isEmpty()) {
-                    boolean ok = dao.GestioneTheKnife.rispondiARecensione(username, nomeRistorante, usernameCliente, risposta.trim());
+                    boolean ok = src.dao.GestioneTheKnife.rispondiARecensione(username, nomeRistorante, usernameCliente, risposta.trim());
                     if (ok) {
                         JOptionPane.showMessageDialog(this, "Risposta salvata con successo.");
                         aggiornaLista();
@@ -155,7 +155,7 @@ public class VisualizzaRecensioniPanel extends JPanel {
                 String commento = testo.getText().trim();
                 if (commento.isEmpty()) throw new IllegalArgumentException();
 
-                boolean ok = dao.GestioneTheKnife.aggiungiRecensione(username, nomeRistorante, valutazione, commento);
+                boolean ok = src.dao.GestioneTheKnife.aggiungiRecensione(username, nomeRistorante, valutazione, commento);
                 if (ok) {
                     JOptionPane.showMessageDialog(this, "Recensione aggiunta con successo.");
                     aggiornaLista();

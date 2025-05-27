@@ -1,4 +1,4 @@
-package Gui;
+package src.Gui;
 
 public class Launcher {
     public static void main(String[] args) {

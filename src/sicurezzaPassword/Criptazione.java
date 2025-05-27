@@ -1,4 +1,4 @@
-package sicurezzaPassword;
+package src.sicurezzaPassword;
 /**
  * La classe {@code Criptazione} fornisce metodi per la criptazione e la decriptazione di stringhe
  * utilizzando un semplice algoritmo di cifratura basato sullo spostamento dei caratteri nel loro 

@@ -7,9 +7,9 @@ import java.nio.file.Files;
 
 import org.junit.jupiter.api.*;
 
-import dao.GestioneTheKnife;
+import src.dao.GestioneTheKnife;
 /**
- * Classe di test per la classe {@link dao.GestioneTheKnife}.
+ * Classe di test per la classe {@link src.dao.GestioneTheKnife}.
  * Utilizza JUnit per verificare il comportamento delle operazioni sui file di ristoranti e recensioni.
  */
 

@@ -1,21 +1,20 @@
-package Gui;
+package src.Gui;
 
 import javax.swing.*;
+
+import src.dao.GestioneTheKnife;
+
 import java.awt.*;
 import java.util.List;
-import dao.GestioneTheKnife;
 
-public class CercaPerNomePanel extends JPanel {
-    private MainFrame frame;
+public class CercaPerNomeNLoginPanel extends JPanel {
     private DefaultListModel<String> listModel;
     private JList<String> listaRistoranti;
     private JTextArea dettagliArea;
-    private JButton visualizzaRecensioni;
-    private List<String> risultatiCorrenti;
     private JTextField campoNome;
+    private List<String> risultatiCorrenti;
 
-    public CercaPerNomePanel(MainFrame frame, String pannelloChiamante) {
-        this.frame = frame;
+    public CercaPerNomeNLoginPanel(MainFrame frame) {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
@@ -33,7 +32,7 @@ public class CercaPerNomePanel extends JPanel {
 
         JPanel ricerca = new JPanel(new BorderLayout(5, 5));
         ricerca.setBackground(Color.WHITE);
-        ricerca.add(new JLabel("Nome Ristorante: "), BorderLayout.WEST);
+        ricerca.add(new JLabel("Nome: "), BorderLayout.WEST);
         ricerca.add(campoNome, BorderLayout.CENTER);
         ricerca.add(cercaButton, BorderLayout.EAST);
 
@@ -51,29 +50,16 @@ public class CercaPerNomePanel extends JPanel {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollLista, scrollDettagli);
         splitPane.setResizeWeight(0.5);
 
-        visualizzaRecensioni = new JButton("Visualizza Recensioni");
-        visualizzaRecensioni.setEnabled(false);
-        visualizzaRecensioni.addActionListener(e -> {
-            int index = listaRistoranti.getSelectedIndex();
-            if (index >= 0 && index < risultatiCorrenti.size()) {
-                String selezione = listaRistoranti.getSelectedValue();
-                frame.aggiungiEMostra("visualizzaRecensioniPanel", new VisualizzaRecensioniPanel(frame, selezione));
-            }
-        });
-
         centro.add(ricerca, BorderLayout.NORTH);
         centro.add(splitPane, BorderLayout.CENTER);
-        centro.add(visualizzaRecensioni, BorderLayout.SOUTH);
-
         add(centro, BorderLayout.CENTER);
 
-        JButton tornaIndietro = new JButton("Torna indietro");
-        tornaIndietro.addActionListener(e -> frame.mostraPannello(frame.getFrameAttuale()));
+        JButton tornaHome = new JButton("Torna alla Home");
+        tornaHome.addActionListener(e -> frame.mostraPannello("home"));
 
         JPanel sud = new JPanel(new FlowLayout(FlowLayout.CENTER));
         sud.setBackground(Color.WHITE);
-        sud.add(tornaIndietro);
-
+        sud.add(tornaHome);
         add(sud, BorderLayout.SOUTH);
 
         listaRistoranti.addListSelectionListener(ev -> {
@@ -81,10 +67,8 @@ public class CercaPerNomePanel extends JPanel {
                 int index = listaRistoranti.getSelectedIndex();
                 if (index >= 0 && risultatiCorrenti != null && index < risultatiCorrenti.size()) {
                     dettagliArea.setText(formattaDettagli(risultatiCorrenti.get(index)));
-                    visualizzaRecensioni.setEnabled(true);
                 } else {
                     dettagliArea.setText("");
-                    visualizzaRecensioni.setEnabled(false);
                 }
             }
         });
@@ -95,7 +79,6 @@ public class CercaPerNomePanel extends JPanel {
                 risultatiCorrenti = GestioneTheKnife.CercaRistorantiN(nome);
                 listModel.clear();
                 dettagliArea.setText("");
-                visualizzaRecensioni.setEnabled(false);
                 if (risultatiCorrenti.isEmpty()) {
                     listModel.addElement("Nessun ristorante trovato.");
                 } else {
@@ -105,7 +88,7 @@ public class CercaPerNomePanel extends JPanel {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Inserisci il nome del ristorante.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Inserisci un nome per la ricerca.", "Attenzione", JOptionPane.WARNING_MESSAGE);
             }
         });
     }
@@ -117,7 +100,6 @@ public class CercaPerNomePanel extends JPanel {
             campoNome.setText("");
             listModel.clear();
             dettagliArea.setText("");
-            visualizzaRecensioni.setEnabled(false);
             risultatiCorrenti = null;
         }
     }

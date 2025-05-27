@@ -1,10 +1,12 @@
-package Gui;
+package src.Gui;
 
 import javax.swing.*;
+
+import src.dao.GestioneTheKnife;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import dao.GestioneTheKnife;
 
 public class CercaPerLuogoPanel extends JPanel {
     private MainFrame frame;

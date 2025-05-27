@@ -1,16 +1,10 @@
-package Gui;
+package src.Gui;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class CercaRistorantiPanel extends JPanel {
-    private MainFrame frame;
-    private String pannelloChiamante;
-
-    public CercaRistorantiPanel(MainFrame frame, String pannelloChiamante) {
-        this.frame = frame;
-        this.pannelloChiamante = pannelloChiamante;
-
+public class CercaRistorantiNLoginPanel extends JPanel {
+    public CercaRistorantiNLoginPanel(MainFrame frame) {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
@@ -26,23 +20,18 @@ public class CercaRistorantiPanel extends JPanel {
         JButton cercaZona = new JButton("Cerca per zona");
         JButton cercaNome = new JButton("Cerca per nome");
 
+        cercaZona.addActionListener(e -> frame.mostraPannello("cercaPerLuogoNLogin"));
+        cercaNome.addActionListener(e -> frame.mostraPannello("cercaPerNomeNLogin"));
+
         bottoni.add(cercaZona);
         bottoni.add(cercaNome);
 
-        cercaZona.addActionListener(e -> {
-            frame.aggiungiEMostra("cercaPerLuogoPanel", new CercaPerLuogoPanel(frame, pannelloChiamante));
-        });
-
-        cercaNome.addActionListener(e -> {
-            frame.aggiungiEMostra("cercaPerNomePanel", new CercaPerNomePanel(frame, pannelloChiamante));
-        });
-
-        JButton tornaIndietro = new JButton("Torna indietro");
-        tornaIndietro.addActionListener(e -> frame.mostraPannello(frame.getFrameAttuale()));
+        JButton tornaHome = new JButton("Torna alla Home");
+        tornaHome.addActionListener(e -> frame.mostraPannello("home"));
 
         JPanel sud = new JPanel(new FlowLayout(FlowLayout.CENTER));
         sud.setBackground(Color.WHITE);
-        sud.add(tornaIndietro);
+        sud.add(tornaHome);
 
         add(bottoni, BorderLayout.CENTER);
         add(sud, BorderLayout.SOUTH);

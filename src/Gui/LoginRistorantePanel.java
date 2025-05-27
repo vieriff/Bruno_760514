@@ -1,22 +1,23 @@
-package Gui;
+package src.Gui;
 
 import javax.swing.*;
 import java.awt.*;
-import dao.GestioneTheKnife;
-import sicurezzaPassword.Criptazione;
 
-public class LoginUtentePanel extends JPanel {
+import src.dao.GestioneTheKnife;
+import src.sicurezzaPassword.Criptazione;
+
+public class LoginRistorantePanel extends JPanel {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private MainFrame mainFrame;
 
-    public LoginUtentePanel(MainFrame frame) {
+    public LoginRistorantePanel(MainFrame frame) {
         this.mainFrame = frame;
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        JLabel titolo = new JLabel("Login Utente", SwingConstants.CENTER);
+        JLabel titolo = new JLabel("Login Ristoratore", SwingConstants.CENTER);
         titolo.setFont(new Font("SansSerif", Font.BOLD, 24));
         titolo.setForeground(Color.DARK_GRAY);
         add(titolo, BorderLayout.NORTH);
@@ -27,11 +28,9 @@ public class LoginUtentePanel extends JPanel {
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameField = new JTextField();
-        usernameField.setPreferredSize(new Dimension(150, 25));
 
         JLabel passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField();
-        passwordField.setPreferredSize(new Dimension(150, 25));
 
         JButton loginButton = new JButton("Login");
         JButton backButton = new JButton("Torna alla Home");
@@ -50,18 +49,17 @@ public class LoginUtentePanel extends JPanel {
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
-            String ruolo = "utente";
+            String ruolo = "ristoratore";
             password = Criptazione.critta(password);
-            boolean success = GestioneTheKnife.loginUtenteU(username, password, ruolo);
+            boolean success = GestioneTheKnife.loginUtenteR(username, password, ruolo);
             if (success) {
                 usernameField.setText("");
                 passwordField.setText("");
+                frame.setFrameAttuale("ristoratorePanel");
                 frame.setUtenteCorrente(username);
-                frame.setFrameAttuale("utentePanel");
-                frame.setUtenteCorrente(username);
-                mainFrame.aggiungiEMostra("utentePanel", new UtentePanel(mainFrame, username));
+                frame.aggiungiEMostra("ristoratorePanel", new RistorantePanel(frame, username));
             } else {
-                JOptionPane.showMessageDialog(this, "Username o password errati o sezione sbagliata.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Username o password errati.", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
 
