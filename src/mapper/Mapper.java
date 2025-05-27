@@ -151,16 +151,28 @@ public class Mapper {
      */
 	public static String mapStrRistorante(ristorante r) {
 	    // restituisce stringa con i campi separati da virgola in ordine corretto
-	    return r.getNome() + "," 
-	         + r.getUsername_ristoratore() + "," 
-	         + r.getNazione() + "," 
-	         + r.getCittà() + "," 
-	         + r.getIndirizzo() + "," 
-	         + r.getLatitudine() + "," 
-	         + r.getLongitudine() + "," 
-	         + r.getPrezzo() + "," 
-	         + r.isDisponibilità_delivery() + "," 
-	         + r.isDisponibilità_prenotazione() + "," 
+		String delivery;
+		String prenotazione;
+		if(r.isDisponibilità_delivery()){
+			delivery = "si";
+		}else{
+			delivery = "no";
+		}
+		if(r.isDisponibilità_delivery()){
+			prenotazione = "si";
+		}else{
+			prenotazione = "no";
+		}
+	    return r.getNome() + ";" 
+	         + r.getUsername_ristoratore() + ";" 
+	         + r.getNazione() + ";" 
+	         + r.getCittà() + ";" 
+	         + r.getIndirizzo() + ";" 
+	         + r.getLatitudine() + ";" 
+	         + r.getLongitudine() + ";" 
+	         + r.getPrezzo() + ";" 
+	         + delivery + ";" 
+	         + prenotazione + ";" 
 	         + r.getTipo_Cucina();
 	}
 
