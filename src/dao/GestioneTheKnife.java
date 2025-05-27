@@ -6,12 +6,13 @@ package src.dao;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import src.dto.Recensione;
-import src.dto.Ristorante;
+import src.dto.ristorante;
 import src.mapper.Mapper;
 import src.sicurezzaPassword.Criptazione;
 
@@ -55,7 +56,7 @@ public class GestioneTheKnife {
         if (prezzo <= 0)
             return false;
 
-        Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
+        ristorante nuovoRistorante = new ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
                 longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
 
         String riga = Mapper.mapStrRistorante(nuovoRistorante);
@@ -184,7 +185,8 @@ public class GestioneTheKnife {
                     System.out.println("Utente: " + campi[0]);
                     System.out.println("Valutazione: " + campi[2] + "/5");
                     System.out.println("Testo: " + campi[3]);
-                    System.out.println("Risposta: " + (campi[4].isEmpty() ? "Nessuna" : campi[4]));
+                    String risposta = campi.length >= 5 && !campi[4].trim().equalsIgnoreCase("null") && !campi[4].trim().isEmpty() ? campi[4] : "Nessuna";
+                    System.out.println("Risposta: " + risposta);
                     System.out.println("----------------------------------------");
                 }
             }
@@ -197,23 +199,22 @@ public class GestioneTheKnife {
         }
     }
 
+
     /**
      * Permette a un ristoratore di rispondere a una recensione.
      * @return true se risposta salvata correttamente, false altrimenti
      */
-    public static boolean rispondiARecensione(String usernameLoggato, String nomeRistorante, String usernameCliente,
-            String risposta) {
+    public static boolean rispondiARecensione(String usernameLoggato, String nomeRistorante, String usernameCliente, String risposta) {
         if (fileRecensioniPath == null || fileRistorantiPath == null) {
             return false;
         }
 
-        // Verifica che il ristorante appartenga al ristoratore
         boolean ristoranteTrovato = false;
         try (BufferedReader br = new BufferedReader(new FileReader(fileRistorantiPath))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                String[] campi = linea.split(",", -1);
-                if (campi[0].equals(nomeRistorante) && campi[1].equals(usernameLoggato)) {
+                String[] campi = linea.split(";", -1);
+                if (campi.length >= 2 && campi[0].trim().equals(nomeRistorante.trim()) && campi[1].trim().equals(usernameLoggato.trim())) {
                     ristoranteTrovato = true;
                     break;
                 }
@@ -226,7 +227,6 @@ public class GestioneTheKnife {
             return false;
         }
 
-        // Leggi le recensioni e aggiorna solo quella giusta
         LinkedList<String> righeAggiornate = new LinkedList<>();
         boolean recensioneAggiornata = false;
 
@@ -234,9 +234,9 @@ public class GestioneTheKnife {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] campi = linea.split(",", -1);
-                if (campi[0].equals(usernameCliente) && campi[1].equals(nomeRistorante)) {
-                    if (campi[4] != null && !campi[4].trim().isEmpty()) {
-                        // Recensione già risposta
+
+                if (campi.length == 5 && campi[0].trim().equals(usernameCliente.trim()) && campi[1].trim().equals(nomeRistorante.trim())) {
+                    if (!campi[4].trim().equalsIgnoreCase("null") && !campi[4].trim().isEmpty()) {
                         return false;
                     }
                     campi[4] = risposta;
@@ -255,7 +255,6 @@ public class GestioneTheKnife {
             return false;
         }
 
-        // Sovrascrivi il file recensioni
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioniPath))) {
             for (String riga : righeAggiornate) {
                 writer.write(riga);
@@ -673,7 +672,7 @@ public class GestioneTheKnife {
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-                String nuovaRiga = username + "," + nomeRistorante + "," + voto + "," + testo.replace(",", " ") + ",";
+                String nuovaRiga = username + "," + nomeRistorante + "," + voto + "," + testo.replace(",", " ") + "," + "null";
                 bw.write(nuovaRiga);
                 bw.newLine();
             }
@@ -684,6 +683,7 @@ public class GestioneTheKnife {
             return false;
         }
     }
+
 
 
 }

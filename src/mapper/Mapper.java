@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import src.dto.Recensione;
-import src.dto.Ristorante;
-import src.dto.Utente;
+import src.dto.ristorante;
+import src.dto.utente;
 import src.sicurezzaPassword.Criptazione;
 /**
  * La classe {@code Mapper} è utilizzata per mappare oggetti di tipo {@link Utente}, {@link Ristorante} e {@link Recensione}
@@ -22,8 +22,8 @@ public class Mapper {
      * @param linea La stringa contenente i dati dell'utente, separati da virgole.
      * @return Un oggetto {@link Utente} con i dati mappati dalla stringa.
      */
-	public static Utente mapObjUtente(String linea) {
-	    Utente u = new Utente();
+	public static utente mapObjUtente(String linea) {
+	    utente u = new utente();
 	    String[] valori = linea.split(",");
 	    u.setNome(valori[0]);
 	    u.setCognome(valori[1]);
@@ -45,7 +45,7 @@ public class Mapper {
 	    // Mappatura dei ristoranti preferiti
 	    if (valori.length > 7 && valori[7] != null && !valori[7].isEmpty()) {
 	        String[] ristorantiData = valori[7].split("\\."); // separa i ristoranti
-	        Ristorante[] preferiti = new Ristorante[ristorantiData.length];
+	        ristorante[] preferiti = new ristorante[ristorantiData.length];
 
 	        for (int i = 0; i < ristorantiData.length; i++) {
 	            String[] dettagli = ristorantiData[i].split(";"); // separa i dettagli del ristorante
@@ -62,13 +62,13 @@ public class Mapper {
 	                boolean disponibilità_prenotazione = Boolean.parseBoolean(dettagli[9]);
 	                String tipo_cucina = dettagli[10];
 
-	                preferiti[i] = new Ristorante(nome, username_ristoratore, nazione, città, indirizzo, latitudine,
+	                preferiti[i] = new ristorante(nome, username_ristoratore, nazione, città, indirizzo, latitudine,
 	                        longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_cucina);
 	            }
 	        }
 	        u.setPreferiti(preferiti);
 	    } else {
-	        u.setPreferiti(new Ristorante[0]); // Nessun ristorante
+	        u.setPreferiti(new ristorante[0]); // Nessun ristorante
 	    }
 
 	    return u;
@@ -80,7 +80,7 @@ public class Mapper {
      * @param u L'oggetto {@link Utente} da mappare.
      * @return Una stringa contenente i dati dell'utente, separati da virgole.
      */
-	public static String mapStrUtente(Utente u) {
+	public static String mapStrUtente(utente u) {
 		// Mappatura dell'utente
 		String result = u.getNome() + "," + u.getCognome() + "," + u.getUsername() + ","
 				+ Criptazione.critta(u.getPassword()) + ","; // Criptazione della password
@@ -94,7 +94,7 @@ public class Mapper {
 		// Mappatura dei ristoranti preferiti
 		if (u.getPreferiti() != null && u.getPreferiti().length > 0) {
 			for (int i = 0; i < u.getPreferiti().length; i++) {
-				Ristorante r = u.getPreferiti()[i];
+				ristorante r = u.getPreferiti()[i];
 				result += r.getNome() + ";" + r.getNazione() + ";" + r.getCittà() + ";" + r.getIndirizzo() + ";"
 						+ r.getLatitudine() + ";" + r.getLongitudine() + ";" + r.getPrezzo() + ";"
 						+ r.isDisponibilità_delivery() + ";" + r.isDisponibilità_prenotazione() + ";"
@@ -115,7 +115,7 @@ public class Mapper {
      * @param linea La stringa contenente i dati del ristorante, separati da virgole.
      * @return Un oggetto {@link Ristorante} con i dati mappati dalla stringa.
      */
-	public static Ristorante mapObjRistorante(String linea) {
+	public static ristorante mapObjRistorante(String linea) {
 	    String[] valori = linea.split(",");
 	    // valori[0] = nome
 	    // valori[1] = username_ristoratore
@@ -129,7 +129,7 @@ public class Mapper {
 	    // valori[9] = disponibilità_prenotazione
 	    // valori[10] = tipo_Cucina
 
-	    return new Ristorante(
+	    return new ristorante(
 	        valori[0],
 	        valori[1],
 	        valori[2],
@@ -149,7 +149,7 @@ public class Mapper {
      * @param r L'oggetto {@link Ristorante} da mappare.
      * @return Una stringa contenente i dati del ristorante, separati da virgole.
      */
-	public static String mapStrRistorante(Ristorante r) {
+	public static String mapStrRistorante(ristorante r) {
 	    // restituisce stringa con i campi separati da virgola in ordine corretto
 	    return r.getNome() + "," 
 	         + r.getUsername_ristoratore() + "," 

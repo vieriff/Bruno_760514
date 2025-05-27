@@ -10,7 +10,7 @@ import java.util.LinkedList;
  * Include metodi per accedere e modificare i dati del ristorante, visualizzare i dettagli
  * e cercare ristoranti in base a diversi criteri.
  */
-public class Ristorante {
+public class ristorante {
 
 	private String nome;
 	private String username_ristoratore;
@@ -39,7 +39,7 @@ public class Ristorante {
      * @param disponibilità_prenotazione  disponibilità della prenotazione online
      * @param tipo_Cucina                 tipologia di cucina offerta
      */
-	public Ristorante(String nome, String username_ristoratore, String nazione, String città, String indirizzo,
+	public ristorante(String nome, String username_ristoratore, String nazione, String città, String indirizzo,
 			int latitudine, int longitudine, int prezzo, boolean disponibilità_delivery,
 			boolean disponibilità_prenotazione, String tipo_Cucina) {
 		super();
@@ -60,7 +60,7 @@ public class Ristorante {
 	 * Costruttore vuoto per la classe Ristorante.
 	 * Utilizzato per creare un'istanza senza inizializzare i campi.
 	 */
-	public Ristorante() {
+	public ristorante() {
 		super();
 	}
 
@@ -246,8 +246,8 @@ public class Ristorante {
 	 * @param richiedePrenotazione {@code true} se si richiede la prenotazione
 	 * @return lista di ristoranti che soddisfano i criteri di ricerca
 	 */
-	public static List<Ristorante> cercaRistorante(
-			List<Ristorante> ristoranti,
+	public static List<ristorante> cercaRistorante(
+			List<ristorante> ristoranti,
 			String città,
 			String nazione,
 			String tipoCucina,
@@ -256,9 +256,9 @@ public class Ristorante {
 			Boolean richiedeDelivery,
 			Boolean richiedePrenotazione
 	) {
-        List<Ristorante> risultati = new LinkedList<>();
+        List<ristorante> risultati = new LinkedList<>();
 
-        for (Ristorante r : ristoranti) {
+        for (ristorante r : ristoranti) {
             
             if (!r.getCittà().equalsIgnoreCase(città) || !r.getNazione().equalsIgnoreCase(nazione)) {
                 continue;
