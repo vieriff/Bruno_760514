@@ -30,7 +30,7 @@ public class Criptazione {
 			risultato = risultato + carattereCriptato;
 		}
 
-		return risultato.toString();
+		return risultato;
 	}
 	 /**
      * Decripta una stringa di testo criptata spostando ogni carattere nel suo valore ASCII di 
@@ -48,7 +48,7 @@ public class Criptazione {
 			risultato = risultato + carattereDecriptato;
 		}
 
-		return risultato.toString();
+		return risultato;
 	}
 
 }

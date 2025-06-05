@@ -3,7 +3,6 @@ package src.mapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import src.dto.Recensione;
 import src.dto.ristorante;
 import src.dto.utente;
@@ -115,34 +114,45 @@ public class Mapper {
      * @param linea La stringa contenente i dati del ristorante, separati da virgole.
      * @return Un oggetto {@link Ristorante} con i dati mappati dalla stringa.
      */
-	public static ristorante mapObjRistorante(String linea) {
-	    String[] valori = linea.split(",");
-	    // valori[0] = nome
-	    // valori[1] = username_ristoratore
-	    // valori[2] = nazione
-	    // valori[3] = città
-	    // valori[4] = indirizzo
-	    // valori[5] = latitudine
-	    // valori[6] = longitudine
-	    // valori[7] = prezzo
-	    // valori[8] = disponibilità_delivery
-	    // valori[9] = disponibilità_prenotazione
-	    // valori[10] = tipo_Cucina
+	public static ristorante mapObjRistorante(String line) {
+    if (line == null || line.trim().isEmpty()) return null;
 
-	    return new ristorante(
-	        valori[0],
-	        valori[1],
-	        valori[2],
-	        valori[3],
-	        valori[4],
-	        Integer.parseInt(valori[5]),
-	        Integer.parseInt(valori[6]),
-	        Integer.parseInt(valori[7]),
-	        Boolean.parseBoolean(valori[8]),
-	        Boolean.parseBoolean(valori[9]),
-	        valori[10]
-	    );
-	}
+    String[] campi = line.split(";");
+    if (campi.length < 11) return null; // riga incompleta
+
+    try {
+        String nome = campi[0].trim();
+        String username = campi[1].trim();
+        String nazione = campi[2].trim();
+        String citta = campi[3].trim();
+        String indirizzo = campi[4].trim();
+        double latitudine = Double.parseDouble(campi[5].trim());
+        double longitudine = Double.parseDouble(campi[6].trim());
+        int prezzo = Integer.parseInt(campi[7].trim());
+
+        boolean delivery = campi[8].trim().equalsIgnoreCase("Sì");
+        boolean prenotazione = campi[9].trim().equalsIgnoreCase("Sì");
+        String tipoCucina = campi[10].trim();
+
+        ristorante r = new ristorante();
+        r.setNome(nome);
+        r.setUsername_ristoratore(username);
+        r.setNazione(nazione);
+        r.setCittà(citta);
+        r.setIndirizzo(indirizzo);
+        r.setLatitudine(latitudine);
+        r.setLongitudine(longitudine);
+        r.setPrezzo(prezzo);
+        r.setDisponibilità_delivery(delivery);
+        r.setDisponibilità_prenotazione(prenotazione);
+        r.setTipo_Cucina(tipoCucina);
+
+        return r;
+    } catch (Exception e) {
+        System.err.println("Errore nel parsing della riga ristorante: " + line);
+        return null;
+    }
+}
 	/**
      * Mappa un oggetto {@link Ristorante} in una stringa di testo separata da virgole.
      * 
@@ -187,7 +197,7 @@ public class Mapper {
         String[] valori = linea.split(",");
         r.setUsername(valori[0]);
         r.setNomeRistorante(valori[1]);
-        r.setValutazione(Integer.valueOf(valori[2]));
+        r.setValutazione(Integer.parseInt(valori[2]));
         r.setTesto(valori[3]);
         r.setRisposta(valori[4]);
         return r;
@@ -199,7 +209,7 @@ public class Mapper {
      * @return Una stringa contenente i dati della recensione, separati da virgole.
      */
     public static String mapStrRecensione(Recensione r) {
-        String s = new String();
+        String s;
         String username = r.getUsername();
         String nomeRistorante = "" + r.getNomeRistorante();
         String valutazione = "" + r.getValutazione();

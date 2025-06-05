@@ -30,7 +30,7 @@ public class Recensione{
      * @param username nome utente da impostare
      */
 	public void setUsername(String username) {
-		username = username;
+		this.username = username;
 	}
     /**
      * Restituisce il nome del ristorante recensito.
