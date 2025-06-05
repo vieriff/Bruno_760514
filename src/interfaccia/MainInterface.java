@@ -1,5 +1,8 @@
 package src.interfaccia;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,27 +17,27 @@ public class MainInterface {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-         boolean running = true;
+           boolean running = true;
 
-    while (running) {
-        System.out.println("\n--- Benvenuto in TheKnife ---");
-        System.out.println("1. Login Cliente");
-        System.out.println("2. Login Ristoratore");
-        System.out.println("3. Registrati");
-        System.out.println("4. Cerca ristorante");
-        System.out.println("0. Esci");
-        System.out.print("Scelta: ");
+        while (running) {
+            System.out.println("\n--- Benvenuto in TheKnife ---");
+            System.out.println("1. Login Cliente");
+            System.out.println("2. Login Ristoratore");
+            System.out.println("3. Registrati");
+            System.out.println("4. Cerca ristorante");
+            System.out.println("0. Esci");
+            System.out.print("Scelta: ");
 
-        switch (scanner.nextLine()) {
-            case "1" -> login("cliente");
-            case "2" -> login("ristoratore");
-            case "3" -> registrazione();
-            case "4" -> cercaRistoranti(); 
-            case "0" -> running = false;
-            default -> System.out.println("Scelta non valida");
+            switch (scanner.nextLine()) {
+                case "1" -> login("cliente");
+                case "2" -> login("ristoratore");
+                case "3" -> registrazione();
+                case "4" -> cercaRistoranti();
+                case "0" -> running = false;
+                default -> System.out.println("Scelta non valida");
+            }
         }
     }
-}
 
     private static boolean login(String ruolo) {
         System.out.print("Username: ");
@@ -150,12 +153,17 @@ public class MainInterface {
             switch (scanner.nextLine()) {
                 case "1" -> {
                     System.out.print("Nome ristorante: ");
-                    String nome = scanner.nextLine();
+                    String nome = scanner.nextLine().trim();
                     System.out.print("Luogo: ");
-                    String luogo = scanner.nextLine();
-                    boolean aggiunto = GestioneTheKnife.aggiungiPreferito(username, nome, luogo);
-                    if (aggiunto) System.out.println("Ristorante aggiunto ai preferiti.");
-                    else System.out.println("Errore nell'aggiunta ai preferiti.");
+                    String luogo = scanner.nextLine().trim();
+
+                    if (!esisteRistorante(nome, luogo)) {
+                        System.out.println("Errore: il ristorante indicato non esiste.");
+                    } else {
+                        boolean aggiunto = GestioneTheKnife.aggiungiPreferito(username, nome, luogo);
+                        if (aggiunto) System.out.println("Ristorante aggiunto ai preferiti.");
+                        else System.out.println("Errore nell'aggiunta ai preferiti.");
+                    }
                 }
                 case "2" -> {
                     System.out.print("Nome ristorante: ");
@@ -237,7 +245,7 @@ public class MainInterface {
                     }
                 }
                 case "2" -> GestioneTheKnife.visualizzaRiepilogo();
-                case "3" -> GestioneTheKnife.visualizzaRecensioni(username);
+                case "3" -> GestioneTheKnife.visualizzaRecensioniPerRistoratore(username);
                 case "4" -> {
                     System.out.print("Nome ristorante: ");
                     String nomeRistorante = scanner.nextLine();
@@ -305,13 +313,24 @@ public class MainInterface {
         }
     }
 
-    private static void stampaRistoranti(List<String> ristoranti) {
-        System.out.println("\n--- Ristoranti trovati ---");
-        for (String r : ristoranti) {
-            System.out.println(r);
-            System.out.println("------------------------------");
-        }
+private static void stampaRistoranti(List<String> ristoranti) {
+    System.out.println("\n--- Ristoranti trovati ---");
+    for (String r : ristoranti) {
+        System.out.println("------------------------------");
+        System.out.println(r);
+        System.out.println("------------------------------");
+
+        String[] righe = r.split("\n");
+        String primaRiga = righe[0];
+        String nomeRistorante = primaRiga.split(",")[0].split("-")[0].trim();
+
+        System.out.println();
+
+        GestioneTheKnife.visualizzaRecensioniPerRistorante(nomeRistorante);
+
+        System.out.println();
     }
+}
 
     private static int leggiNumero(String messaggio) {
         while (true) {
@@ -350,7 +369,7 @@ public class MainInterface {
         if (input.isEmpty()) return null;
         if (input.equals("true")) return true;
         if (input.equals("false")) return false;
-        System.out.println("Valore booleano non valido, campo ignorato.");
+        System.out.println("Valore non valido, filtro ignorato.");
         return null;
     }
 
@@ -360,8 +379,29 @@ public class MainInterface {
         try {
             return Double.valueOf(input);
         } catch (NumberFormatException e) {
-            System.out.println("Numero non valido, campo ignorato.");
+            System.out.println("Numero non valido, filtro ignorato.");
             return null;
         }
     }
+
+public static boolean esisteRistorante(String nome, String luogo) {
+    try (BufferedReader br = new BufferedReader(new FileReader("dati/ristoranti.txt"))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] campi = line.split(";");
+            if (campi.length < 5) continue;
+
+            String nomeRistorante = campi[0].trim();
+            String citta = campi[3].trim();
+
+            if (nomeRistorante.equalsIgnoreCase(nome.trim()) && citta.equalsIgnoreCase(luogo.trim())) {
+                System.out.println("Ristorante trovato!");
+                return true;
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Errore lettura file ristoranti: " + e.getMessage());
+    }
+    return false;
+}
 }

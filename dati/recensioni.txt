@@ -1,1 +1,5 @@
-Gianni1,Sushi World,2,boh ci sta,dajedevozzz,cazzo;milano,4,cazzo,Nrisposta
+devozzz,sushi milano;milano,1,ho eliminato dai preferiti,Nrisposta
+devozzz,sushi milano;milano,1,terribile,Nrisposta
+devozzz,sushi express;milano,2,non cosi buono,Nrisposta
+cliente1,Sushi Milano;Milano,5,Eccellente sushi!
+cliente2,Sushi Milano;Milano,4,Buona qualità ma servizio lento

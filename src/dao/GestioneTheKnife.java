@@ -141,48 +141,112 @@ public class GestioneTheKnife {
      * Visualizza tutte le recensioni relative ai ristoranti gestiti da un dato utente.
      * @param usernameLoggato username del ristoratore loggato
      */
-    public static void visualizzaRecensioni(String usernameLoggato) {
+public static void visualizzaRecensioniPerRistorante(String nomeRistorante) {
+    if (fileRecensioniPath == null) {
+        System.err.println("Errore: path file recensioni non configurato.");
+        return;
+    }
 
-        if (fileRistorantiPath == null || fileRecensioniPath == null) {
-            System.err.println("Errore: i path dei file non sono stati configurati.");
-            return;
-        }
+    boolean trovate = false;
+    int totaleStelle = 0;
+    int numeroRecensioni = 0;
 
-        List<String> ristorantiGestiti = new LinkedList<>();
+    try (BufferedReader brRecensioni = new BufferedReader(new FileReader(fileRecensioniPath))) {
+        String linea;
+        while ((linea = brRecensioni.readLine()) != null) {
+            String[] campi = linea.split(",", -1);
+            if (campi.length >= 4) {
+                String nomeRistoranteRecensione = campi[1].split(";")[0].trim(); // prendi solo prima parte
+                if (nomeRistoranteRecensione.equalsIgnoreCase(nomeRistorante.trim())) {
+                    trovate = true;
+                    numeroRecensioni++;
+                    try {
+                        totaleStelle += Integer.parseInt(campi[2]);
+                    } catch (NumberFormatException e) {
+                        // ignora voto non valido
+                    }
 
-        try (BufferedReader brRistoranti = new BufferedReader(new FileReader(fileRistorantiPath))) {
-            String linea;
-            while ((linea = brRistoranti.readLine()) != null) {
-                String[] campi = linea.split(",", -1);
-                if (campi[1].equals(usernameLoggato)) {
-                    ristorantiGestiti.add(campi[0]);
+                    System.out.println("== Recensione per: " + campi[1] + " ==");
+                    System.out.println("Utente: " + campi[0]);
+                    System.out.println("Valutazione: " + campi[2] + "/5");
+                    System.out.println("Testo: " + campi[3]);
+                    String risposta = campi.length >= 5 && campi[4] != null && !campi[4].trim().isEmpty() && !campi[4].trim().equalsIgnoreCase("null")
+                                      ? campi[4] : "Nessuna";
+                    System.out.println("Risposta: " + risposta);
+                    System.out.println("----------------------------------------");
                 }
             }
-        } catch (IOException e) {
-            System.err.println("Errore nella lettura del file dei ristoranti");
-            return;
         }
+    } catch (IOException e) {
+        System.err.println("Errore nella lettura del file delle recensioni");
+    }
 
-        if (ristorantiGestiti.isEmpty()) {
-            System.out.println("Non gestisci alcun ristorante.");
-            return;
+    if (!trovate) {
+        System.out.println("Nessuna recensione per il ristorante: " + nomeRistorante);
+    } else {
+        double media = numeroRecensioni > 0 ? (double) totaleStelle / numeroRecensioni : 0;
+        System.out.println("Numero recensioni: " + numeroRecensioni);
+        System.out.printf("Media stelle: %.2f\n", media);
+    }
+}
+
+
+public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
+
+    if (fileRistorantiPath == null || fileRecensioniPath == null) {
+        System.err.println("Errore: i path dei file non sono stati configurati.");
+        return;
+    }
+
+    List<String> ristorantiGestiti = new LinkedList<>();
+
+    try (BufferedReader brRistoranti = new BufferedReader(new FileReader(fileRistorantiPath))) {
+        String linea;
+        while ((linea = brRistoranti.readLine()) != null) {
+            String[] campi = linea.split(",", -1);
+            if (campi.length > 1 && campi[1].equals(usernameLoggato)) {
+                ristorantiGestiti.add(campi[0]);
+            }
         }
+    } catch (IOException e) {
+        System.err.println("Errore nella lettura del file dei ristoranti");
+        return;
+    }
 
+    if (ristorantiGestiti.isEmpty()) {
+        System.out.println("Non gestisci alcun ristorante.");
+        return;
+    }
+
+    for (String ristorante : ristorantiGestiti) {
+        int numeroRecensioni = 0;
+        int totaleStelle = 0;
         boolean trovate = false;
+
+        System.out.println("\nRecensioni per ristorante: " + ristorante);
 
         try (BufferedReader brRecensioni = new BufferedReader(new FileReader(fileRecensioniPath))) {
             String linea;
             while ((linea = brRecensioni.readLine()) != null) {
                 String[] campi = linea.split(",", -1);
-                if (ristorantiGestiti.contains(campi[1])) {
-                    trovate = true;
-                    System.out.println("== Recensione per: " + campi[1] + " ==");
-                    System.out.println("Utente: " + campi[0]);
-                    System.out.println("Valutazione: " + campi[2] + "/5");
-                    System.out.println("Testo: " + campi[3]);
-                    String risposta = campi.length >= 5 && !campi[4].trim().equalsIgnoreCase("null") && !campi[4].trim().isEmpty() ? campi[4] : "Nessuna";
-                    System.out.println("Risposta: " + risposta);
-                    System.out.println("----------------------------------------");
+                if (campi.length >= 4) {
+                    String nomeRistoranteRecensione = campi[1].split(";")[0].trim();
+                    if (nomeRistoranteRecensione.equalsIgnoreCase(ristorante.trim())) {
+                        trovate = true;
+                        numeroRecensioni++;
+                        try {
+                            totaleStelle += Integer.parseInt(campi[2]);
+                        } catch (NumberFormatException e) {
+                            // ignora voto non valido
+                        }
+                        System.out.println("Utente: " + campi[0]);
+                        System.out.println("Valutazione: " + campi[2] + "/5");
+                        System.out.println("Testo: " + campi[3]);
+                        String risposta = campi.length >= 5 && campi[4] != null && !campi[4].trim().isEmpty() && !campi[4].trim().equalsIgnoreCase("null")
+                                          ? campi[4] : "Nessuna";
+                        System.out.println("Risposta: " + risposta);
+                        System.out.println("----------------------------------------");
+                    }
                 }
             }
         } catch (IOException e) {
@@ -190,9 +254,14 @@ public class GestioneTheKnife {
         }
 
         if (!trovate) {
-            System.out.println("Non ci sono recensioni per i tuoi ristoranti.");
+            System.out.println("Non ci sono recensioni per questo ristorante.");
+        } else {
+            double media = numeroRecensioni > 0 ? (double) totaleStelle / numeroRecensioni : 0;
+            System.out.println("Numero recensioni: " + numeroRecensioni);
+            System.out.printf("Media stelle: %.2f\n", media);
         }
     }
+}
 
 
     /**
@@ -539,42 +608,49 @@ public class GestioneTheKnife {
         return false;
     }
 
-    public static boolean loginUtenteR(String username, String password, String ruolo) {
-
-        if (username == null || password == null || ruolo == null || username.isEmpty() || password.isEmpty() || ruolo.isEmpty()) {
-            System.out.println("Username o password vuoti.");
-            return false;
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-                String[] campi = linea.split(",", -1);
-
-                String usernameFile = campi[2].trim();
-                String passwordFile = campi[3].trim();
-                String ruoloFile = campi[6].trim();
-
-                if (usernameFile.equals(username)) {
-                    if (passwordFile.equals(password)) {
-                        if(ruolo.equals(ruoloFile)){
-                            return true;
-                        }
-                    } else {
-                        System.out.println("Password errata.");
-                        return false;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Errore nella lettura del file utenti: " + e.getMessage());
-            return false;
-        }
-
-        System.out.println("Username non trovato.");
+    public static boolean loginUtenteR(String username, String passwordCriptataInput, String ruolo) {
+    if (username == null || passwordCriptataInput == null || ruolo == null || username.isEmpty() || passwordCriptataInput.isEmpty() || ruolo.isEmpty()) {
+        System.out.println("Username o password vuoti.");
         return false;
     }
+
+    try (BufferedReader br = new BufferedReader(new FileReader(fileUtentiPath))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] campi = linea.split(",", -1);
+
+            if (campi.length <= 6) {
+                System.out.println("Linea utenti malformata: " + linea);
+                continue;
+            }
+
+            String usernameFile = campi[2].trim();
+            String passwordFile = campi[3].trim();
+            String ruoloFile = campi[6].trim();
+
+
+            if (usernameFile.equals(username)) {
+                if (passwordFile.equals(passwordCriptataInput)) {
+                    if (ruolo.equals(ruoloFile)) {
+                        return true;
+                    } else {
+                        System.out.println("Ruolo non corrisponde.");
+                        return false;
+                    }
+                } else {
+                    System.out.println("Password errata.");
+                    return false;
+                }
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Errore nella lettura del file utenti: " + e.getMessage());
+        return false;
+    }
+
+    System.out.println("Username non trovato.");
+    return false;
+}
 
 public static boolean registraUtente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo, String preferiti) {
     File file = new File("dati/utenti.txt");
