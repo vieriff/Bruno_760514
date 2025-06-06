@@ -1,5 +1,2 @@
-devozzz,sushi milano;milano,1,ho eliminato dai preferiti,Nrisposta
-devozzz,sushi milano;milano,1,terribile,Nrisposta
-devozzz,sushi express;milano,2,non cosi buono,Nrisposta
-cliente1,Sushi Milano;Milano,5,Eccellente sushi!
-cliente2,Sushi Milano;Milano,4,Buona qualità ma servizio lento
+devozzz,La Trattoria;roma,devozzz,ha cambiato gestione schifo,Nrisposta
+devozzz,Sushi World;Milano,3,molto ma molto mid,ammazzati

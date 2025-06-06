@@ -145,8 +145,8 @@ public class MainInterface {
             System.out.println("3. Visualizza preferiti");
             System.out.println("4. Aggiungi recensione");
             System.out.println("5. Cerca ristorante");
-            System.out.println("6. Modifica recensione (non disponibile)");
-            System.out.println("7. Elimina recensione (non disponibile)");
+            System.out.println("6. Modifica recensione");
+            System.out.println("7. Elimina recensione");
             System.out.println("0. Logout");
             System.out.print("Scelta: ");
 
@@ -194,7 +194,26 @@ public class MainInterface {
                     }
                 }
                 case "5" -> cercaRistoranti();
-                case "6", "7" -> System.out.println("Funzionalità non ancora disponibile. Torna più tardi.");
+                case "6" -> {
+                    System.out.println("inserisci il nome del ristorante della recensione che vuoi modificare:");
+                    String nomeRis = scanner.nextLine();
+                    System.out.println("inserisci il luogo del ristorante della recensione che vuoi modificare:");
+                    String luogoRis = scanner.nextLine();
+                    System.out.println("inserisci il nuovo voto");
+                    int nuovoVoto = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("inserisci la nuova recensione");
+                    String nuovaRec = scanner.nextLine();
+                    GestioneTheKnife.modificaRecensione(username, nomeRis, luogoRis, nuovoVoto, nuovaRec);
+                }
+                case "7"->{ 
+                    System.out.println("inserisci il nome del ristorante della recensione che vuoi eliminare:");
+                    String nomeRis = scanner.nextLine();
+                    System.out.println("inserisci il luogo del ristorante della recensione che vuoi eliminare:");
+                    String luogoRis = scanner.nextLine();
+                    GestioneTheKnife.eliminaRecensione(username, nomeRis, luogoRis);
+
+                }
                 case "0" -> back = true;
                 default -> System.out.println("Scelta non valida");
             }

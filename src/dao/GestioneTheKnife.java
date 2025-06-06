@@ -203,7 +203,7 @@ public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
     try (BufferedReader brRistoranti = new BufferedReader(new FileReader(fileRistorantiPath))) {
         String linea;
         while ((linea = brRistoranti.readLine()) != null) {
-            String[] campi = linea.split(",", -1);
+            String[] campi = linea.split(";", -1);
             if (campi.length > 1 && campi[1].equals(usernameLoggato)) {
                 ristorantiGestiti.add(campi[0]);
             }
@@ -268,68 +268,80 @@ public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
      * Permette a un ristoratore di rispondere a una recensione.
      * @return true se risposta salvata correttamente, false altrimenti
      */
-    public static boolean rispondiRecensione(String usernameLoggato, String nomeRistorante, String usernameCliente, String risposta) {
-        if (fileRecensioniPath == null || fileRistorantiPath == null) {
-            return false;
-        }
+   public static boolean rispondiRecensione(String usernameLoggato, String nomeRistorante, String usernameCliente, String risposta) {
+    String fileRistorantiPath = "dati/ristoranti.txt";
+    String fileRecensioniPath = "dati/recensioni.txt";
 
-        boolean ristoranteTrovato = false;
-        try (BufferedReader br = new BufferedReader(new FileReader(fileRistorantiPath))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] campi = linea.split(";", -1);
-                if (campi.length >= 2 && campi[0].trim().equals(nomeRistorante.trim()) && campi[1].trim().equals(usernameLoggato.trim())) {
+    boolean ristoranteTrovato = false;
+
+    try (BufferedReader br = new BufferedReader(new FileReader(fileRistorantiPath))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] campi = linea.split(";", -1);
+            if (campi.length >= 2) {
+                String nomeRis = campi[0].trim();
+                String usernameProprietario = campi[1].trim();
+                if (nomeRis.equalsIgnoreCase(nomeRistorante.trim()) && usernameProprietario.equalsIgnoreCase(usernameLoggato.trim())) {
                     ristoranteTrovato = true;
                     break;
                 }
             }
-        } catch (IOException e) {
-            return false;
         }
+    } catch (IOException e) {
+        return false;
+    }
 
-        if (!ristoranteTrovato) {
-            return false;
-        }
+    if (!ristoranteTrovato) {
+        return false;
+    }
 
-        LinkedList<String> righeAggiornate = new LinkedList<>();
-        boolean recensioneAggiornata = false;
+    List<String> recensioniAggiornate = new ArrayList<>();
+    boolean rispostaAggiunta = false;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileRecensioniPath))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] campi = linea.split(",", -1);
-
-                if (campi.length == 5 && campi[0].trim().equals(usernameCliente.trim()) && campi[1].trim().equals(nomeRistorante.trim())) {
-                    if (!campi[4].trim().equalsIgnoreCase("null") && !campi[4].trim().isEmpty()) {
-                        return false;
+    try (BufferedReader br = new BufferedReader(new FileReader(fileRecensioniPath))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] campi = linea.split(",", -1);
+            if (campi.length == 5) {
+                String user = campi[0].trim();
+                String[] nomeELuogo = campi[1].split(";", 2);
+                if (nomeELuogo.length == 2) {
+                    String nomeRis = nomeELuogo[0].trim();
+                    if (user.equalsIgnoreCase(usernameCliente.trim()) && nomeRis.equalsIgnoreCase(nomeRistorante.trim())) {
+                        String rispostaEsistente = campi[4].trim();
+                        if (rispostaEsistente.equalsIgnoreCase("Nrisposta") || rispostaEsistente.isEmpty()) {
+                            campi[4] = risposta;
+                            rispostaAggiunta = true;
+                        } else {
+                            return false;
+                        }
+                        String nuovaLinea = String.join(",", campi);
+                        recensioniAggiornate.add(nuovaLinea);
+                        continue;
                     }
-                    campi[4] = risposta;
-                    String nuovaLinea = String.join(",", campi);
-                    righeAggiornate.add(nuovaLinea);
-                    recensioneAggiornata = true;
-                } else {
-                    righeAggiornate.add(linea);
                 }
             }
-        } catch (IOException e) {
-            return false;
+            recensioniAggiornate.add(linea);
         }
-
-        if (!recensioneAggiornata) {
-            return false;
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioniPath))) {
-            for (String riga : righeAggiornate) {
-                writer.write(riga);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            return false;
-        }
-
-        return true;
+    } catch (IOException e) {
+        return false;
     }
+
+    if (!rispostaAggiunta) {
+        return false;
+    }
+
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileRecensioniPath, false))) {
+        for (String riga : recensioniAggiornate) {
+            bw.write(riga);
+            bw.newLine();
+        }
+    } catch (IOException e) {
+        return false;
+    }
+
+    return true;
+}
 
     /**
      * Aggiunge un ristorante ai preferiti dell'utente.
@@ -692,38 +704,6 @@ public static boolean registraUtente(String nome, String cognome, String usernam
         return false;
     }
 }
-
-    public static boolean aggiungiRecensione(String username, String nomeRistorante, int voto, String testo) {
-        File file = new File("dati/recensioni.txt");
-        try {
-            if (!file.exists()) file.createNewFile();
-
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    String[] campi = linea.split(",", -1);
-                    if (campi.length >= 2 && campi[0].equals(username) && campi[1].equalsIgnoreCase(nomeRistorante)) {
-                        return false;
-                    }
-                }
-            }
-
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-                String nuovaRiga = username + "," + nomeRistorante + "," + voto + "," + testo.replace(",", " ") + "," + "null";
-                bw.write(nuovaRiga);
-                bw.newLine();
-            }
-
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-
-
 public static List<String> cercaRistorantiAvanzata(
     String zona,
     String cucina,
@@ -824,5 +804,54 @@ public static List<String> cercaRistorantiAvanzata(
     }
     return media;
 }
+    public static void eliminaRecensione(String username, String nomeRis, String luogoRis) {
+    String filePath = "dati/recensioni.txt";
+    List<String> recensioniAggiornate = new ArrayList<>();
+    boolean eliminata = false;
 
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] parti = linea.split(",", 6);
+            if (parti.length < 3) continue;
+
+            String fileUsername = parti[0].trim();
+            String[] nomeELuogo = parti[1].split(";", 2);
+            if (nomeELuogo.length < 2) continue;
+
+            String fileNomeRis = nomeELuogo[0].trim();
+            String fileLuogoRis = nomeELuogo[1].trim();
+
+            if (fileUsername.equalsIgnoreCase(username.trim()) &&
+                fileNomeRis.equalsIgnoreCase(nomeRis.trim()) &&
+                fileLuogoRis.equalsIgnoreCase(luogoRis.trim())) {
+                eliminata = true;
+            } else {
+                recensioniAggiornate.add(linea);
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Errore durante la lettura del file recensioni: " + e.getMessage());
+        return;
+    }
+
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) {
+        for (String riga : recensioniAggiornate) {
+            bw.write(riga);
+            bw.newLine();
+        }
+        if (eliminata) {
+            System.out.println("Recensione eliminata con successo.");
+        } else {
+            System.out.println("Nessuna recensione trovata corrispondente ai parametri forniti.");
+        }
+    } catch (IOException e) {
+        System.err.println("Errore durante la scrittura del file recensioni: " + e.getMessage());
+    }
+}
+
+    public static void modificaRecensione(String username, String nomeRistorante, String luogoRis, int voto, String nuovaRec){
+        GestioneTheKnife.eliminaRecensione(username, nomeRistorante, luogoRis); 
+        GestioneTheKnife.aggiungiRecensione(username, nomeRistorante, luogoRis, username, nuovaRec);
+    }  
 }
