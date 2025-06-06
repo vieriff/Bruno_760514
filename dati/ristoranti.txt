@@ -25,5 +25,6 @@ Ristorante del Mare;francesco;Italia;Venezia;Calle Larga 1;45.4408;12.3155;4;Sì
 Pizzeria Bella Napoli;maria;Italia;Napoli;Via dei Tribunali 75;40.8518;14.2681;1;Sì;Sì;Pizzeria
 Trattoria Rustica;roberto;Italia;Bologna;Via Zamboni 12;44.4949;11.3426;2;No;No;Italiana
 Ristorante del Centro;elena;Italia;Firenze;Via dei Calzaiuoli 18;43.7696;11.2558;3;Sì;Sì;Italiana
-Sushi Milano,suiden,Italia,Milano,Via Brera 9,45.4642,9.1900,3,true,false,Giapponese
-Sushi marcio,suiden,Italia,Milano,Via Brera 10,45.4642,9.1900,7,true,false,messicano
+suiden mania;suiden;italia;Milano;piazza deturbo 4;1.2333212E7;232111.0;35;si;si;ganese
+conisocus;suiden;italia;milano;piazza liberta 12;13231.0;213244.0;150;si;si;moldava
+stercurianus;suiden;italia;milano;paiazz che 4;142.0;23423.0;56;no;no;rumena
