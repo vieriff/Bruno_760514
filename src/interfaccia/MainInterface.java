@@ -263,7 +263,7 @@ public class MainInterface {
                         System.out.println("Errore nell'aggiunta del ristorante.");
                     }
                 }
-                case "2" -> GestioneTheKnife.visualizzaRiepilogo();
+                case "2" -> GestioneTheKnife.visualizzaRiepilogo(username);
                 case "3" -> GestioneTheKnife.visualizzaRecensioniPerRistoratore(username);
                 case "4" -> {
                     System.out.print("Nome ristorante: ");

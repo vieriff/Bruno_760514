@@ -6,8 +6,10 @@ package src.dao;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import src.dto.ristorante;
 import src.mapper.Mapper;
 
@@ -36,106 +38,146 @@ public class GestioneTheKnife {
      * Aggiunge un nuovo ristorante al file.
      * @return true se aggiunto correttamente, false altrimenti
      */
-	public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
-        int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
-        String tipo_Cucina) {
+public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
+    int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
+    String tipo_Cucina) {
 
-        if (nome == null || nome.isEmpty() ||
-            usernameRistoratore == null || usernameRistoratore.isEmpty() ||
-            nazione == null || nazione.isEmpty() ||
-            città == null || città.isEmpty() ||
-            indirizzo == null || indirizzo.isEmpty() ||
-            tipo_Cucina == null || tipo_Cucina.isEmpty())
-            return false;
+    if (nome == null || nome.isEmpty() ||
+        usernameRistoratore == null || usernameRistoratore.isEmpty() ||
+        nazione == null || nazione.isEmpty() ||
+        città == null || città.isEmpty() ||
+        indirizzo == null || indirizzo.isEmpty() ||
+        tipo_Cucina == null || tipo_Cucina.isEmpty())
+        return false;
 
-        if (prezzo <= 0)
-            return false;
+    if (prezzo <= 0)
+        return false;
 
-        ristorante nuovoRistorante = new ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
-                longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
-
-        String riga = Mapper.mapStrRistorante(nuovoRistorante);
-
-        try {
-            File file = new File(fileRistorantiPath);
-            boolean addNewline = false;
-
-            if (file.exists() && file.length() > 0) {
-                RandomAccessFile raf = new RandomAccessFile(file, "r");
-                raf.seek(file.length() - 1);
-                int lastByte = raf.read();
-                raf.close();
-                if (lastByte != '\n') {
-                    addNewline = true;
+    
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileRistorantiPath))) {
+        String linea;
+        while ((linea = reader.readLine()) != null) {
+            String[] campi = linea.split(";", -1);
+            if (campi.length >= 5) {
+                String nomeEsistente = campi[0].trim();
+                String indirizzoEsistente = campi[4].trim();
+                if (nomeEsistente.equalsIgnoreCase(nome.trim()) && indirizzoEsistente.equalsIgnoreCase(indirizzo.trim())) {
+                    System.out.println("Errore: esiste già un ristorante con lo stesso nome e indirizzo.");
+                    return false;
                 }
             }
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-            if (addNewline) writer.newLine();
-            writer.write(riga);
-            writer.newLine();
-            writer.close();
-
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+    } catch (IOException e) {
+        System.err.println("Errore nella lettura del file ristoranti: " + e.getMessage());
+        return false;
     }
 
+    
+    ristorante nuovoRistorante = new ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
+            longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
+
+    String riga = Mapper.mapStrRistorante(nuovoRistorante);
+
+    try {
+        File file = new File(fileRistorantiPath);
+        boolean addNewline = false;
+
+        if (file.exists() && file.length() > 0) {
+            RandomAccessFile raf = new RandomAccessFile(file, "r");
+            raf.seek(file.length() - 1);
+            int lastByte = raf.read();
+            raf.close();
+            if (lastByte != '\n') {
+                addNewline = true;
+            }
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+        if (addNewline) writer.newLine();
+        writer.write(riga);
+        writer.newLine();
+        writer.close();
+
+        return true;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
 
     /**
      * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
      */
-    public static void visualizzaRiepilogo() {
+    public static void visualizzaRiepilogo(String usernameRistoratore) {
+    if (fileRistorantiPath == null || fileRecensioniPath == null) {
+        System.err.println("Errore: file non configurati.");
+        return;
+    }
 
-        LinkedList<String> righeRecensioni = new LinkedList<>();
+    try (
+        BufferedReader brRistoranti = new BufferedReader(new FileReader(fileRistorantiPath));
+        BufferedReader brRecensioni = new BufferedReader(new FileReader(fileRecensioniPath))
+    ) {
+        // Mappa ristorante -> città
+        Map<String, String> ristorantiDelRistoratore = new HashMap<>();
+        String lineaRistorante;
+        while ((lineaRistorante = brRistoranti.readLine()) != null) {
+            String[] campi = lineaRistorante.split(";", -1); // <-- USA ; come separatore corretto
+            if (campi.length >= 4) {
+                String nomeRistorante = campi[0].trim();
+                String proprietario = campi[1].trim();
 
-        try (BufferedReader recReader = new BufferedReader(new FileReader(fileRecensioniPath))) {
-            String linea;
-            while ((linea = recReader.readLine()) != null) {
-                righeRecensioni.add(linea);
+                if (proprietario.equalsIgnoreCase(usernameRistoratore.trim())) {
+                    String citta = campi[3].trim();
+                    ristorantiDelRistoratore.put(nomeRistorante, citta);
+                }
             }
-        } catch (IOException e) {
-            System.err.println("Errore nella lettura delle recensioni");
+        }
+
+        if (ristorantiDelRistoratore.isEmpty()) {
+            System.out.println("Non hai ancora registrato ristoranti.");
             return;
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileRistorantiPath))) {
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                String[] campi = linea.split(",", -1);
-                String nomeRistorante = campi[0];
+        // Inizializza riepiloghi
+        Map<String, Integer> sommaStelle = new HashMap<>();
+        Map<String, Integer> conteggioRecensioni = new HashMap<>();
 
-                int sommaVoti = 0;
-                int conteggio = 0;
-                for (String recLine : righeRecensioni) {
-                    String[] recCampi = recLine.split(",", -1);
-                    if (recCampi[1].equalsIgnoreCase(nomeRistorante)) {
-                        try {
-                            sommaVoti += Integer.parseInt(recCampi[2]);
-                            conteggio++;
-                        } catch (NumberFormatException e) {
-                            // ignora voti non validi
-                        }
-                    }
+        String lineaRecensione;
+        while ((lineaRecensione = brRecensioni.readLine()) != null) {
+            String[] campi = lineaRecensione.split(",", -1);
+            if (campi.length >= 3) {
+                String nomeRistRec = campi[1].split(";")[0].trim(); // nome del ristorante
+                int stelle = 0;
+                try {
+                    stelle = Integer.parseInt(campi[2].trim());
+                } catch (NumberFormatException e) {
+                    continue;
                 }
-                System.out.println("Ristorante: " + nomeRistorante);
-                if (conteggio > 0) {
-                    double media = (double) sommaVoti / conteggio;
-                    System.out.println("Numero recensioni: " + conteggio);
-                    System.out.printf("Media voti: %.2f%n", media);
-                } else {
-                    System.out.println("Nessuna recensione disponibile.");
+
+                if (ristorantiDelRistoratore.containsKey(nomeRistRec)) {
+                    sommaStelle.put(nomeRistRec, sommaStelle.getOrDefault(nomeRistRec, 0) + stelle);
+                    conteggioRecensioni.put(nomeRistRec, conteggioRecensioni.getOrDefault(nomeRistRec, 0) + 1);
                 }
-                System.out.println("-----------------------------");
             }
-        } catch (IOException e) {
-            System.err.println("Errore nella lettura del file ristoranti");
         }
+
+        for (String nomeRist : ristorantiDelRistoratore.keySet()) {
+            int totale = sommaStelle.getOrDefault(nomeRist, 0);
+            int count = conteggioRecensioni.getOrDefault(nomeRist, 0);
+            double media = (count == 0) ? 0 : (double) totale / count;
+
+            System.out.println(nomeRist + " - " + ristorantiDelRistoratore.get(nomeRist));
+            System.out.println("Media valutazioni: " + String.format("%.2f", media) + " su " + count + " recensioni");
+            System.out.println("------------------------------------");
+        }
+
+    } catch (IOException e) {
+        System.err.println("Errore durante la lettura dei file: " + e.getMessage());
     }
+}
 
     /**
      * Visualizza tutte le recensioni relative ai ristoranti gestiti da un dato utente.
@@ -551,30 +593,60 @@ public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
      * Aggiunge una recensione per un ristorante da parte di un utente.
      * @return true se la recensione è stata aggiunta con successo, false altrimenti
      */
-    public static boolean aggiungiRecensione(String username, String nomeRistorante, String luogoRistorante, String valutazione, String testoRecensione) {  //permette di aggiungere una recensione ad un ristorante
-        String fileRecensioniPath = "dati/recensioni.txt";
-    
-        if (username == null || nomeRistorante == null || luogoRistorante == null || 
-            valutazione == null || testoRecensione == null ||                                   //se uno di questi campi non è presente non è possibile andare avanti
-            username.isEmpty() || nomeRistorante.isEmpty() || luogoRistorante.isEmpty() ||
-            valutazione.isEmpty() || testoRecensione.isEmpty()) {
-            System.out.println("Campi non validi.");
-            return false;
-        }
-    
-        String ristorante = nomeRistorante + ";" + luogoRistorante;
-        String nuovaRecensione = String.join(",", username, ristorante, valutazione, testoRecensione, "Nrisposta");
-    
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioniPath, true))) {
-            writer.write(nuovaRecensione);      //qui scrive la recensione nel file
-            writer.newLine();
-        } catch (IOException e) {
-            System.err.println("Errore durante la scrittura del file recensioni: " + e.getMessage());
-            return false;
-        }
-    
-        return true;
+public static boolean aggiungiRecensione(String username, String nomeRistorante, String luogoRistorante, String valutazione, String testoRecensione) {
+    String fileRecensioniPath = "dati/recensioni.txt";
+    String fileRistorantiPath = "dati/ristoranti.txt";
+
+    if (username == null || nomeRistorante == null || luogoRistorante == null ||
+        valutazione == null || testoRecensione == null ||
+        username.isEmpty() || nomeRistorante.isEmpty() || luogoRistorante.isEmpty() ||
+        valutazione.isEmpty() || testoRecensione.isEmpty()) {
+        System.out.println("Campi non validi.");
+        return false;
     }
+
+
+    boolean esiste = false;
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileRistorantiPath))) {
+        String linea;
+        while ((linea = reader.readLine()) != null) {
+            String[] campi = linea.split(";", -1);
+            if (campi.length >= 5) {
+                String nomeFile = campi[0].trim().toLowerCase();
+                String cittàFile = campi[3].trim().toLowerCase();
+
+                if (nomeFile.equals(nomeRistorante.trim().toLowerCase()) &&
+                    cittàFile.equals(luogoRistorante.trim().toLowerCase())) {
+                    esiste = true;
+                    break;
+                }
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Errore nella lettura del file ristoranti: " + e.getMessage());
+        return false;
+    }
+
+    if (!esiste) {
+        System.out.println("Errore: il ristorante specificato non esiste.");
+        return false;
+    }
+
+
+    String ristorante = nomeRistorante + ";" + luogoRistorante;
+    String nuovaRecensione = String.join(",", username, ristorante, valutazione, testoRecensione, "Nrisposta");
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioniPath, true))) {
+        writer.write(nuovaRecensione);
+        writer.newLine();
+    } catch (IOException e) {
+        System.err.println("Errore durante la scrittura del file recensioni: " + e.getMessage());
+        return false;
+    }
+
+    return true;
+}
     
     
     /**
