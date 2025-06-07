@@ -1,9 +1,15 @@
+/*
+ * Sebastiano Svezia 760462 VA
+ * Davide Bruno 760514 VA 
+ * Fancesco Vieri 761195 VA
+ * Leonardo Bighetti 760015 VA
+ */
+
+package src.dao;
 /**
  * Classe DAO per la gestione delle funzionalità principali dell'applicazione TheKnife.
  * Fornisce metodi per l'aggiunta e gestione di ristoranti, recensioni, e preferiti.
  */
-package src.dao;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
