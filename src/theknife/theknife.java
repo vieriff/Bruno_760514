@@ -1,4 +1,4 @@
-package src.interfaccia;
+package src.theknife;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,7 +13,7 @@ import src.dao.*;
 import src.sicurezzaPassword.*;
 
 
-public class MainInterface {
+public class theknife {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
