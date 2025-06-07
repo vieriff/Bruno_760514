@@ -1,4 +1,4 @@
 Paolo,Paolo,Paolo0,Vguru,Paolo,Paolo,utente,
 Gianni,Gianni,Gianni1,Mogtto,Gianni,Gianni,ristoratore,
-davide,bruno,devozzz,rkzin,0001-01-01,vilastanza,cliente,suiden mania;milano
+davide,bruno,devozzz,rkzin,0001-01-01,vilastanza,cliente,
 seba,svezia,suiden,rkzin,0001-01-01,samarate,ristoratore,
