@@ -1,3 +1,10 @@
+
+/*
+ * Sebastiano Svezia 760462 VA
+ * Davide Bruno 760514 VA 
+ * Fancesco Vieri 761195 VA
+ * Leonardo Bighetti 760015 VA
+ */
 package src.sicurezzaPassword;
 /**
  * La classe {@code Criptazione} fornisce metodi per la criptazione e la decriptazione di stringhe
