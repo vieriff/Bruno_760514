@@ -11,11 +11,33 @@ import java.util.List;
 import java.util.Scanner;
 import src.dao.*;
 import src.sicurezzaPassword.*;
-
+/**
+ * TheKnife – Applicazione console per la gestione di ristoranti.
+ * 
+ * Consente a clienti e ristoratori di registrarsi, effettuare il login
+ * e usufruire di varie funzionalità come la ricerca avanzata, la gestione delle
+ * recensioni ed i preferiti.
+ * 
+ * 
+ *   I clienti possono: aggiungere/rimuovere ristoranti dai preferiti,
+ *       scrivere/modificare/eliminare recensioni, consultare le proprie liste
+ *       ed effettuare ricerche.
+ *   I ristoratori possono: inserire ristoranti, visualizzare riepiloghi
+ *       o singole recensioni e rispondere ad esse.
+ * Tutta la logica di business fa capo alla classe {@code GestioneTheKnife} – qui
+ * viene gestita unicamente l'interfaccia utente testuale.
+ */
 
 public class theknife {
+     /**
+     * Scanner condiviso per la lettura dei comandi da console.
+     */
     private static final Scanner scanner = new Scanner(System.in);
-
+    /**
+     * Punto di ingresso dell'applicazione.
+     * 
+     * @param args argomenti passati da riga di comando (non utilizzati)
+     */
     public static void main(String[] args) {
            boolean running = true;
 
@@ -38,7 +60,12 @@ public class theknife {
             }
         }
     }
-
+    /**
+     * Gestisce la procedura di login per clienti o ristoratori.
+     * 
+     * @param ruolo "cliente" oppure "ristoratore"
+     * @return {@code true} se il login va a buon fine, altrimenti {@code false}
+     */
     private static boolean login(String ruolo) {
         System.out.print("Username: ");
         String username = scanner.nextLine().trim();
@@ -66,7 +93,12 @@ public class theknife {
         }
         return success;
     }
-
+    /**
+     * Gestisce la procedura di registrazione di un nuovo utente.
+     * <p>Richiede l'inserimento dei dati obbligatori e, in caso di successo,
+     * delega alla classe {@code GestioneTheKnife} la persistenza delle
+     * informazioni.</p>
+     */
     private static void registrazione() {
         System.out.print("Nome: ");
         String nome = scanner.nextLine().trim();
@@ -118,6 +150,12 @@ public class theknife {
         }
     }
 
+    /**
+     * Effettua il parsing della data di nascita inserita dall'utente.
+     * 
+     * @param inputData data nel formato {@code dd/MM/yyyy}; se vuota ritorna 1/1/0000
+     * @return {@link Calendar} rappresentante la data, oppure {@code null} se il formato è errato
+     */
     private static Calendar parseDataNascita(String inputData) {
         if (inputData == null || inputData.trim().isEmpty()) {
             // Data "vuota": impostiamo 1 gennaio anno 0
@@ -135,7 +173,11 @@ public class theknife {
             }
         }
     }
-
+    /**
+     * Mostra il menu dedicato ai clienti e gestisce le relative azioni.
+     * 
+     * @param username username del cliente autenticato
+     */
     private static void menuCliente(String username) {
         boolean back = false;
         while (!back) {
@@ -220,6 +262,11 @@ public class theknife {
         }
     }
 
+    /**
+     * Mostra il menu dedicato ai ristoratori e gestisce le relative azioni.
+     * 
+     * @param username username del ristoratore autenticato
+     */
     private static void menuRistoratore(String username) {
         boolean back = false;
         while (!back) {
