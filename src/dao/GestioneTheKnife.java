@@ -8,7 +8,7 @@ package src.dao;
 
 
 /**
- * Classe DAO per la gestione delle funzionalità principali dell'applicazione TheKnife.
+ * Classe DAO per la gestione delle funzionalita principali dell'applicazione TheKnife.
  * Fornisce metodi per l'aggiunta e gestione di ristoranti, recensioni, e preferiti.
  */
 
@@ -22,10 +22,10 @@ import src.dto.Ristorante;
 import src.mapper.Mapper;
 
 /**
- * Classe di utilità che gestisce le operazioni principali legate alla piattaforma TheKnife.
+ * Classe di utilita che gestisce le operazioni principali legate alla piattaforma TheKnife.
  * <p>
- * Contiene metodi statici per la gestione di ristoranti, recensioni, utenti e funzionalità
- * di login, preferiti, risposta alle recensioni, riepiloghi e altre funzionalità collegate.
+ * Contiene metodi statici per la gestione di ristoranti, recensioni, utenti e funzionalita
+ * di login, preferiti, risposta alle recensioni, riepiloghi e altre funzionalita collegate.
  * Questa classe agisce come livello di business centrale per coordinare l'accesso ai dati
  * e la logica di controllo.
  *
@@ -41,7 +41,7 @@ public class GestioneTheKnife {
 
 
   /**
- * Aggiunge un nuovo Ristorante al sistema, se i dati sono validi e non esiste già un Ristorante con lo stesso nome e indirizzo.
+ * Aggiunge un nuovo Ristorante al sistema, se i dati sono validi e non esiste gia un Ristorante con lo stesso nome e indirizzo.
  * <p>
  * La funzione valida i parametri in input, controlla la presenza di duplicati nel file, crea un nuovo oggetto
  * {@link Ristorante} e lo salva nel file di archiviazione in formato testuale.
@@ -49,7 +49,7 @@ public class GestioneTheKnife {
  * @param nome                       il nome del Ristorante
  * @param usernameRistoratore        lo username del ristoratore associato
  * @param nazione                   la nazione del Ristorante
- * @param citta                     la città in cui si trova il Ristorante
+ * @param citta                     la citta in cui si trova il Ristorante
  * @param indirizzo                 l'indirizzo del Ristorante
  * @param latitudine                la latitudine geografica del Ristorante
  * @param longitudine               la longitudine geografica del Ristorante
@@ -60,14 +60,14 @@ public class GestioneTheKnife {
  * @return true se il Ristorante è stato aggiunto correttamente, false in caso di errore o dati duplicati
  */
 
-public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
-    int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
+public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String citta, String indirizzo, int latitudine,
+    int longitudine, int prezzo, boolean disponibilita_delivery, boolean disponibilita_prenotazione,
     String tipo_Cucina) {
 
     if (nome == null || nome.isEmpty() ||
         usernameRistoratore == null || usernameRistoratore.isEmpty() ||
         nazione == null || nazione.isEmpty() ||
-        città == null || città.isEmpty() ||
+        citta == null || citta.isEmpty() ||
         indirizzo == null || indirizzo.isEmpty() ||
         tipo_Cucina == null || tipo_Cucina.isEmpty())
         return false;
@@ -84,7 +84,7 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
                 String nomeEsistente = campi[0].trim();
                 String indirizzoEsistente = campi[4].trim();
                 if (nomeEsistente.equalsIgnoreCase(nome.trim()) && indirizzoEsistente.equalsIgnoreCase(indirizzo.trim())) {
-                    System.out.println("Errore: esiste già un Ristorante con lo stesso nome e indirizzo.");
+                    System.out.println("Errore: esiste gia un Ristorante con lo stesso nome e indirizzo.");
                     return false;
                 }
             }
@@ -95,8 +95,8 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
     }
 
     
-    Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, città, indirizzo, latitudine,
-            longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_Cucina);
+    Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, citta, indirizzo, latitudine,
+            longitudine, prezzo, disponibilita_delivery, disponibilita_prenotazione, tipo_Cucina);
 
     String riga = Mapper.mapStrRistorante(nuovoRistorante);
 
@@ -131,7 +131,7 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
 
    /**
  * Visualizza un riepilogo dei ristoranti registrati dall'utente specificato,
- * mostrando per ciascuno il nome, la città e la media delle valutazioni ricevute.
+ * mostrando per ciascuno il nome, la citta e la media delle valutazioni ricevute.
  * <p>
  * I dati vengono letti da due file: uno contenente i ristoranti e l'altro le recensioni.
  * Il metodo calcola la media delle stelle ricevute per ogni Ristorante associato all'utente
@@ -149,7 +149,7 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
         BufferedReader brRistoranti = new BufferedReader(new FileReader(fileRistorantiPath));
         BufferedReader brRecensioni = new BufferedReader(new FileReader(fileRecensioniPath))
     ) {
-        // Mappa Ristorante -> città
+        // Mappa Ristorante -> citta
         Map<String, String> ristorantiDelRistoratore = new HashMap<>();
         String lineaRistorante;
         while ((lineaRistorante = brRistoranti.readLine()) != null) {
@@ -366,7 +366,7 @@ public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
  * @param usernameCliente   lo username del cliente che ha scritto la recensione
  * @param risposta          il testo della risposta del ristoratore
  * @return true se la risposta è stata aggiunta con successo, false in caso di errore, Ristorante non valido,
- *         recensione inesistente o già risposto
+ *         recensione inesistente o gia risposto
  */
 public static boolean rispondiRecensione(String usernameLoggato, String nomeRistorante, String usernameCliente, String risposta) {
 
@@ -413,7 +413,7 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
                             campi[4] = risposta;
                             rispostaAggiunta = true;
                         } else {
-                            System.err.println("Errore: questa recensione ha già una risposta. Non è possibile aggiungerne un'altra.");
+                            System.err.println("Errore: questa recensione ha gia una risposta. Non è possibile aggiungerne un'altra.");
                             return false;
                         }
                         String nuovaLinea = String.join(",", campi);
@@ -448,17 +448,17 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
 }
 
 /**
- * Aggiunge un Ristorante alla lista dei preferiti di un utente, se non è già presente.
+ * Aggiunge un Ristorante alla lista dei preferiti di un utente, se non è gia presente.
  * <p>
  * Il metodo verifica che i dati in input siano validi, cerca l'utente nel file degli utenti,
- * controlla che il Ristorante non sia già nei suoi preferiti, e in tal caso lo aggiunge.
+ * controlla che il Ristorante non sia gia nei suoi preferiti, e in tal caso lo aggiunge.
  * I dati vengono poi salvati riscrivendo l'intero file.
  *
  * @param usernameCliente   lo username del cliente che sta effettuando l'aggiunta
  * @param nomeRistorante    il nome del Ristorante da aggiungere ai preferiti
- * @param luogoRistorante   la città o località del Ristorante
+ * @param luogoRistorante   la citta o localita del Ristorante
  * @return true se il Ristorante è stato aggiunto con successo, false in caso di input non valido,
- *         Ristorante già presente o errore durante lettura/scrittura del file
+ *         Ristorante gia presente o errore durante lettura/scrittura del file
  */
     public static boolean aggiungiPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {    //aggiunge un Ristorante al campo preferiti dell'utente che ha effettuato il login
 
@@ -485,18 +485,18 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
                     String preferiti = campi[7].trim();
                     String nuovoPreferito = nomeRistorante + ";" + luogoRistorante;
 
-                    boolean giàPresente = false;
+                    boolean giaPresente = false;
                     if (!preferiti.isEmpty()) {
                         String[] ristoranti = preferiti.split("\\.");
-                        for (String Ristorante : ristoranti) {      //se il Ristorante è già tra i preferiti non viene inserito nuovamente
+                        for (String Ristorante : ristoranti) {      //se il Ristorante è gia tra i preferiti non viene inserito nuovamente
                             if (Ristorante.trim().equalsIgnoreCase(nuovoPreferito)) {
-                                giàPresente = true;
+                                giaPresente = true;
                                 break;
                             }
                         }
                     }
 
-                    if (!giàPresente) {     //se tutto è andato a buon fine aggiungo il nuovo Ristorante preferito
+                    if (!giaPresente) {     //se tutto è andato a buon fine aggiungo il nuovo Ristorante preferito
                         if (preferiti.isEmpty()) {
                             preferiti = nuovoPreferito;
                         } else {
@@ -518,7 +518,7 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
         }
 
         if (!aggiornato) {
-            System.out.println("Utente non trovato o Ristorante già nei preferiti.");
+            System.out.println("Utente non trovato o Ristorante gia nei preferiti.");
             return false;
         }
 
@@ -538,14 +538,14 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
   /**
  * Rimuove un Ristorante dalla lista dei preferiti dell'utente specificato.
  * <p>
- * Il metodo verifica la validità dei parametri, legge il file degli utenti, trova l'utente corrispondente
+ * Il metodo verifica la validita dei parametri, legge il file degli utenti, trova l'utente corrispondente
  * e rimuove il Ristorante dai preferiti se presente. Infine, aggiorna il file con i dati modificati.
  * <p>
  * Se il Ristorante non è tra i preferiti o l'utente non è trovato, il metodo restituisce {@code false}.
  *
  * @param usernameCliente   lo username del cliente da cui rimuovere il Ristorante preferito
  * @param nomeRistorante    il nome del Ristorante da rimuovere
- * @param luogoRistorante   la città o località del Ristorante da rimuovere
+ * @param luogoRistorante   la citta o localita del Ristorante da rimuovere
  * @return true se il Ristorante è stato rimosso con successo, false se il Ristorante non era presente,
  *         l'utente non esiste o si è verificato un errore durante la lettura/scrittura del file
  */
@@ -670,19 +670,19 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
     }
 
    /**
- * Aggiunge una nuova recensione a un Ristorante specificato, se non già presente per l'utente.
+ * Aggiunge una nuova recensione a un Ristorante specificato, se non gia presente per l'utente.
  * <p>
  * Il metodo verifica che i dati siano validi, controlla l'esistenza del Ristorante, verifica che l'utente
- * non abbia già recensito lo stesso Ristorante nella stessa località e, in caso positivo, aggiunge
+ * non abbia gia recensito lo stesso Ristorante nella stessa localita e, in caso positivo, aggiunge
  * la nuova recensione al file delle recensioni.
  *
  * @param username          lo username del cliente che lascia la recensione
  * @param nomeRistorante    il nome del Ristorante recensito
- * @param luogoRistorante   la città o località in cui si trova il Ristorante
+ * @param luogoRistorante   la citta o localita in cui si trova il Ristorante
  * @param valutazione       il punteggio assegnato (es. da 1 a 5)
  * @param testoRecensione   il testo della recensione
  * @return true se la recensione è stata aggiunta correttamente, false in caso di errore o se la recensione
- *         è già presente
+ *         è gia presente
  */
 public static boolean aggiungiRecensione(String username, String nomeRistorante, String luogoRistorante, String valutazione, String testoRecensione) {
 
@@ -702,10 +702,10 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
             String[] campi = linea.split(";", -1);
             if (campi.length >= 5) {
                 String nomeFile = campi[0].trim().toLowerCase();
-                String cittàFile = campi[3].trim().toLowerCase();
+                String cittaFile = campi[3].trim().toLowerCase();
 
                 if (nomeFile.equals(nomeRistorante.trim().toLowerCase()) &&
-                    cittàFile.equals(luogoRistorante.trim().toLowerCase())) {
+                    cittaFile.equals(luogoRistorante.trim().toLowerCase())) {
                     esiste = true;
                     break;
                 }
@@ -721,7 +721,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
         return false;
     }
 
-    // Controlla se l'utente ha già recensito questo Ristorante nello stesso luogo
+    // Controlla se l'utente ha gia recensito questo Ristorante nello stesso luogo
     try (BufferedReader br = new BufferedReader(new FileReader(fileRecensioniPath))) {
         String linea;
         while ((linea = br.readLine()) != null) {
@@ -736,7 +736,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
                     if (usernameFile.equalsIgnoreCase(username.trim()) &&
                         nomeFile.equalsIgnoreCase(nomeRistorante.trim()) &&
                         luogoFile.equalsIgnoreCase(luogoRistorante.trim())) {
-                        System.out.println("Errore: l'utente ha già inserito una recensione per questo Ristorante.");
+                        System.out.println("Errore: l'utente ha gia inserito una recensione per questo Ristorante.");
                         return false;
                     }
                 }
@@ -869,7 +869,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
 
 /**
  * Registra un nuovo utente nel file specificato. Se il file non esiste, viene creato.
- * Verifica che l'username non sia già presente prima di aggiungere il nuovo utente.
+ * Verifica che l'username non sia gia presente prima di aggiungere il nuovo utente.
  *
  * @param nome        Il nome dell'utente.
  * @param cognome     Il cognome dell'utente.
@@ -879,7 +879,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
  * @param domicilio   Il domicilio dell'utente.
  * @param ruolo       Il ruolo dell'utente.
  * @param preferiti   Le preferenze dell'utente.
- * @return            {@code true} se l'utente è stato registrato con successo, {@code false} se l'username esiste già o si è verificato un errore.
+ * @return            {@code true} se l'utente è stato registrato con successo, {@code false} se l'username esiste gia o si è verificato un errore.
  */
     public static boolean registraUtente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo, String preferiti) {
     File file = new File("dati/utenti.txt");
@@ -891,7 +891,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
             file.createNewFile();
         }
 
-        // Controlla se l'username esiste già
+        // Controlla se l'username esiste gia
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = reader.readLine()) != null) {
@@ -924,7 +924,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
     
 /**
  * Cerca ristoranti in base a criteri avanzati, leggendo i dati da un file.
- * Filtra i risultati in base alla zona, tipo di cucina, fascia di prezzo, disponibilità di delivery o prenotazione,
+ * Filtra i risultati in base alla zona, tipo di cucina, fascia di prezzo, disponibilita di delivery o prenotazione,
  * e numero minimo di stelle.
  *
  * @param zona          La zona in cui cercare i ristoranti.
@@ -968,15 +968,15 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
             if (r == null) continue;
 
             // Filtri
-            if (zona != null && !zona.isEmpty() && !r.getCittà().equalsIgnoreCase(zona)) continue;
+            if (zona != null && !zona.isEmpty() && !r.getCitta().equalsIgnoreCase(zona)) continue;
 
             if (cucina != null && !cucina.isEmpty() && !r.getTipo_Cucina().toLowerCase().contains(cucina.toLowerCase())) continue;
 
             if (prezzoMin != null && r.getPrezzo() < prezzoMin) continue;
             if (prezzoMax != null && r.getPrezzo() > prezzoMax) continue;
 
-            if (delivery != null && r.isDisponibilità_delivery() != delivery) continue;
-            if (prenotazione != null && r.isDisponibilità_prenotazione() != prenotazione) continue;
+            if (delivery != null && r.isDisponibilita_delivery() != delivery) continue;
+            if (prenotazione != null && r.isDisponibilita_prenotazione() != prenotazione) continue;
 
             if (stelleMin != null) {
                 double mediaStelle = calcolaMediaStelle(r.getNome());
@@ -986,9 +986,9 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
             // Aggiungi descrizione
             String descrizione = String.format(
                 "%s - %s, %s\nIndirizzo: %s\nPrezzo medio: %d€\nDelivery: %s - Prenotazione: %s\nTipo cucina: %s\n",
-                r.getNome(), r.getUsername_ristoratore(), r.getCittà(), r.getIndirizzo(), r.getPrezzo(),
-                r.isDisponibilità_delivery() ? "Sì" : "No",
-                r.isDisponibilità_prenotazione() ? "Sì" : "No",
+                r.getNome(), r.getUsername_ristoratore(), r.getCitta(), r.getIndirizzo(), r.getPrezzo(),
+                r.isDisponibilita_delivery() ? "Sì" : "No",
+                r.isDisponibilita_prenotazione() ? "Sì" : "No",
                 r.getTipo_Cucina()
             );
             risultati.add(descrizione);

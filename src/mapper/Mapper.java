@@ -59,17 +59,17 @@ public class Mapper {
 	                String nome = dettagli[0];
 	                String username_ristoratore = dettagli[1];
 	                String nazione = dettagli[2];
-	                String città = dettagli[3];
+	                String citta = dettagli[3];
 	                String indirizzo = dettagli[4];
 	                int latitudine = Integer.parseInt(dettagli[5]);
 	                int longitudine = Integer.parseInt(dettagli[6]);
 	                int prezzo = Integer.parseInt(dettagli[7]);
-	                boolean disponibilità_delivery = Boolean.parseBoolean(dettagli[8]);
-	                boolean disponibilità_prenotazione = Boolean.parseBoolean(dettagli[9]);
+	                boolean disponibilita_delivery = Boolean.parseBoolean(dettagli[8]);
+	                boolean disponibilita_prenotazione = Boolean.parseBoolean(dettagli[9]);
 	                String tipo_cucina = dettagli[10];
 
-	                preferiti[i] = new Ristorante(nome, username_ristoratore, nazione, città, indirizzo, latitudine,
-	                        longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_cucina);
+	                preferiti[i] = new Ristorante(nome, username_ristoratore, nazione, citta, indirizzo, latitudine,
+	                        longitudine, prezzo, disponibilita_delivery, disponibilita_prenotazione, tipo_cucina);
 	            }
 	        }
 	        u.setPreferiti(preferiti);
@@ -101,9 +101,9 @@ public class Mapper {
 		if (u.getPreferiti() != null && u.getPreferiti().length > 0) {
 			for (int i = 0; i < u.getPreferiti().length; i++) {
 				Ristorante r = u.getPreferiti()[i];
-				result += r.getNome() + ";" + r.getNazione() + ";" + r.getCittà() + ";" + r.getIndirizzo() + ";"
+				result += r.getNome() + ";" + r.getNazione() + ";" + r.getCitta() + ";" + r.getIndirizzo() + ";"
 						+ r.getLatitudine() + ";" + r.getLongitudine() + ";" + r.getPrezzo() + ";"
-						+ r.isDisponibilità_delivery() + ";" + r.isDisponibilità_prenotazione() + ";"
+						+ r.isDisponibilita_delivery() + ";" + r.isDisponibilita_prenotazione() + ";"
 						+ r.getTipo_Cucina();
 
 				if (i < u.getPreferiti().length - 1) {
@@ -145,13 +145,13 @@ public class Mapper {
         r.setNome(nome);
         r.setUsername_ristoratore(username);
         r.setNazione(nazione);
-        r.setCittà(citta);
+        r.setCitta(citta);
         r.setIndirizzo(indirizzo);
         r.setLatitudine(latitudine);
         r.setLongitudine(longitudine);
         r.setPrezzo(prezzo);
-        r.setDisponibilità_delivery(delivery);
-        r.setDisponibilità_prenotazione(prenotazione);
+        r.setDisponibilita_delivery(delivery);
+        r.setDisponibilita_prenotazione(prenotazione);
         r.setTipo_Cucina(tipoCucina);
 
         return r;
@@ -170,12 +170,12 @@ public class Mapper {
 	    // restituisce stringa con i campi separati da virgola in ordine corretto
 		String delivery;
 		String prenotazione;
-		if(r.isDisponibilità_delivery()){
+		if(r.isDisponibilita_delivery()){
 			delivery = "si";
 		}else{
 			delivery = "no";
 		}
-		if(r.isDisponibilità_delivery()){
+		if(r.isDisponibilita_delivery()){
 			prenotazione = "si";
 		}else{
 			prenotazione = "no";
@@ -183,7 +183,7 @@ public class Mapper {
 	    return r.getNome() + ";" 
 	         + r.getUsername_ristoratore() + ";" 
 	         + r.getNazione() + ";" 
-	         + r.getCittà() + ";" 
+	         + r.getCitta() + ";" 
 	         + r.getIndirizzo() + ";" 
 	         + r.getLatitudine() + ";" 
 	         + r.getLongitudine() + ";" 
