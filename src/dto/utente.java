@@ -16,7 +16,7 @@ import java.util.Calendar;
  * 
  * La classe include metodi per registrare un nuovo utente e per gestire le sue informazioni.
  */
-public class utente {
+public class Utente {
 
 	private String nome;
 	private String cognome;
@@ -25,7 +25,7 @@ public class utente {
 	private Calendar data_nascita;
 	private String luogo_domicilio;
 	private String ruolo;
-	private ristorante[] preferiti;
+	private Ristorante[] preferiti;
 
 	/**
 	 * Restituisce il nome dell'utente.
@@ -145,7 +145,7 @@ public class utente {
      * 
      * @return array di ristoranti preferiti
      */
-	public ristorante[] getPreferiti() {
+	public Ristorante[] getPreferiti() {
 		return preferiti;
 	}
     /**
@@ -153,7 +153,7 @@ public class utente {
      * 
      * @param preferiti array di ristoranti da impostare come preferiti
      */
-	public void setPreferiti(ristorante[] preferiti) {
+	public void setPreferiti(Ristorante[] preferiti) {
 		this.preferiti = preferiti;
 	}
 }

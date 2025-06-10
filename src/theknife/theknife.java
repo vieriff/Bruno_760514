@@ -54,7 +54,7 @@ public class Theknife {
             System.out.println("1. Login Cliente");
             System.out.println("2. Login Ristoratore");
             System.out.println("3. Registrati");
-            System.out.println("4. Cerca ristorante (guest)");
+            System.out.println("4. Cerca Ristorante (guest)");
             System.out.println("0. Esci");
             System.out.print("Scelta: ");
 
@@ -190,11 +190,11 @@ public class Theknife {
         boolean back = false;
         while (!back) {
             System.out.println("\n--- Menu Cliente ---");
-            System.out.println("1. Aggiungi ristorante ai preferiti");
-            System.out.println("2. Rimuovi ristorante dai preferiti");
+            System.out.println("1. Aggiungi Ristorante ai preferiti");
+            System.out.println("2. Rimuovi Ristorante dai preferiti");
             System.out.println("3. Visualizza preferiti");
             System.out.println("4. Aggiungi recensione");
-            System.out.println("5. Cerca ristorante");
+            System.out.println("5. Cerca Ristorante");
             System.out.println("6. Modifica recensione");
             System.out.println("7. Elimina recensione");
             System.out.println("0. Logout");
@@ -202,13 +202,13 @@ public class Theknife {
 
             switch (scanner.nextLine()) {
                 case "1" -> {
-                    System.out.print("Nome ristorante: ");
+                    System.out.print("Nome Ristorante: ");
                     String nome = scanner.nextLine().trim();
                     System.out.print("Luogo: ");
                     String luogo = scanner.nextLine().trim();
 
                     if (!esisteRistorante(nome, luogo)) {
-                        System.out.println("Errore: il ristorante indicato non esiste.");
+                        System.out.println("Errore: il Ristorante indicato non esiste.");
                     } else {
                         boolean aggiunto = GestioneTheKnife.aggiungiPreferito(username, nome, luogo);
                         if (aggiunto) System.out.println("Ristorante aggiunto ai preferiti.");
@@ -216,7 +216,7 @@ public class Theknife {
                     }
                 }
                 case "2" -> {
-                    System.out.print("Nome ristorante: ");
+                    System.out.print("Nome Ristorante: ");
                     String nome = scanner.nextLine();
                     System.out.print("Luogo: ");
                     String luogo = scanner.nextLine();
@@ -226,9 +226,9 @@ public class Theknife {
                 }
                 case "3" -> GestioneTheKnife.visualizzaPreferiti(username);
                 case "4" -> {
-                    System.out.print("Nome ristorante: ");
+                    System.out.print("Nome Ristorante: ");
                     String nome = scanner.nextLine();
-                    System.out.print("Luogo ristorante: ");
+                    System.out.print("Luogo Ristorante: ");
                     String luogo = scanner.nextLine();
                     int voto = leggiNumero("Voto (1-5): ");
                     System.out.print("Testo recensione: ");
@@ -245,9 +245,9 @@ public class Theknife {
                 }
                 case "5" -> cercaRistoranti();
                 case "6" -> {
-                    System.out.println("inserisci il nome del ristorante della recensione che vuoi modificare:");
+                    System.out.println("inserisci il nome del Ristorante della recensione che vuoi modificare:");
                     String nomeRis = scanner.nextLine();
-                    System.out.println("inserisci il luogo del ristorante della recensione che vuoi modificare:");
+                    System.out.println("inserisci il luogo del Ristorante della recensione che vuoi modificare:");
                     String luogoRis = scanner.nextLine();
                     System.out.println("inserisci il nuovo voto");
                     int nuovoVoto = scanner.nextInt();
@@ -257,9 +257,9 @@ public class Theknife {
                     GestioneTheKnife.modificaRecensione(username, nomeRis, luogoRis, nuovoVoto, nuovaRec);
                 }
                 case "7"->{ 
-                    System.out.println("inserisci il nome del ristorante della recensione che vuoi eliminare:");
+                    System.out.println("inserisci il nome del Ristorante della recensione che vuoi eliminare:");
                     String nomeRis = scanner.nextLine();
-                    System.out.println("inserisci il luogo del ristorante della recensione che vuoi eliminare:");
+                    System.out.println("inserisci il luogo del Ristorante della recensione che vuoi eliminare:");
                     String luogoRis = scanner.nextLine();
                     GestioneTheKnife.eliminaRecensione(username, nomeRis, luogoRis);
 
@@ -279,17 +279,17 @@ public class Theknife {
         boolean back = false;
         while (!back) {
             System.out.println("\n--- Menu Ristoratore ---");
-            System.out.println("1. Aggiungi ristorante");
+            System.out.println("1. Aggiungi Ristorante");
             System.out.println("2. Visualizza riepilogo recensioni");
             System.out.println("3. Visualizza recensioni");
             System.out.println("4. Rispondi a recensione");
-            System.out.println("5. Cerca ristorante");
+            System.out.println("5. Cerca Ristorante");
             System.out.println("0. Logout");
             System.out.print("Scelta: ");
 
             switch (scanner.nextLine()) {
                 case "1" -> {
-                    System.out.print("Nome ristorante: ");
+                    System.out.print("Nome Ristorante: ");
                     String nome = scanner.nextLine();
                     System.out.print("Nazione: ");
                     String nazione = scanner.nextLine();
@@ -315,13 +315,13 @@ public class Theknife {
                     if (aggiunto) {
                         System.out.println("Ristorante aggiunto con successo.");
                     } else {
-                        System.out.println("Errore nell'aggiunta del ristorante.");
+                        System.out.println("Errore nell'aggiunta del Ristorante.");
                     }
                 }
                 case "2" -> GestioneTheKnife.visualizzaRiepilogo(username);
                 case "3" -> GestioneTheKnife.visualizzaRecensioniPerRistoratore(username);
                 case "4" -> {
-                    System.out.print("Nome ristorante: ");
+                    System.out.print("Nome Ristorante: ");
                     String nomeRistorante = scanner.nextLine();
                     System.out.print("Username cliente a cui rispondere: ");
                     String usernameCliente = scanner.nextLine();
@@ -387,15 +387,15 @@ public class Theknife {
         );
 
         if (risultati.isEmpty()) {
-            System.out.println("Nessun ristorante trovato con i criteri indicati.");
+            System.out.println("Nessun Ristorante trovato con i criteri indicati.");
         } else {
             stampaRistoranti(risultati);
         }
     }
 
 /**
- * Stampa l'elenco dei ristoranti trovati e richiama la visualizzazione delle recensioni per ogni ristorante.
- * Ogni ristorante viene formattato con separatori visivi per migliorarne la leggibilità.
+ * Stampa l'elenco dei ristoranti trovati e richiama la visualizzazione delle recensioni per ogni Ristorante.
+ * Ogni Ristorante viene formattato con separatori visivi per migliorarne la leggibilità.
  *
  * @param ristoranti La lista di descrizioni testuali dei ristoranti da stampare.
  */  
@@ -495,12 +495,12 @@ private static void stampaRistoranti(List<String> ristoranti) {
         }
     }
 /**
- * Verifica se un ristorante esiste nel file dei ristoranti, confrontando nome e luogo.
- * Se il ristorante viene trovato, restituisce {@code true} e stampa un messaggio di conferma.
+ * Verifica se un Ristorante esiste nel file dei ristoranti, confrontando nome e luogo.
+ * Se il Ristorante viene trovato, restituisce {@code true} e stampa un messaggio di conferma.
  *
- * @param nome  Il nome del ristorante da cercare.
- * @param luogo La città in cui si trova il ristorante.
- * @return      {@code true} se il ristorante esiste nel file, {@code false} altrimenti.
+ * @param nome  Il nome del Ristorante da cercare.
+ * @param luogo La città in cui si trova il Ristorante.
+ * @return      {@code true} se il Ristorante esiste nel file, {@code false} altrimenti.
  */
 public static boolean esisteRistorante(String nome, String luogo) {
     try (BufferedReader br = new BufferedReader(new FileReader("dati/ristoranti.txt"))) {

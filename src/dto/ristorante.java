@@ -7,17 +7,17 @@ package src.dto;
  */
 
 /**
- * La classe {@code Ristorante} rappresenta un ristorante registrato nel sistema.
+ * La classe {@code Ristorante} rappresenta un Ristorante registrato nel sistema.
  * Contiene informazioni relative al nome, posizione, fascia di prezzo, servizi disponibili
  * (delivery e prenotazione), tipo di cucina e username del ristoratore.
  * 
- * Include metodi per accedere e modificare i dati del ristorante, visualizzare i dettagli
+ * Include metodi per accedere e modificare i dati del Ristorante, visualizzare i dettagli
  * e cercare ristoranti in base a diversi criteri.
  */
 /**
- * La classe {@code ristorante} rappresenta un ristorante registrato nel sistema.
+ * La classe {@code Ristorante} rappresenta un Ristorante registrato nel sistema.
  */
-public class ristorante {
+public class Ristorante {
 
     private String nome;
     private String username_ristoratore;
@@ -31,19 +31,19 @@ public class ristorante {
     private boolean disponibilità_prenotazione;
     private String tipo_Cucina;
 
-<<<<<<< HEAD
+
     /**
  * Costruttore completo per creare un nuovo oggetto Ristorante con tutti i parametri specificati.
  *
- * @param nome                     il nome del ristorante
+ * @param nome                     il nome del Ristorante
  * @param username_ristoratore    lo username associato al ristoratore
- * @param nazione                 la nazione dove si trova il ristorante
- * @param citta                   la città in cui si trova il ristorante
- * @param indirizzo               l'indirizzo completo del ristorante
- * @param latitudine              la latitudine geografica del ristorante
- * @param longitudine             la longitudine geografica del ristorante
- * @param prezzo                  il prezzo medio indicativo del ristorante
- * @param disponibilita_delivery  true se il ristorante offre servizio di consegna a domicilio
+ * @param nazione                 la nazione dove si trova il Ristorante
+ * @param citta                   la città in cui si trova il Ristorante
+ * @param indirizzo               l'indirizzo completo del Ristorante
+ * @param latitudine              la latitudine geografica del Ristorante
+ * @param longitudine             la longitudine geografica del Ristorante
+ * @param prezzo                  il prezzo medio indicativo del Ristorante
+ * @param disponibilita_delivery  true se il Ristorante offre servizio di consegna a domicilio
  * @param disponibilita_prenotazione true se è possibile prenotare un tavolo
  * @param tipo_Cucina             il tipo di cucina offerta (es. italiana, giapponese, vegana)
  */
@@ -51,12 +51,6 @@ public class ristorante {
                       double latitudine, double longitudine, int prezzo, boolean disponibilita_delivery,
                       boolean disponibilita_prenotazione, String tipo_Cucina) {
 
-=======
-    // Costruttore completo
-    public ristorante(String nome, String username_ristoratore, String nazione, String città, String indirizzo,
-                      double latitudine, double longitudine, int prezzo, boolean disponibilità_delivery,
-                      boolean disponibilità_prenotazione, String tipo_Cucina) {
->>>>>>> parent of 2f187ae (Merge branch 'main' of https://github.com/vieriff/Progetto_lab_a_VBSB)
         this.nome = nome;
         this.username_ristoratore = username_ristoratore;
         this.nazione = nazione;
@@ -70,34 +64,27 @@ public class ristorante {
         this.tipo_Cucina = tipo_Cucina;
     }
 
-<<<<<<< HEAD
+
     /**
  * Costruttore vuoto per la creazione di un oggetto Ristorante senza inizializzazione immediata.
  * Necessario ad esempio per operazioni di deserializzazione o framework che richiedono un costruttore predefinito.
  */
     public Ristorante() {
 
-=======
-    // Costruttore vuoto
-    public ristorante() {
->>>>>>> parent of 2f187ae (Merge branch 'main' of https://github.com/vieriff/Progetto_lab_a_VBSB)
-    }
-
-
 
     /**
- * Restituisce il nome del ristorante.
+ * Restituisce il nome del Ristorante.
  *
- * @return Il nome del ristorante.
+ * @return Il nome del Ristorante.
  */
 public String getNome() {
     return nome;
 }
 
 /**
- * Imposta il nome del ristorante.
+ * Imposta il nome del Ristorante.
  *
- * @param nome Il nome da assegnare al ristorante.
+ * @param nome Il nome da assegnare al Ristorante.
  */
 public void setNome(String nome) {
     this.nome = nome;
@@ -122,117 +109,117 @@ public void setUsername_ristoratore(String username_ristoratore) {
 }
 
 /**
- * Restituisce la nazione del ristorante.
+ * Restituisce la nazione del Ristorante.
  *
- * @return La nazione del ristorante.
+ * @return La nazione del Ristorante.
  */
 public String getNazione() {
     return nazione;
 }
 
 /**
- * Imposta la nazione del ristorante.
+ * Imposta la nazione del Ristorante.
  *
- * @param nazione La nazione da assegnare al ristorante.
+ * @param nazione La nazione da assegnare al Ristorante.
  */
 public void setNazione(String nazione) {
     this.nazione = nazione;
 }
 
 /**
- * Restituisce la città del ristorante.
+ * Restituisce la città del Ristorante.
  *
- * @return La città del ristorante.
+ * @return La città del Ristorante.
  */
 public String getCittà() {
     return città;
 }
 
 /**
- * Imposta la città del ristorante.
+ * Imposta la città del Ristorante.
  *
- * @param città La città da assegnare al ristorante.
+ * @param città La città da assegnare al Ristorante.
  */
 public void setCittà(String città) {
     this.città = città;
 }
 
 /**
- * Restituisce l'indirizzo del ristorante.
+ * Restituisce l'indirizzo del Ristorante.
  *
- * @return L'indirizzo del ristorante.
+ * @return L'indirizzo del Ristorante.
  */
 public String getIndirizzo() {
     return indirizzo;
 }
 
 /**
- * Imposta l'indirizzo del ristorante.
+ * Imposta l'indirizzo del Ristorante.
  *
- * @param indirizzo L'indirizzo da assegnare al ristorante.
+ * @param indirizzo L'indirizzo da assegnare al Ristorante.
  */
 public void setIndirizzo(String indirizzo) {
     this.indirizzo = indirizzo;
 }
 
 /**
- * Restituisce la latitudine del ristorante.
+ * Restituisce la latitudine del Ristorante.
  *
- * @return La latitudine del ristorante.
+ * @return La latitudine del Ristorante.
  */
 public double getLatitudine() {
     return latitudine;
 }
 
 /**
- * Imposta la latitudine del ristorante.
+ * Imposta la latitudine del Ristorante.
  *
- * @param latitudine La latitudine da assegnare al ristorante.
+ * @param latitudine La latitudine da assegnare al Ristorante.
  */
 public void setLatitudine(double latitudine) {
     this.latitudine = latitudine;
 }
 
 /**
- * Restituisce la longitudine del ristorante.
+ * Restituisce la longitudine del Ristorante.
  *
- * @return La longitudine del ristorante.
+ * @return La longitudine del Ristorante.
  */
 public double getLongitudine() {
     return longitudine;
 }
 
 /**
- * Imposta la longitudine del ristorante.
+ * Imposta la longitudine del Ristorante.
  *
- * @param longitudine La longitudine da assegnare al ristorante.
+ * @param longitudine La longitudine da assegnare al Ristorante.
  */
 public void setLongitudine(double longitudine) {
     this.longitudine = longitudine;
 }
 
 /**
- * Restituisce il prezzo medio del ristorante.
+ * Restituisce il prezzo medio del Ristorante.
  *
- * @return Il prezzo medio del ristorante.
+ * @return Il prezzo medio del Ristorante.
  */
 public int getPrezzo() {
     return prezzo;
 }
 
 /**
- * Imposta il prezzo medio del ristorante.
+ * Imposta il prezzo medio del Ristorante.
  *
- * @param prezzo Il prezzo medio da assegnare al ristorante.
+ * @param prezzo Il prezzo medio da assegnare al Ristorante.
  */
 public void setPrezzo(int prezzo) {
     this.prezzo = prezzo;
 }
 
 /**
- * Indica se il ristorante offre servizio di delivery.
+ * Indica se il Ristorante offre servizio di delivery.
  *
- * @return {@code true} se il ristorante offre delivery, {@code false} altrimenti.
+ * @return {@code true} se il Ristorante offre delivery, {@code false} altrimenti.
  */
 public boolean isDisponibilità_delivery() {
     return disponibilità_delivery;
@@ -241,16 +228,16 @@ public boolean isDisponibilità_delivery() {
 /**
  * Imposta la disponibilità del servizio di delivery.
  *
- * @param disponibilità_delivery {@code true} se il ristorante offre delivery, {@code false} altrimenti.
+ * @param disponibilità_delivery {@code true} se il Ristorante offre delivery, {@code false} altrimenti.
  */
 public void setDisponibilità_delivery(boolean disponibilità_delivery) {
     this.disponibilità_delivery = disponibilità_delivery;
 }
 
 /**
- * Indica se il ristorante accetta prenotazioni online.
+ * Indica se il Ristorante accetta prenotazioni online.
  *
- * @return {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
+ * @return {@code true} se il Ristorante accetta prenotazioni, {@code false} altrimenti.
  */
 public boolean isDisponibilità_prenotazione() {
     return disponibilità_prenotazione;
@@ -259,40 +246,40 @@ public boolean isDisponibilità_prenotazione() {
 /**
  * Imposta la disponibilità del servizio di prenotazione.
  *
- * @param disponibilità_prenotazione {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
+ * @param disponibilità_prenotazione {@code true} se il Ristorante accetta prenotazioni, {@code false} altrimenti.
  */
 public void setDisponibilità_prenotazione(boolean disponibilità_prenotazione) {
     this.disponibilità_prenotazione = disponibilità_prenotazione;
 }
 
 /**
- * Restituisce il tipo di cucina del ristorante.
+ * Restituisce il tipo di cucina del Ristorante.
  *
- * @return Il tipo di cucina del ristorante.
+ * @return Il tipo di cucina del Ristorante.
  */
 public String getTipo_Cucina() {
     return tipo_Cucina;
 }
 
 /**
- * Imposta il tipo di cucina del ristorante.
+ * Imposta il tipo di cucina del Ristorante.
  *
- * @param tipo_Cucina Il tipo di cucina da assegnare al ristorante.
+ * @param tipo_Cucina Il tipo di cucina da assegnare al Ristorante.
  */
 public void setTipo_Cucina(String tipo_Cucina) {
     this.tipo_Cucina = tipo_Cucina;
 }
 
 /**
- * Visualizza sulla console tutti i dettagli del ristorante,
+ * Visualizza sulla console tutti i dettagli del Ristorante,
  * inclusi nome, ristoratore, indirizzo, coordinate geografiche,
  * tipo di cucina, fascia di prezzo e disponibilità dei servizi delivery e prenotazione.
  * <p>
- * Metodo utile per il debug o per fornire una rappresentazione testuale del ristorante.
+ * Metodo utile per il debug o per fornire una rappresentazione testuale del Ristorante.
  */
-    // Metodo per visualizzare i dettagli del ristorante (opzionale)
+    // Metodo per visualizzare i dettagli del Ristorante (opzionale)
     public void visualizzaRistorante() {
-        System.out.println("Dettagli ristorante:");
+        System.out.println("Dettagli Ristorante:");
         System.out.println("Nome: " + nome);
         System.out.println("Ristoratore: " + username_ristoratore);
         System.out.println("Indirizzo: " + indirizzo + ", " + città + ", " + nazione);
