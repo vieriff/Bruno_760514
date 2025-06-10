@@ -9,7 +9,7 @@ package src.sicurezzaPassword;
 /**
  * La classe {@code Criptazione} fornisce metodi per la criptazione e la decriptazione di stringhe
  * utilizzando un semplice algoritmo di cifratura basato sullo spostamento dei caratteri nel loro 
- * valore ASCII di una quantità fissa (CHIAVE).
+ * valore ASCII di una quantit�  fissa (CHIAVE).
  * 
  * <p>Questo tipo di cifratura è una versione semplificata e non sicura di cifratura, 
  * utilizzata solo come esempio o per applicazioni non critiche.</p>
@@ -17,7 +17,7 @@ package src.sicurezzaPassword;
 public class Criptazione {
 	    /**
      * La chiave utilizzata per la criptazione e decriptazione. In questo caso, la chiave è 6, 
-     * il che significa che ogni carattere del testo verrà spostato di 6 posizioni nel suo valore ASCII.
+     * il che significa che ogni carattere del testo verr�  spostato di 6 posizioni nel suo valore ASCII.
      */
 
 	private static final int CHIAVE = 6;

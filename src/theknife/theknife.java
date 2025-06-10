@@ -22,7 +22,7 @@ import src.sicurezzaPassword.*;
  * TheKnife ‚Äì Applicazione console per la gestione di ristoranti.
  * 
  * Consente a clienti e ristoratori di registrarsi, effettuare il login
- * e usufruire di varie funzionalit√† come la ricerca avanzata, la gestione delle
+ * e usufruire di varie funzionalit√  come la ricerca avanzata, la gestione delle
  * recensioni ed i preferiti.
  * 
  * 
@@ -292,7 +292,7 @@ public class theknife {
                     String nome = scanner.nextLine();
                     System.out.print("Nazione: ");
                     String nazione = scanner.nextLine();
-                    System.out.print("Citt√†: ");
+                    System.out.print("Citt√ : ");
                     String citta = scanner.nextLine();
                     System.out.print("Indirizzo: ");
                     String indirizzo = scanner.nextLine();
@@ -347,7 +347,7 @@ public class theknife {
 /**
  * Gestisce la ricerca avanzata di ristoranti interagendo con l'utente tramite input da console.
  * Permette di filtrare i risultati in base a zona geografica, tipologia di cucina, fascia di prezzo,
- * disponibilit√† di delivery, prenotazione e valutazione media minima.
+ * disponibilit√  di delivery, prenotazione e valutazione media minima.
  * Se vengono trovati ristoranti corrispondenti ai criteri, li stampa a schermo.
  */
     private static void cercaRistoranti() {
@@ -394,7 +394,7 @@ public class theknife {
 
 /**
  * Stampa l'elenco dei ristoranti trovati e richiama la visualizzazione delle recensioni per ogni ristorante.
- * Ogni ristorante viene formattato con separatori visivi per migliorarne la leggibilit√†.
+ * Ogni ristorante viene formattato con separatori visivi per migliorarne la leggibilit√ .
  *
  * @param ristoranti La lista di descrizioni testuali dei ristoranti da stampare.
  */  
@@ -498,7 +498,7 @@ private static void stampaRistoranti(List<String> ristoranti) {
  * Se il ristorante viene trovato, restituisce {@code true} e stampa un messaggio di conferma.
  *
  * @param nome  Il nome del ristorante da cercare.
- * @param luogo La citt√† in cui si trova il ristorante.
+ * @param luogo La citt√  in cui si trova il ristorante.
  * @return      {@code true} se il ristorante esiste nel file, {@code false} altrimenti.
  */
 public static boolean esisteRistorante(String nome, String luogo) {
