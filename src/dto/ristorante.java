@@ -14,9 +14,6 @@ package src.dto;
  * Include metodi per accedere e modificare i dati del Ristorante, visualizzare i dettagli
  * e cercare ristoranti in base a diversi criteri.
  */
-/**
- * La classe {@code Ristorante} rappresenta un Ristorante registrato nel sistema.
- */
 public class Ristorante {
 
     private String nome;
@@ -71,12 +68,13 @@ public class Ristorante {
  */
     public Ristorante() {
 
-
+    }
     /**
  * Restituisce il nome del Ristorante.
  *
  * @return Il nome del Ristorante.
  */
+
 public String getNome() {
     return nome;
 }
