@@ -9,11 +9,11 @@ package src.dto;
 
 import java.util.List;
 /**
- * La classe {@code Recensione} rappresenta una recensione di un Ristorante.
- * Include informazioni sull'utente, il nome del Ristorante, una valutazione,
+ * La classe {@code Recensione} rappresenta una recensione di un ristorante.
+ * Include informazioni sull'utente, il nome del ristorante, una valutazione,
  * un testo descrittivo e una possibile risposta da parte del ristoratore.
  * 
- * Offre anche un metodo statico per visualizzare tutte le recensioni relative a un determinato Ristorante.
+ * Offre anche un metodo statico per visualizzare tutte le recensioni relative a un determinato ristorante.
  */
 public class Recensione{
 
@@ -40,17 +40,17 @@ public class Recensione{
 		this.username = username;
 	}
     /**
-     * Restituisce il nome del Ristorante recensito.
+     * Restituisce il nome del ristorante recensito.
      * 
-     * @return nome del Ristorante
+     * @return nome del ristorante
      */
 	public String getNomeRistorante() {
 		return nomeRistorante;
 	}
     /**
-     * Imposta il nome del Ristorante recensito.
+     * Imposta il nome del ristorante recensito.
      * 
-     * @param nomeRistorante nome del Ristorante da impostare
+     * @param nomeRistorante nome del ristorante da impostare
      */
 	public void setNomeRistorante(String nomeRistorante) {
 		this.nomeRistorante = nomeRistorante;
@@ -104,12 +104,12 @@ public class Recensione{
 		this.risposta = risposta;
 	}
         /**
-         * Visualizza tutte le recensioni associate a un dato Ristorante.
+         * Visualizza tutte le recensioni associate a un dato ristorante.
          * Per ogni recensione trovata, vengono mostrati: nome utente, valutazione,
         * testo della recensione e un'eventuale risposta del ristoratore.
          * Alla fine, se ci sono recensioni, mostra il numero totale e la media delle valutazioni.
         *
-        * @param nomeRistorante nome del Ristorante di cui visualizzare le recensioni
+        * @param nomeRistorante nome del ristorante di cui visualizzare le recensioni
         * @param recensioni     lista di tutte le recensioni disponibili
         */
         public static void visualizzaRecensioni(String nomeRistorante, List<Recensione> recensioni) {
@@ -138,7 +138,7 @@ public class Recensione{
             System.out.println("Totale recensioni: " + totaleRecensioni);
             System.out.printf("Media valutazioni: %.2f stelle%n", media);
         } else {
-            System.out.println("Nessuna recensione per questo Ristorante.");
+            System.out.println("Nessuna recensione per questo ristorante.");
         }
     }
 
