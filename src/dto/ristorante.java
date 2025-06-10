@@ -21,29 +21,29 @@ public class ristorante {
     private String nome;
     private String username_ristoratore;
     private String nazione;
-    private String citt√ ;
+    private String citt√†;
     private String indirizzo;
     private double latitudine;
     private double longitudine;
     private int prezzo;
-    private boolean disponibilit√ _delivery;
-    private boolean disponibilit√ _prenotazione;
+    private boolean disponibilit√†_delivery;
+    private boolean disponibilit√†_prenotazione;
     private String tipo_Cucina;
 
     // Costruttore completo
-    public ristorante(String nome, String username_ristoratore, String nazione, String citt√ , String indirizzo,
-                      double latitudine, double longitudine, int prezzo, boolean disponibilit√ _delivery,
-                      boolean disponibilit√ _prenotazione, String tipo_Cucina) {
+    public ristorante(String nome, String username_ristoratore, String nazione, String citt√†, String indirizzo,
+                      double latitudine, double longitudine, int prezzo, boolean disponibilit√†_delivery,
+                      boolean disponibilit√†_prenotazione, String tipo_Cucina) {
         this.nome = nome;
         this.username_ristoratore = username_ristoratore;
         this.nazione = nazione;
-        this.citt√  = citt√ ;
+        this.citt√† = citt√†;
         this.indirizzo = indirizzo;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
         this.prezzo = prezzo;
-        this.disponibilit√ _delivery = disponibilit√ _delivery;
-        this.disponibilit√ _prenotazione = disponibilit√ _prenotazione;
+        this.disponibilit√†_delivery = disponibilit√†_delivery;
+        this.disponibilit√†_prenotazione = disponibilit√†_prenotazione;
         this.tipo_Cucina = tipo_Cucina;
     }
 
@@ -108,21 +108,21 @@ public void setNazione(String nazione) {
 }
 
 /**
- * Restituisce la citt√  del ristorante.
+ * Restituisce la citt√† del ristorante.
  *
- * @return La citt√  del ristorante.
+ * @return La citt√† del ristorante.
  */
-public String getCitt√ () {
-    return citt√ ;
+public String getCitt√†() {
+    return citt√†;
 }
 
 /**
- * Imposta la citt√  del ristorante.
+ * Imposta la citt√† del ristorante.
  *
- * @param citt√  La citt√  da assegnare al ristorante.
+ * @param citt√† La citt√† da assegnare al ristorante.
  */
-public void setCitt√ (String citt√ ) {
-    this.citt√  = citt√ ;
+public void setCitt√†(String citt√†) {
+    this.citt√† = citt√†;
 }
 
 /**
@@ -202,17 +202,17 @@ public void setPrezzo(int prezzo) {
  *
  * @return {@code true} se il ristorante offre delivery, {@code false} altrimenti.
  */
-public boolean isDisponibilit√ _delivery() {
-    return disponibilit√ _delivery;
+public boolean isDisponibilit√†_delivery() {
+    return disponibilit√†_delivery;
 }
 
 /**
- * Imposta la disponibilit√  del servizio di delivery.
+ * Imposta la disponibilit√† del servizio di delivery.
  *
- * @param disponibilit√ _delivery {@code true} se il ristorante offre delivery, {@code false} altrimenti.
+ * @param disponibilit√†_delivery {@code true} se il ristorante offre delivery, {@code false} altrimenti.
  */
-public void setDisponibilit√ _delivery(boolean disponibilit√ _delivery) {
-    this.disponibilit√ _delivery = disponibilit√ _delivery;
+public void setDisponibilit√†_delivery(boolean disponibilit√†_delivery) {
+    this.disponibilit√†_delivery = disponibilit√†_delivery;
 }
 
 /**
@@ -220,17 +220,17 @@ public void setDisponibilit√ _delivery(boolean disponibilit√ _delivery) {
  *
  * @return {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
  */
-public boolean isDisponibilit√ _prenotazione() {
-    return disponibilit√ _prenotazione;
+public boolean isDisponibilit√†_prenotazione() {
+    return disponibilit√†_prenotazione;
 }
 
 /**
- * Imposta la disponibilit√  del servizio di prenotazione.
+ * Imposta la disponibilit√† del servizio di prenotazione.
  *
- * @param disponibilit√ _prenotazione {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
+ * @param disponibilit√†_prenotazione {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
  */
-public void setDisponibilit√ _prenotazione(boolean disponibilit√ _prenotazione) {
-    this.disponibilit√ _prenotazione = disponibilit√ _prenotazione;
+public void setDisponibilit√†_prenotazione(boolean disponibilit√†_prenotazione) {
+    this.disponibilit√†_prenotazione = disponibilit√†_prenotazione;
 }
 
 /**
@@ -257,11 +257,11 @@ public void setTipo_Cucina(String tipo_Cucina) {
         System.out.println("Dettagli ristorante:");
         System.out.println("Nome: " + nome);
         System.out.println("Ristoratore: " + username_ristoratore);
-        System.out.println("Indirizzo: " + indirizzo + ", " + citt√  + ", " + nazione);
+        System.out.println("Indirizzo: " + indirizzo + ", " + citt√† + ", " + nazione);
         System.out.println("Coordinate: latitudine = " + latitudine + ", longitudine = " + longitudine);
         System.out.println("Tipologia di cucina: " + tipo_Cucina);
         System.out.println("Fascia di prezzo: " + prezzo + "‚Ç¨");
-        System.out.println("Servizio Delivery: " + (disponibilit√ _delivery ? "Disponibile" : "Non disponibile"));
-        System.out.println("Prenotazione Online: " + (disponibilit√ _prenotazione ? "Disponibile" : "Non disponibile"));
+        System.out.println("Servizio Delivery: " + (disponibilit√†_delivery ? "Disponibile" : "Non disponibile"));
+        System.out.println("Prenotazione Online: " + (disponibilit√†_prenotazione ? "Disponibile" : "Non disponibile"));
     }
 }
