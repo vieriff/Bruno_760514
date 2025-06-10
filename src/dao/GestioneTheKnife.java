@@ -35,9 +35,9 @@ import src.mapper.Mapper;
  */
 public class GestioneTheKnife {
 
-	private static String fileRistorantiPath = "Progetto_lab_a_VBSB/dati/ristoranti.txt";
-	private static String fileRecensioniPath = "Progetto_lab_a_VBSB/dati/recensioni.txt";
-	private static String fileUtentiPath = "Progetto_lab_a_VBSB/dati/utenti.txt";
+	private static String fileRistorantiPath = "dati/ristoranti.txt";
+	private static String fileRecensioniPath = "dati/recensioni.txt";
+	private static String fileUtentiPath = "dati/utenti.txt";
 
 
   /**
