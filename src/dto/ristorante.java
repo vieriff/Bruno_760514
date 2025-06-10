@@ -21,29 +21,29 @@ public class ristorante {
     private String nome;
     private String username_ristoratore;
     private String nazione;
-    private String città;
+    private String citta;
     private String indirizzo;
     private double latitudine;
     private double longitudine;
     private int prezzo;
-    private boolean disponibilità_delivery;
-    private boolean disponibilità_prenotazione;
+    private boolean disponibilita_delivery;
+    private boolean disponibilita_prenotazione;
     private String tipo_Cucina;
 
     // Costruttore completo
-    public ristorante(String nome, String username_ristoratore, String nazione, String città, String indirizzo,
-                      double latitudine, double longitudine, int prezzo, boolean disponibilità_delivery,
-                      boolean disponibilità_prenotazione, String tipo_Cucina) {
+    public ristorante(String nome, String username_ristoratore, String nazione, String citta, String indirizzo,
+                      double latitudine, double longitudine, int prezzo, boolean disponibilita_delivery,
+                      boolean disponibilita_prenotazione, String tipo_Cucina) {
         this.nome = nome;
         this.username_ristoratore = username_ristoratore;
         this.nazione = nazione;
-        this.città = città;
+        this.citta = citta;
         this.indirizzo = indirizzo;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
         this.prezzo = prezzo;
-        this.disponibilità_delivery = disponibilità_delivery;
-        this.disponibilità_prenotazione = disponibilità_prenotazione;
+        this.disponibilita_delivery = disponibilita_delivery;
+        this.disponibilita_prenotazione = disponibilita_prenotazione;
         this.tipo_Cucina = tipo_Cucina;
     }
 
@@ -108,21 +108,21 @@ public void setNazione(String nazione) {
 }
 
 /**
- * Restituisce la città del ristorante.
+ * Restituisce la citta del ristorante.
  *
- * @return La città del ristorante.
+ * @return La citta del ristorante.
  */
-public String getCittà() {
-    return città;
+public String getCitta() {
+    return citta;
 }
 
 /**
- * Imposta la città del ristorante.
+ * Imposta la citta del ristorante.
  *
- * @param città La città da assegnare al ristorante.
+ * @param citta La citta da assegnare al ristorante.
  */
-public void setCittà(String città) {
-    this.città = città;
+public void setCitta(String citta) {
+    this.citta = citta;
 }
 
 /**
@@ -202,17 +202,17 @@ public void setPrezzo(int prezzo) {
  *
  * @return {@code true} se il ristorante offre delivery, {@code false} altrimenti.
  */
-public boolean isDisponibilità_delivery() {
-    return disponibilità_delivery;
+public boolean isDisponibilita_delivery() {
+    return disponibilita_delivery;
 }
 
 /**
- * Imposta la disponibilità del servizio di delivery.
+ * Imposta la disponibilita del servizio di delivery.
  *
- * @param disponibilità_delivery {@code true} se il ristorante offre delivery, {@code false} altrimenti.
+ * @param disponibilita_delivery {@code true} se il ristorante offre delivery, {@code false} altrimenti.
  */
-public void setDisponibilità_delivery(boolean disponibilità_delivery) {
-    this.disponibilità_delivery = disponibilità_delivery;
+public void setDisponibilita_delivery(boolean disponibilita_delivery) {
+    this.disponibilita_delivery = disponibilita_delivery;
 }
 
 /**
@@ -220,17 +220,17 @@ public void setDisponibilità_delivery(boolean disponibilità_delivery) {
  *
  * @return {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
  */
-public boolean isDisponibilità_prenotazione() {
-    return disponibilità_prenotazione;
+public boolean isDisponibilita_prenotazione() {
+    return disponibilita_prenotazione;
 }
 
 /**
- * Imposta la disponibilità del servizio di prenotazione.
+ * Imposta la disponibilita del servizio di prenotazione.
  *
- * @param disponibilità_prenotazione {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
+ * @param disponibilita_prenotazione {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
  */
-public void setDisponibilità_prenotazione(boolean disponibilità_prenotazione) {
-    this.disponibilità_prenotazione = disponibilità_prenotazione;
+public void setDisponibilita_prenotazione(boolean disponibilita_prenotazione) {
+    this.disponibilita_prenotazione = disponibilita_prenotazione;
 }
 
 /**
@@ -257,11 +257,11 @@ public void setTipo_Cucina(String tipo_Cucina) {
         System.out.println("Dettagli ristorante:");
         System.out.println("Nome: " + nome);
         System.out.println("Ristoratore: " + username_ristoratore);
-        System.out.println("Indirizzo: " + indirizzo + ", " + città + ", " + nazione);
+        System.out.println("Indirizzo: " + indirizzo + ", " + citta + ", " + nazione);
         System.out.println("Coordinate: latitudine = " + latitudine + ", longitudine = " + longitudine);
         System.out.println("Tipologia di cucina: " + tipo_Cucina);
         System.out.println("Fascia di prezzo: " + prezzo + "€");
-        System.out.println("Servizio Delivery: " + (disponibilità_delivery ? "Disponibile" : "Non disponibile"));
-        System.out.println("Prenotazione Online: " + (disponibilità_prenotazione ? "Disponibile" : "Non disponibile"));
+        System.out.println("Servizio Delivery: " + (disponibilita_delivery ? "Disponibile" : "Non disponibile"));
+        System.out.println("Prenotazione Online: " + (disponibilita_prenotazione ? "Disponibile" : "Non disponibile"));
     }
 }
