@@ -53,93 +53,204 @@ public class ristorante {
 
     // Getter e Setter
 
-    public String getNome() {
-        return nome;
-    }
+    /**
+ * Restituisce il nome del ristorante.
+ *
+ * @return Il nome del ristorante.
+ */
+public String getNome() {
+    return nome;
+}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+/**
+ * Imposta il nome del ristorante.
+ *
+ * @param nome Il nome da assegnare al ristorante.
+ */
+public void setNome(String nome) {
+    this.nome = nome;
+}
 
-    public String getUsername_ristoratore() {
-        return username_ristoratore;
-    }
+/**
+ * Restituisce l'username del ristoratore.
+ *
+ * @return L'username del ristoratore.
+ */
+public String getUsername_ristoratore() {
+    return username_ristoratore;
+}
 
-    public void setUsername_ristoratore(String username_ristoratore) {
-        this.username_ristoratore = username_ristoratore;
-    }
+/**
+ * Imposta l'username del ristoratore.
+ *
+ * @param username_ristoratore L'username da assegnare al ristoratore.
+ */
+public void setUsername_ristoratore(String username_ristoratore) {
+    this.username_ristoratore = username_ristoratore;
+}
 
-    public String getNazione() {
-        return nazione;
-    }
+/**
+ * Restituisce la nazione del ristorante.
+ *
+ * @return La nazione del ristorante.
+ */
+public String getNazione() {
+    return nazione;
+}
 
-    public void setNazione(String nazione) {
-        this.nazione = nazione;
-    }
+/**
+ * Imposta la nazione del ristorante.
+ *
+ * @param nazione La nazione da assegnare al ristorante.
+ */
+public void setNazione(String nazione) {
+    this.nazione = nazione;
+}
 
-    public String getCittà() {
-        return città;
-    }
+/**
+ * Restituisce la città del ristorante.
+ *
+ * @return La città del ristorante.
+ */
+public String getCittà() {
+    return città;
+}
 
-    public void setCittà(String città) {
-        this.città = città;
-    }
+/**
+ * Imposta la città del ristorante.
+ *
+ * @param città La città da assegnare al ristorante.
+ */
+public void setCittà(String città) {
+    this.città = città;
+}
 
-    public String getIndirizzo() {
-        return indirizzo;
-    }
+/**
+ * Restituisce l'indirizzo del ristorante.
+ *
+ * @return L'indirizzo del ristorante.
+ */
+public String getIndirizzo() {
+    return indirizzo;
+}
 
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
-    }
+/**
+ * Imposta l'indirizzo del ristorante.
+ *
+ * @param indirizzo L'indirizzo da assegnare al ristorante.
+ */
+public void setIndirizzo(String indirizzo) {
+    this.indirizzo = indirizzo;
+}
 
-    public double getLatitudine() {
-        return latitudine;
-    }
+/**
+ * Restituisce la latitudine del ristorante.
+ *
+ * @return La latitudine del ristorante.
+ */
+public double getLatitudine() {
+    return latitudine;
+}
 
-    public void setLatitudine(double latitudine) {
-        this.latitudine = latitudine;
-    }
+/**
+ * Imposta la latitudine del ristorante.
+ *
+ * @param latitudine La latitudine da assegnare al ristorante.
+ */
+public void setLatitudine(double latitudine) {
+    this.latitudine = latitudine;
+}
 
-    public double getLongitudine() {
-        return longitudine;
-    }
+/**
+ * Restituisce la longitudine del ristorante.
+ *
+ * @return La longitudine del ristorante.
+ */
+public double getLongitudine() {
+    return longitudine;
+}
 
-    public void setLongitudine(double longitudine) {
-        this.longitudine = longitudine;
-    }
+/**
+ * Imposta la longitudine del ristorante.
+ *
+ * @param longitudine La longitudine da assegnare al ristorante.
+ */
+public void setLongitudine(double longitudine) {
+    this.longitudine = longitudine;
+}
 
-    public int getPrezzo() {
-        return prezzo;
-    }
+/**
+ * Restituisce il prezzo medio del ristorante.
+ *
+ * @return Il prezzo medio del ristorante.
+ */
+public int getPrezzo() {
+    return prezzo;
+}
 
-    public void setPrezzo(int prezzo) {
-        this.prezzo = prezzo;
-    }
+/**
+ * Imposta il prezzo medio del ristorante.
+ *
+ * @param prezzo Il prezzo medio da assegnare al ristorante.
+ */
+public void setPrezzo(int prezzo) {
+    this.prezzo = prezzo;
+}
 
-    public boolean isDisponibilità_delivery() {
-        return disponibilità_delivery;
-    }
+/**
+ * Indica se il ristorante offre servizio di delivery.
+ *
+ * @return {@code true} se il ristorante offre delivery, {@code false} altrimenti.
+ */
+public boolean isDisponibilità_delivery() {
+    return disponibilità_delivery;
+}
 
-    public void setDisponibilità_delivery(boolean disponibilità_delivery) {
-        this.disponibilità_delivery = disponibilità_delivery;
-    }
+/**
+ * Imposta la disponibilità del servizio di delivery.
+ *
+ * @param disponibilità_delivery {@code true} se il ristorante offre delivery, {@code false} altrimenti.
+ */
+public void setDisponibilità_delivery(boolean disponibilità_delivery) {
+    this.disponibilità_delivery = disponibilità_delivery;
+}
 
-    public boolean isDisponibilità_prenotazione() {
-        return disponibilità_prenotazione;
-    }
+/**
+ * Indica se il ristorante accetta prenotazioni online.
+ *
+ * @return {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
+ */
+public boolean isDisponibilità_prenotazione() {
+    return disponibilità_prenotazione;
+}
 
-    public void setDisponibilità_prenotazione(boolean disponibilità_prenotazione) {
-        this.disponibilità_prenotazione = disponibilità_prenotazione;
-    }
+/**
+ * Imposta la disponibilità del servizio di prenotazione.
+ *
+ * @param disponibilità_prenotazione {@code true} se il ristorante accetta prenotazioni, {@code false} altrimenti.
+ */
+public void setDisponibilità_prenotazione(boolean disponibilità_prenotazione) {
+    this.disponibilità_prenotazione = disponibilità_prenotazione;
+}
 
-    public String getTipo_Cucina() {
-        return tipo_Cucina;
-    }
+/**
+ * Restituisce il tipo di cucina del ristorante.
+ *
+ * @return Il tipo di cucina del ristorante.
+ */
+public String getTipo_Cucina() {
+    return tipo_Cucina;
+}
 
-    public void setTipo_Cucina(String tipo_Cucina) {
-        this.tipo_Cucina = tipo_Cucina;
-    }
+/**
+ * Imposta il tipo di cucina del ristorante.
+ *
+ * @param tipo_Cucina Il tipo di cucina da assegnare al ristorante.
+ */
+public void setTipo_Cucina(String tipo_Cucina) {
+    this.tipo_Cucina = tipo_Cucina;
+}
+
 
     // Metodo per visualizzare i dettagli del ristorante (opzionale)
     public void visualizzaRistorante() {

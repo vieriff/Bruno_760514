@@ -344,6 +344,12 @@ public class theknife {
         }
     }
 
+/**
+ * Gestisce la ricerca avanzata di ristoranti interagendo con l'utente tramite input da console.
+ * Permette di filtrare i risultati in base a zona geografica, tipologia di cucina, fascia di prezzo,
+ * disponibilità di delivery, prenotazione e valutazione media minima.
+ * Se vengono trovati ristoranti corrispondenti ai criteri, li stampa a schermo.
+ */
     private static void cercaRistoranti() {
         System.out.println("\n--- Ricerca avanzata ristoranti ---");
 
@@ -386,6 +392,12 @@ public class theknife {
         }
     }
 
+/**
+ * Stampa l'elenco dei ristoranti trovati e richiama la visualizzazione delle recensioni per ogni ristorante.
+ * Ogni ristorante viene formattato con separatori visivi per migliorarne la leggibilità.
+ *
+ * @param ristoranti La lista di descrizioni testuali dei ristoranti da stampare.
+ */  
 private static void stampaRistoranti(List<String> ristoranti) {
     System.out.println("\n--- Ristoranti trovati ---");
     for (String r : ristoranti) {
@@ -404,7 +416,12 @@ private static void stampaRistoranti(List<String> ristoranti) {
         System.out.println();
     }
 }
-
+/**
+ * Legge un numero intero dalla console, ripetendo la richiesta fino a ottenere un input valido.
+ *
+ * @param messaggio Il messaggio da mostrare all'utente prima della richiesta di input.
+ * @return          Il numero intero inserito dall'utente.
+ */
     private static int leggiNumero(String messaggio) {
         while (true) {
             System.out.print(messaggio);
@@ -416,7 +433,12 @@ private static void stampaRistoranti(List<String> ristoranti) {
             }
         }
     }
-
+/**
+ * Legge un numero intero facoltativo dalla console. Se l'input è vuoto, restituisce {@code null}.
+ * Se l'input non è un numero valido, mostra un messaggio di errore e restituisce {@code null}.
+ *
+ * @return Il numero intero inserito dall'utente o {@code null} se l'input è vuoto o non valido.
+ */
     private static Integer leggiNumeroFacoltativo() {
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) return null;
@@ -427,7 +449,12 @@ private static void stampaRistoranti(List<String> ristoranti) {
             return null;
         }
     }
-
+/**
+ * Legge un valore booleano dalla console, accettando esclusivamente "true" o "false" come input.
+ * Continua a richiedere un valore valido finché non viene fornito un input corretto.
+ *
+ * @return {@code true} se l'utente inserisce "true", {@code false} se inserisce "false".
+ */
     private static boolean leggiBoolean() {
         while (true) {
             String input = scanner.nextLine().trim().toLowerCase();
@@ -436,7 +463,12 @@ private static void stampaRistoranti(List<String> ristoranti) {
             System.out.print("Inserisci 'true' o 'false': ");
         }
     }
-
+/**
+ * Legge un valore booleano facoltativo dalla console. Se l'input è vuoto, restituisce {@code null}.
+ * Accetta "true" o "false" come valori validi. Se l'input non è valido, mostra un messaggio e restituisce {@code null}.
+ *
+ * @return {@code true} se l'utente inserisce "true", {@code false} se inserisce "false", {@code null} se l'input è vuoto o non valido.
+ */
     private static Boolean leggiBooleanFacoltativo() {
         String input = scanner.nextLine().trim().toLowerCase();
         if (input.isEmpty()) return null;
@@ -445,7 +477,12 @@ private static void stampaRistoranti(List<String> ristoranti) {
         System.out.println("Valore non valido, filtro ignorato.");
         return null;
     }
-
+/**
+ * Legge un valore numerico facoltativo (double) dalla console. Se l'input è vuoto, restituisce {@code null}.
+ * Se l'input non è un numero valido, mostra un messaggio di errore e restituisce {@code null}.
+ *
+ * @return Il valore {@code double} inserito dall'utente o {@code null} se l'input è vuoto o non valido.
+ */
     private static Double leggiDoubleFacoltativo() {
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) return null;
@@ -456,7 +493,14 @@ private static void stampaRistoranti(List<String> ristoranti) {
             return null;
         }
     }
-
+/**
+ * Verifica se un ristorante esiste nel file dei ristoranti, confrontando nome e luogo.
+ * Se il ristorante viene trovato, restituisce {@code true} e stampa un messaggio di conferma.
+ *
+ * @param nome  Il nome del ristorante da cercare.
+ * @param luogo La città in cui si trova il ristorante.
+ * @return      {@code true} se il ristorante esiste nel file, {@code false} altrimenti.
+ */
 public static boolean esisteRistorante(String nome, String luogo) {
     try (BufferedReader br = new BufferedReader(new FileReader("dati/ristoranti.txt"))) {
         String line;

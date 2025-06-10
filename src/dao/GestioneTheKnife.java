@@ -710,6 +710,14 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
         return false;
     }
 
+    /**
+ * Verifica le credenziali dell'utente leggendo i dati da un file.
+ *
+ * @param username              Il nome utente inserito.
+ * @param passwordCriptataInput La password criptata inserita.
+ * @param ruolo                 Il ruolo dell'utente.
+ * @return                      {@code true} se le credenziali corrispondono a un utente nel file, altrimenti {@code false}.
+ */
     public static boolean loginUtenteR(String username, String passwordCriptataInput, String ruolo) {
     if (username == null || passwordCriptataInput == null || ruolo == null || username.isEmpty() || passwordCriptataInput.isEmpty() || ruolo.isEmpty()) {
         System.out.println("Username o password vuoti.");
@@ -754,7 +762,21 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
     return false;
 }
 
-public static boolean registraUtente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo, String preferiti) {
+/**
+ * Registra un nuovo utente nel file specificato. Se il file non esiste, viene creato.
+ * Verifica che l'username non sia già presente prima di aggiungere il nuovo utente.
+ *
+ * @param nome        Il nome dell'utente.
+ * @param cognome     Il cognome dell'utente.
+ * @param username    L'username dell'utente.
+ * @param password    La password dell'utente.
+ * @param dataNascita La data di nascita dell'utente.
+ * @param domicilio   Il domicilio dell'utente.
+ * @param ruolo       Il ruolo dell'utente.
+ * @param preferiti   Le preferenze dell'utente.
+ * @return            {@code true} se l'utente è stato registrato con successo, {@code false} se l'username esiste già o si è verificato un errore.
+ */
+    public static boolean registraUtente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo, String preferiti) {
     File file = new File("dati/utenti.txt");
 
     try {
@@ -794,7 +816,22 @@ public static boolean registraUtente(String nome, String cognome, String usernam
         return false;
     }
 }
-public static List<String> cercaRistorantiAvanzata(
+    
+/**
+ * Cerca ristoranti in base a criteri avanzati, leggendo i dati da un file.
+ * Filtra i risultati in base alla zona, tipo di cucina, fascia di prezzo, disponibilità di delivery o prenotazione,
+ * e numero minimo di stelle.
+ *
+ * @param zona          La zona in cui cercare i ristoranti.
+ * @param cucina        Il tipo di cucina desiderato.
+ * @param prezzoMin     Il prezzo minimo del ristorante.
+ * @param prezzoMax     Il prezzo massimo del ristorante.
+ * @param delivery      Indica se il ristorante offre servizio di consegna.
+ * @param prenotazione  Indica se il ristorante accetta prenotazioni.
+ * @param stelleMin     Il numero minimo di stelle del ristorante basato sulle recensioni.
+ * @return              Una lista di descrizioni testuali dei ristoranti che rispettano i criteri specificati.
+ */
+    public static List<String> cercaRistorantiAvanzata(
     String zona,
     String cucina,
     Integer prezzoMin,
@@ -863,8 +900,13 @@ public static List<String> cercaRistorantiAvanzata(
     return risultati;
 }
 
-
-
+/**
+ * Calcola la media delle stelle assegnate a un ristorante, leggendo i voti dalle recensioni memorizzate in un file.
+ * Ignora eventuali voti non validi o righe malformate.
+ *
+ * @param nomeRistorante Il nome del ristorante di cui calcolare la media delle stelle.
+ * @return              La media delle stelle assegnate al ristorante, o 0.0 se non sono presenti recensioni valide.
+ */
     public static double calcolaMediaStelle(String nomeRistorante) {
     String fileRecensioniPath = "dati/recensioni.txt"; // o path corretto
     double media = 0.0;
@@ -894,6 +936,15 @@ public static List<String> cercaRistorantiAvanzata(
     }
     return media;
 }
+    
+    /**
+ * Elimina una recensione specifica dal file delle recensioni, identificandola tramite username, nome e luogo del ristorante.
+ * Se la recensione esiste, viene rimossa dal file; altrimenti, viene segnalato che non è stata trovata.
+ *
+ * @param username  L'username dell'utente che ha scritto la recensione.
+ * @param nomeRis   Il nome del ristorante associato alla recensione.
+ * @param luogoRis  Il luogo del ristorante associato alla recensione.
+ */
     public static void eliminaRecensione(String username, String nomeRis, String luogoRis) {
     String filePath = "dati/recensioni.txt";
     List<String> recensioniAggiornate = new ArrayList<>();
@@ -939,6 +990,17 @@ public static List<String> cercaRistorantiAvanzata(
         System.err.println("Errore durante la scrittura del file recensioni: " + e.getMessage());
     }
 }
+    
+/**
+ * Modifica una recensione esistente nel file delle recensioni, identificandola tramite username,
+ * nome e luogo del ristorante. Aggiorna il voto e il testo della recensione se la voce è trovata.
+ *
+ * @param username       L'username dell'utente che ha scritto la recensione.
+ * @param nomeRistorante Il nome del ristorante associato alla recensione.
+ * @param luogoRis       Il luogo del ristorante associato alla recensione.
+ * @param voto           Il nuovo voto assegnato al ristorante.
+ * @param nuovaRec       Il nuovo testo della recensione.
+ */
 public static void modificaRecensione(String username, String nomeRistorante, String luogoRis, int voto, String nuovaRec) {
     String fileRecensioniPath = "dati/recensioni.txt";
     File file = new File(fileRecensioniPath);
