@@ -1,3 +1,4 @@
+package src.dao;
 /*
  * Sebastiano Svezia 760462 VA
  * Davide Bruno 760514 VA 
@@ -5,11 +6,8 @@
  * Leonardo Bighetti 760015 VA
  */
 
-package src.dao;
-/**
- * Classe DAO per la gestione delle funzionalita principali dell'applicazione TheKnife.
- * Fornisce metodi per l'aggiunta e gestione di ristoranti, recensioni, e preferiti.
- */
+
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +17,18 @@ import java.util.Map;
 import src.dto.Ristorante;
 import src.mapper.Mapper;
 
+/**
+ * Classe di utilità che gestisce le operazioni principali legate alla piattaforma TheKnife.
+ * <p>
+ * Contiene metodi statici per la gestione di ristoranti, recensioni, utenti e funzionalità
+ * di login, preferiti, risposta alle recensioni, riepiloghi e altre funzionalità collegate.
+ * Questa classe agisce come livello di business centrale per coordinare l'accesso ai dati
+ * e la logica di controllo.
+ *
+ * <p>Questa classe non è progettata per essere istanziata.
+ *
+ * @version 1.0
+ */
 public class GestioneTheKnife {
 
 	private static String fileRistorantiPath = "dati/ristoranti.txt";
@@ -26,10 +36,25 @@ public class GestioneTheKnife {
 	private static String fileUtentiPath = "dati/utenti.txt";
 
 	
-    /**
-     * Aggiunge un nuovo ristorante al file.
-     * @return true se aggiunto correttamente, false altrimenti
-     */
+  /**
+ * Aggiunge un nuovo ristorante al sistema, se i dati sono validi e non esiste già un ristorante con lo stesso nome e indirizzo.
+ * <p>
+ * La funzione valida i parametri in input, controlla la presenza di duplicati nel file, crea un nuovo oggetto
+ * {@link Ristorante} e lo salva nel file di archiviazione in formato testuale.
+ *
+ * @param nome                       il nome del ristorante
+ * @param usernameRistoratore        lo username del ristoratore associato
+ * @param nazione                   la nazione del ristorante
+ * @param citta                     la città in cui si trova il ristorante
+ * @param indirizzo                 l'indirizzo del ristorante
+ * @param latitudine                la latitudine geografica del ristorante
+ * @param longitudine               la longitudine geografica del ristorante
+ * @param prezzo                    la fascia di prezzo media del ristorante
+ * @param disponibilita_delivery     true se il ristorante offre consegna a domicilio
+ * @param disponibilita_prenotazione true se è possibile prenotare online
+ * @param tipo_Cucina               il tipo di cucina offerta
+ * @return true se il ristorante è stato aggiunto correttamente, false in caso di errore o dati duplicati
+ */
 public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String citta, String indirizzo, int latitudine,
     int longitudine, int prezzo, boolean disponibilita_delivery, boolean disponibilita_prenotazione,
     String tipo_Cucina) {
@@ -99,9 +124,16 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
 }
 
 
-    /**
-     * Visualizza un riepilogo dei ristoranti con le medie votazioni delle recensioni.
-     */
+   /**
+ * Visualizza un riepilogo dei ristoranti registrati dall'utente specificato,
+ * mostrando per ciascuno il nome, la città e la media delle valutazioni ricevute.
+ * <p>
+ * I dati vengono letti da due file: uno contenente i ristoranti e l'altro le recensioni.
+ * Il metodo calcola la media delle stelle ricevute per ogni ristorante associato all'utente
+ * e stampa i risultati sulla console.
+ *
+ * @param usernameRistoratore lo username del ristoratore di cui visualizzare il riepilogo
+ */
     public static void visualizzaRiepilogo(String usernameRistoratore) {
     if (fileRistorantiPath == null || fileRecensioniPath == null) {
         System.err.println("Errore: file non configurati.");
@@ -171,10 +203,17 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
     }
 }
 
-    /**
-     * Visualizza tutte le recensioni relative ai ristoranti gestiti da un dato utente.
-     * @param usernameLoggato username del ristoratore loggato
-     */
+/**
+ * Visualizza tutte le recensioni disponibili per un ristorante specifico.
+ * <p>
+ * Il metodo legge il file delle recensioni, filtra quelle associate al ristorante specificato,
+ * stampa ogni recensione con i dettagli dell'utente, valutazione, testo e risposta,
+ * e calcola la media delle valutazioni.
+ * <p>
+ * Se il file non è configurato o non ci sono recensioni, stampa un messaggio informativo.
+ *
+ * @param nomeRistorante il nome del ristorante di cui visualizzare le recensioni
+ */
 public static void visualizzaRecensioniPerRistorante(String nomeRistorante) {
     if (fileRecensioniPath == null) {
         System.err.println("Errore: path file recensioni non configurato.");
@@ -226,10 +265,16 @@ public static void visualizzaRecensioniPerRistorante(String nomeRistorante) {
 
 /**
  * Visualizza tutte le recensioni relative ai ristoranti gestiti da un determinato ristoratore.
- * Recupera la lista dei ristoranti associati all'username, legge le recensioni dal file e calcola la media delle valutazioni.
- * Se il ristoratore non ha ristoranti registrati, stampa un messaggio di avviso.
+ * <p>
+ * Il metodo legge i file di ristoranti e recensioni, identifica i ristoranti appartenenti
+ * all'utente specificato, e per ciascuno mostra tutte le recensioni disponibili, incluse
+ * valutazione, testo della recensione e risposta (se presente). Inoltre, calcola la media delle
+ * valutazioni per ogni ristorante.
+ * <p>
+ * Se i file richiesti non sono configurati, o se il ristoratore non gestisce ristoranti,
+ * viene mostrato un messaggio informativo.
  *
- * @param usernameLoggato L'username del ristoratore per cui recuperare le recensioni.
+ * @param usernameLoggato lo username del ristoratore per cui visualizzare le recensioni
  */
 public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
 
@@ -304,10 +349,20 @@ public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
 }
 
 
-    /**
-     * Permette a un ristoratore di rispondere a una recensione.
-     * @return true se risposta salvata correttamente, false altrimenti
-     */
+   /**
+ * Permette a un ristoratore di rispondere a una recensione ricevuta su uno dei suoi ristoranti.
+ * <p>
+ * Il metodo verifica che il ristorante appartenga all'utente loggato, cerca la recensione corrispondente
+ * nel file delle recensioni, e se non ha ancora ricevuto una risposta, aggiunge il testo fornito.
+ * L'intero file viene riscritto con la modifica applicata.
+ *
+ * @param usernameLoggato   lo username del ristoratore loggato
+ * @param nomeRistorante    il nome del ristorante a cui appartiene la recensione
+ * @param usernameCliente   lo username del cliente che ha scritto la recensione
+ * @param risposta          il testo della risposta del ristoratore
+ * @return true se la risposta è stata aggiunta con successo, false in caso di errore, ristorante non valido,
+ *         recensione inesistente o già risposto
+ */
 public static boolean rispondiRecensione(String usernameLoggato, String nomeRistorante, String usernameCliente, String risposta) {
 
     boolean ristoranteTrovato = false;
@@ -387,10 +442,19 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
     return true;
 }
 
-    /**
-     * Aggiunge un ristorante ai preferiti dell'utente.
-     * @return true se aggiunto con successo, false altrimenti
-     */
+/**
+ * Aggiunge un ristorante alla lista dei preferiti di un utente, se non è già presente.
+ * <p>
+ * Il metodo verifica che i dati in input siano validi, cerca l'utente nel file degli utenti,
+ * controlla che il ristorante non sia già nei suoi preferiti, e in tal caso lo aggiunge.
+ * I dati vengono poi salvati riscrivendo l'intero file.
+ *
+ * @param usernameCliente   lo username del cliente che sta effettuando l'aggiunta
+ * @param nomeRistorante    il nome del ristorante da aggiungere ai preferiti
+ * @param luogoRistorante   la città o località del ristorante
+ * @return true se il ristorante è stato aggiunto con successo, false in caso di input non valido,
+ *         ristorante già presente o errore durante lettura/scrittura del file
+ */
     public static boolean aggiungiPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {    //aggiunge un ristorante al campo preferiti dell'utente che ha effettuato il login
 
         List<String> utentiAggiornati = new ArrayList<>();
@@ -466,10 +530,20 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
         return true;       //se tutto è andato a buon fine ritorno true
     }
 
-    /**
-     * Rimuove un ristorante dai preferiti dell'utente.
-     * @return true se rimosso con successo, false altrimenti
-     */
+  /**
+ * Rimuove un ristorante dalla lista dei preferiti dell'utente specificato.
+ * <p>
+ * Il metodo verifica la validità dei parametri, legge il file degli utenti, trova l'utente corrispondente
+ * e rimuove il ristorante dai preferiti se presente. Infine, aggiorna il file con i dati modificati.
+ * <p>
+ * Se il ristorante non è tra i preferiti o l'utente non è trovato, il metodo restituisce {@code false}.
+ *
+ * @param usernameCliente   lo username del cliente da cui rimuovere il ristorante preferito
+ * @param nomeRistorante    il nome del ristorante da rimuovere
+ * @param luogoRistorante   la città o località del ristorante da rimuovere
+ * @return true se il ristorante è stato rimosso con successo, false se il ristorante non era presente,
+ *         l'utente non esiste o si è verificato un errore durante la lettura/scrittura del file
+ */
     public static boolean rimuoviPreferito(String usernameCliente, String nomeRistorante, String luogoRistorante) {     //rimuove un ristorante al campo preferiti dell'utente che ha effettuato il login
 
         List<String> utentiAggiornati = new ArrayList<>();
@@ -590,10 +664,21 @@ public static boolean rispondiRecensione(String usernameLoggato, String nomeRist
         }
     }
 
-    /**
-     * Aggiunge una recensione per un ristorante da parte di un utente.
-     * @return true se la recensione è stata aggiunta con successo, false altrimenti
-     */
+   /**
+ * Aggiunge una nuova recensione a un ristorante specificato, se non già presente per l'utente.
+ * <p>
+ * Il metodo verifica che i dati siano validi, controlla l'esistenza del ristorante, verifica che l'utente
+ * non abbia già recensito lo stesso ristorante nella stessa località e, in caso positivo, aggiunge
+ * la nuova recensione al file delle recensioni.
+ *
+ * @param username          lo username del cliente che lascia la recensione
+ * @param nomeRistorante    il nome del ristorante recensito
+ * @param luogoRistorante   la città o località in cui si trova il ristorante
+ * @param valutazione       il punteggio assegnato (es. da 1 a 5)
+ * @param testoRecensione   il testo della recensione
+ * @return true se la recensione è stata aggiunta correttamente, false in caso di errore o se la recensione
+ *         è già presente
+ */
 public static boolean aggiungiRecensione(String username, String nomeRistorante, String luogoRistorante, String valutazione, String testoRecensione) {
 
     if (username == null || nomeRistorante == null || luogoRistorante == null ||
@@ -673,12 +758,21 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
 }
     
     
-    /**
-     * Esegue il login verificando username e password cifrata.
-     * @param username username inserito
-     * @param password password inserita in chiaro
-     * @return true se le credenziali sono corrette, false altrimenti
-     */
+  /**
+ * Verifica le credenziali di accesso di un utente, controllando username, password e ruolo.
+ * <p>
+ * Il metodo legge il file degli utenti, cerca una corrispondenza per username, confronta
+ * la password (in chiaro o cifrata, a seconda dell’implementazione) e il ruolo.
+ * Restituisce {@code true} solo se tutti e tre i dati corrispondono.
+ * <p>
+ * In caso di errore di lettura file o credenziali non valide, stampa un messaggio sulla console
+ * e restituisce {@code false}.
+ *
+ * @param username  lo username inserito dall’utente
+ * @param password  la password associata all’utente
+ * @param ruolo     il ruolo atteso (es. "utente", "ristoratore", "admin")
+ * @return {@code true} se login riuscito, {@code false} in caso di errore o credenziali non valide
+ */
     public static boolean loginUtenteU(String username, String password, String ruolo) {
 
         if (username == null || password == null || ruolo == null || username.isEmpty() || password.isEmpty() || ruolo.isEmpty()) {

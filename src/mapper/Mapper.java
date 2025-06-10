@@ -1,10 +1,11 @@
+package src.mapper;
 /*
  * Sebastiano Svezia 760462 VA
  * Davide Bruno 760514 VA 
  * Fancesco Vieri 761195 VA
  * Leonardo Bighetti 760015 VA
  */
-package src.mapper;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

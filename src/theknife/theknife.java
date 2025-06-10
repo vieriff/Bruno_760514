@@ -1,3 +1,4 @@
+package src.theknife;
 /*
  * Sebastiano Svezia 760462 VA
  * Davide Bruno 760514 VA 
@@ -5,7 +6,7 @@
  * Leonardo Bighetti 760015 VA
  */
 
-package src.theknife;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -35,7 +36,7 @@ import src.sicurezzaPassword.*;
  * viene gestita unicamente l'interfaccia utente testuale.
  */
 
-public class theknife {
+public class Theknife {
      /**
      * Scanner condiviso per la lettura dei comandi da console.
      */

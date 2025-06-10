@@ -1,10 +1,11 @@
+package src.dto;
 /*
  * Sebastiano Svezia 760462 VA
  * Davide Bruno 760514 VA 
  * Fancesco Vieri 761195 VA
  * Leonardo Bighetti 760015 VA
  */
-package src.dto;
+
 /**
  * La classe {@code Ristorante} rappresenta un ristorante registrato nel sistema.
  * Contiene informazioni relative al nome, posizione, fascia di prezzo, servizi disponibili
@@ -30,7 +31,22 @@ public class Ristorante {
     private boolean disponibilita_prenotazione;
     private String tipo_Cucina;
 
-    // Costruttore completo
+
+    /**
+ * Costruttore completo per creare un nuovo oggetto Ristorante con tutti i parametri specificati.
+ *
+ * @param nome                     il nome del ristorante
+ * @param username_ristoratore    lo username associato al ristoratore
+ * @param nazione                 la nazione dove si trova il ristorante
+ * @param citta                   la città in cui si trova il ristorante
+ * @param indirizzo               l'indirizzo completo del ristorante
+ * @param latitudine              la latitudine geografica del ristorante
+ * @param longitudine             la longitudine geografica del ristorante
+ * @param prezzo                  il prezzo medio indicativo del ristorante
+ * @param disponibilita_delivery  true se il ristorante offre servizio di consegna a domicilio
+ * @param disponibilita_prenotazione true se è possibile prenotare un tavolo
+ * @param tipo_Cucina             il tipo di cucina offerta (es. italiana, giapponese, vegana)
+ */
     public Ristorante(String nome, String username_ristoratore, String nazione, String citta, String indirizzo,
                       double latitudine, double longitudine, int prezzo, boolean disponibilita_delivery,
                       boolean disponibilita_prenotazione, String tipo_Cucina) {
@@ -47,11 +63,15 @@ public class Ristorante {
         this.tipo_Cucina = tipo_Cucina;
     }
 
-    // Costruttore vuoto
+
+    /**
+ * Costruttore vuoto per la creazione di un oggetto Ristorante senza inizializzazione immediata.
+ * Necessario ad esempio per operazioni di deserializzazione o framework che richiedono un costruttore predefinito.
+ */
     public Ristorante() {
     }
 
-    // Getter e Setter
+
 
     /**
  * Restituisce il nome del ristorante.
@@ -251,7 +271,13 @@ public void setTipo_Cucina(String tipo_Cucina) {
     this.tipo_Cucina = tipo_Cucina;
 }
 
-
+/**
+ * Visualizza sulla console tutti i dettagli del ristorante,
+ * inclusi nome, ristoratore, indirizzo, coordinate geografiche,
+ * tipo di cucina, fascia di prezzo e disponibilità dei servizi delivery e prenotazione.
+ * <p>
+ * Metodo utile per il debug o per fornire una rappresentazione testuale del ristorante.
+ */
     // Metodo per visualizzare i dettagli del ristorante (opzionale)
     public void visualizzaRistorante() {
         System.out.println("Dettagli ristorante:");
