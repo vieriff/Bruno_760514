@@ -40,6 +40,7 @@ public class GestioneTheKnife {
 	private static String fileUtentiPath = "dati/utenti.txt";
 
 	
+<<<<<<< HEAD
 
   /**
  * Aggiunge un nuovo ristorante al sistema, se i dati sono validi e non esiste già un ristorante con lo stesso nome e indirizzo.
@@ -60,6 +61,12 @@ public class GestioneTheKnife {
  * @param tipo_Cucina               il tipo di cucina offerta
  * @return true se il ristorante è stato aggiunto correttamente, false in caso di errore o dati duplicati
  */
+=======
+    /**
+     * Aggiunge un nuovo ristorante al file.
+     * @return true se aggiunto correttamente, false altrimenti
+     */
+>>>>>>> parent of 2f187ae (Merge branch 'main' of https://github.com/vieriff/Progetto_lab_a_VBSB)
 public static boolean aggiungiRistorante(String nome, String usernameRistoratore, String nazione, String città, String indirizzo, int latitudine,
     int longitudine, int prezzo, boolean disponibilità_delivery, boolean disponibilità_prenotazione,
     String tipo_Cucina) {

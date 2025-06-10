@@ -31,6 +31,7 @@ public class ristorante {
     private boolean disponibilità_prenotazione;
     private String tipo_Cucina;
 
+<<<<<<< HEAD
     /**
  * Costruttore completo per creare un nuovo oggetto Ristorante con tutti i parametri specificati.
  *
@@ -50,6 +51,12 @@ public class ristorante {
                       double latitudine, double longitudine, int prezzo, boolean disponibilita_delivery,
                       boolean disponibilita_prenotazione, String tipo_Cucina) {
 
+=======
+    // Costruttore completo
+    public ristorante(String nome, String username_ristoratore, String nazione, String città, String indirizzo,
+                      double latitudine, double longitudine, int prezzo, boolean disponibilità_delivery,
+                      boolean disponibilità_prenotazione, String tipo_Cucina) {
+>>>>>>> parent of 2f187ae (Merge branch 'main' of https://github.com/vieriff/Progetto_lab_a_VBSB)
         this.nome = nome;
         this.username_ristoratore = username_ristoratore;
         this.nazione = nazione;
@@ -63,12 +70,17 @@ public class ristorante {
         this.tipo_Cucina = tipo_Cucina;
     }
 
+<<<<<<< HEAD
     /**
  * Costruttore vuoto per la creazione di un oggetto Ristorante senza inizializzazione immediata.
  * Necessario ad esempio per operazioni di deserializzazione o framework che richiedono un costruttore predefinito.
  */
     public Ristorante() {
 
+=======
+    // Costruttore vuoto
+    public ristorante() {
+>>>>>>> parent of 2f187ae (Merge branch 'main' of https://github.com/vieriff/Progetto_lab_a_VBSB)
     }
 
 
