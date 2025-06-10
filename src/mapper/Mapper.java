@@ -10,8 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import src.dto.Recensione;
-import src.dto.ristorante;
-import src.dto.utente;
+import src.dto.Ristorante;
+import src.dto.Utente;
 import src.sicurezzaPassword.Criptazione;
 /**
  * La classe {@code Mapper} è utilizzata per mappare oggetti di tipo {@link Utente}, {@link Ristorante} e {@link Recensione}
@@ -27,8 +27,8 @@ public class Mapper {
      * @param linea La stringa contenente i dati dell'utente, separati da virgole.
      * @return Un oggetto {@link Utente} con i dati mappati dalla stringa.
      */
-	public static utente mapObjUtente(String linea) {
-	    utente u = new utente();
+	public static Utente mapObjUtente(String linea) {
+	    Utente u = new Utente();
 	    String[] valori = linea.split(",");
 	    u.setNome(valori[0]);
 	    u.setCognome(valori[1]);
@@ -50,30 +50,30 @@ public class Mapper {
 	    // Mappatura dei ristoranti preferiti
 	    if (valori.length > 7 && valori[7] != null && !valori[7].isEmpty()) {
 	        String[] ristorantiData = valori[7].split("\\."); // separa i ristoranti
-	        ristorante[] preferiti = new ristorante[ristorantiData.length];
+	        Ristorante[] preferiti = new Ristorante[ristorantiData.length];
 
 	        for (int i = 0; i < ristorantiData.length; i++) {
-	            String[] dettagli = ristorantiData[i].split(";"); // separa i dettagli del ristorante
+	            String[] dettagli = ristorantiData[i].split(";"); // separa i dettagli del Ristorante
 	            if (dettagli.length >= 11) { // Ora almeno 11 campi
 	                String nome = dettagli[0];
 	                String username_ristoratore = dettagli[1];
 	                String nazione = dettagli[2];
-	                String città = dettagli[3];
+	                String citta = dettagli[3];
 	                String indirizzo = dettagli[4];
 	                int latitudine = Integer.parseInt(dettagli[5]);
 	                int longitudine = Integer.parseInt(dettagli[6]);
 	                int prezzo = Integer.parseInt(dettagli[7]);
-	                boolean disponibilità_delivery = Boolean.parseBoolean(dettagli[8]);
-	                boolean disponibilità_prenotazione = Boolean.parseBoolean(dettagli[9]);
+	                boolean disponibilita_delivery = Boolean.parseBoolean(dettagli[8]);
+	                boolean disponibilita_prenotazione = Boolean.parseBoolean(dettagli[9]);
 	                String tipo_cucina = dettagli[10];
 
-	                preferiti[i] = new ristorante(nome, username_ristoratore, nazione, città, indirizzo, latitudine,
-	                        longitudine, prezzo, disponibilità_delivery, disponibilità_prenotazione, tipo_cucina);
+	                preferiti[i] = new Ristorante(nome, username_ristoratore, nazione, citta, indirizzo, latitudine,
+	                        longitudine, prezzo, disponibilita_delivery, disponibilita_prenotazione, tipo_cucina);
 	            }
 	        }
 	        u.setPreferiti(preferiti);
 	    } else {
-	        u.setPreferiti(new ristorante[0]); // Nessun ristorante
+	        u.setPreferiti(new Ristorante[0]); // Nessun Ristorante
 	    }
 
 	    return u;
@@ -85,7 +85,7 @@ public class Mapper {
      * @param u L'oggetto {@link Utente} da mappare.
      * @return Una stringa contenente i dati dell'utente, separati da virgole.
      */
-	public static String mapStrUtente(utente u) {
+	public static String mapStrUtente(Utente u) {
 		// Mappatura dell'utente
 		String result = u.getNome() + "," + u.getCognome() + "," + u.getUsername() + ","
 				+ Criptazione.critta(u.getPassword()) + ","; // Criptazione della password
@@ -99,10 +99,10 @@ public class Mapper {
 		// Mappatura dei ristoranti preferiti
 		if (u.getPreferiti() != null && u.getPreferiti().length > 0) {
 			for (int i = 0; i < u.getPreferiti().length; i++) {
-				ristorante r = u.getPreferiti()[i];
-				result += r.getNome() + ";" + r.getNazione() + ";" + r.getCittà() + ";" + r.getIndirizzo() + ";"
+				Ristorante r = u.getPreferiti()[i];
+				result += r.getNome() + ";" + r.getNazione() + ";" + r.getCitta() + ";" + r.getIndirizzo() + ";"
 						+ r.getLatitudine() + ";" + r.getLongitudine() + ";" + r.getPrezzo() + ";"
-						+ r.isDisponibilità_delivery() + ";" + r.isDisponibilità_prenotazione() + ";"
+						+ r.isDisponibilita_delivery() + ";" + r.isDisponibilita_prenotazione() + ";"
 						+ r.getTipo_Cucina();
 
 				if (i < u.getPreferiti().length - 1) {
@@ -115,12 +115,12 @@ public class Mapper {
 	}
 	
 	 /**
-     * Mappa una stringa contenente i dati di un ristorante in un oggetto {@link Ristorante}.
+     * Mappa una stringa contenente i dati di un Ristorante in un oggetto {@link Ristorante}.
      * 
-     * @param linea La stringa contenente i dati del ristorante, separati da virgole.
+     * @param linea La stringa contenente i dati del Ristorante, separati da virgole.
      * @return Un oggetto {@link Ristorante} con i dati mappati dalla stringa.
      */
-	public static ristorante mapObjRistorante(String line) {
+	public static Ristorante mapObjRistorante(String line) {
     if (line == null || line.trim().isEmpty()) return null;
 
     String[] campi = line.split(";");
@@ -140,22 +140,22 @@ public class Mapper {
         boolean prenotazione = campi[9].trim().equalsIgnoreCase("Sì");
         String tipoCucina = campi[10].trim();
 
-        ristorante r = new ristorante();
+        Ristorante r = new Ristorante();
         r.setNome(nome);
         r.setUsername_ristoratore(username);
         r.setNazione(nazione);
-        r.setCittà(citta);
+        r.setCitta(citta);
         r.setIndirizzo(indirizzo);
         r.setLatitudine(latitudine);
         r.setLongitudine(longitudine);
         r.setPrezzo(prezzo);
-        r.setDisponibilità_delivery(delivery);
-        r.setDisponibilità_prenotazione(prenotazione);
+        r.setDisponibilita_delivery(delivery);
+        r.setDisponibilita_prenotazione(prenotazione);
         r.setTipo_Cucina(tipoCucina);
 
         return r;
     } catch (Exception e) {
-        System.err.println("Errore nel parsing della riga ristorante: " + line);
+        System.err.println("Errore nel parsing della riga Ristorante: " + line);
         return null;
     }
 }
@@ -163,18 +163,18 @@ public class Mapper {
      * Mappa un oggetto {@link Ristorante} in una stringa di testo separata da virgole.
      * 
      * @param r L'oggetto {@link Ristorante} da mappare.
-     * @return Una stringa contenente i dati del ristorante, separati da virgole.
+     * @return Una stringa contenente i dati del Ristorante, separati da virgole.
      */
-	public static String mapStrRistorante(ristorante r) {
+	public static String mapStrRistorante(Ristorante r) {
 	    // restituisce stringa con i campi separati da virgola in ordine corretto
 		String delivery;
 		String prenotazione;
-		if(r.isDisponibilità_delivery()){
+		if(r.isDisponibilita_delivery()){
 			delivery = "si";
 		}else{
 			delivery = "no";
 		}
-		if(r.isDisponibilità_delivery()){
+		if(r.isDisponibilita_delivery()){
 			prenotazione = "si";
 		}else{
 			prenotazione = "no";
@@ -182,7 +182,7 @@ public class Mapper {
 	    return r.getNome() + ";" 
 	         + r.getUsername_ristoratore() + ";" 
 	         + r.getNazione() + ";" 
-	         + r.getCittà() + ";" 
+	         + r.getCitta() + ";" 
 	         + r.getIndirizzo() + ";" 
 	         + r.getLatitudine() + ";" 
 	         + r.getLongitudine() + ";" 
