@@ -53,7 +53,7 @@ public class theknife {
             System.out.println("1. Login Cliente");
             System.out.println("2. Login Ristoratore");
             System.out.println("3. Registrati");
-            System.out.println("4. Cerca ristorante");
+            System.out.println("4. Cerca ristorante (guest)");
             System.out.println("0. Esci");
             System.out.print("Scelta: ");
 
