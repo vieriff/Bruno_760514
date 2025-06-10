@@ -224,7 +224,13 @@ public static void visualizzaRecensioniPerRistorante(String nomeRistorante) {
     }
 }
 
-
+/**
+ * Visualizza tutte le recensioni relative ai ristoranti gestiti da un determinato ristoratore.
+ * Recupera la lista dei ristoranti associati all'username, legge le recensioni dal file e calcola la media delle valutazioni.
+ * Se il ristoratore non ha ristoranti registrati, stampa un messaggio di avviso.
+ *
+ * @param usernameLoggato L'username del ristoratore per cui recuperare le recensioni.
+ */
 public static void visualizzaRecensioniPerRistoratore(String usernameLoggato) {
 
     if (fileRistorantiPath == null || fileRecensioniPath == null) {
