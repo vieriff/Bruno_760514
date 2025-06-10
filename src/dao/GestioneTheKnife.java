@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import src.dto.ristorante;
+import src.dto.Ristorante;
 import src.mapper.Mapper;
 
 public class GestioneTheKnife {
@@ -65,7 +65,7 @@ public static boolean aggiungiRistorante(String nome, String usernameRistoratore
     }
 
     
-    ristorante nuovoRistorante = new ristorante(nome, usernameRistoratore, nazione, citta, indirizzo, latitudine,
+    Ristorante nuovoRistorante = new Ristorante(nome, usernameRistoratore, nazione, citta, indirizzo, latitudine,
             longitudine, prezzo, disponibilita_delivery, disponibilita_prenotazione, tipo_Cucina);
 
     String riga = Mapper.mapStrRistorante(nuovoRistorante);
@@ -865,7 +865,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
             String[] campi = line.split(";");
             if (campi.length < campiMinimi) continue; // salta righe malformate
 
-            ristorante r = Mapper.mapObjRistorante(line);
+            Ristorante r = Mapper.mapObjRistorante(line);
             if (r == null) continue;
 
             // Filtri

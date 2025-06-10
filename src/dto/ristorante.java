@@ -16,7 +16,7 @@ package src.dto;
 /**
  * La classe {@code ristorante} rappresenta un ristorante registrato nel sistema.
  */
-public class ristorante {
+public class Ristorante {
 
     private String nome;
     private String username_ristoratore;
@@ -31,7 +31,7 @@ public class ristorante {
     private String tipo_Cucina;
 
     // Costruttore completo
-    public ristorante(String nome, String username_ristoratore, String nazione, String citta, String indirizzo,
+    public Ristorante(String nome, String username_ristoratore, String nazione, String citta, String indirizzo,
                       double latitudine, double longitudine, int prezzo, boolean disponibilita_delivery,
                       boolean disponibilita_prenotazione, String tipo_Cucina) {
         this.nome = nome;
@@ -48,7 +48,7 @@ public class ristorante {
     }
 
     // Costruttore vuoto
-    public ristorante() {
+    public Ristorante() {
     }
 
     // Getter e Setter
