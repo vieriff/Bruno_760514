@@ -311,23 +311,4 @@ public void setTipo_Cucina(String tipo_Cucina) {
     this.tipo_Cucina = tipo_Cucina;
 }
 
-/**
- * Visualizza sulla console tutti i dettagli del Ristorante,
- * inclusi nome, ristoratore, indirizzo, coordinate geografiche,
- * tipo di cucina, fascia di prezzo e disponibilita dei servizi delivery e prenotazione.
- * <p>
- * Metodo utile per il debug o per fornire una rappresentazione testuale del Ristorante.
- */
-    // Metodo per visualizzare i dettagli del Ristorante (opzionale)
-    public void visualizzaRistorante() {
-        System.out.println("Dettagli Ristorante:");
-        System.out.println("Nome: " + nome);
-        System.out.println("Ristoratore: " + username_ristoratore);
-        System.out.println("Indirizzo: " + indirizzo + ", " + citta + ", " + nazione);
-        System.out.println("Coordinate: latitudine = " + latitudine + ", longitudine = " + longitudine);
-        System.out.println("Tipologia di cucina: " + tipo_Cucina);
-        System.out.println("Fascia di prezzo: " + prezzo + "€");
-        System.out.println("Servizio Delivery: " + (disponibilita_delivery ? "Disponibile" : "Non disponibile"));
-        System.out.println("Prenotazione Online: " + (disponibilita_prenotazione ? "Disponibile" : "Non disponibile"));
-    }
 }

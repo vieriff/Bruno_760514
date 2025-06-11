@@ -13,6 +13,7 @@ package src.dao;
  */
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -40,17 +41,19 @@ public class GestioneTheKnife {
     /**
      * Percorso del file contenente i dati degli utenti.
      */
-    public static final String fileUtentiPath = "../dati/utenti.txt";
+    public static final String fileUtentiPath = Paths.get(System.getProperty("user.dir"), "dati", "utenti.txt").toString();
+
 
     /**
      * Percorso del file contenente i dati dei ristoranti.
      */
-    public static final String fileRistorantiPath = "../dati/ristoranti.txt";
+    public static final String fileRistorantiPath = Paths.get(System.getProperty("user.dir"), "dati", "ristoranti.txt").toString();
+
 
     /**
      * Percorso del file contenente i dati delle recensioni.
      */
-    public static final String fileRecensioniPath = "../dati/recensioni.txt";
+     public static final String fileRecensioniPath = Paths.get(System.getProperty("user.dir"), "dati", "recensioni.txt").toString();
 
     
   /**
@@ -998,10 +1001,10 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
 
             // Aggiungi descrizione
             String descrizione = String.format(
-                "%s - %s, %s\nIndirizzo: %s\nPrezzo medio: %d€\nDelivery: %s - Prenotazione: %s\nTipo cucina: %s\n",
+                "%s - %s, %s\nIndirizzo: %s\nPrezzo medio: %deuro\nDelivery: %s - Prenotazione: %s\nTipo cucina: %s\n",
                 r.getNome(), r.getUsername_ristoratore(), r.getCitta(), r.getIndirizzo(), r.getPrezzo(),
-                r.isDisponibilita_delivery() ? "Sì" : "No",
-                r.isDisponibilita_prenotazione() ? "Sì" : "No",
+                r.isDisponibilita_delivery() ? "Si" : "No",
+                r.isDisponibilita_prenotazione() ? "Si" : "No",
                 r.getTipo_Cucina()
             );
             risultati.add(descrizione);

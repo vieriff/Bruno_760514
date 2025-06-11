@@ -11,6 +11,7 @@ package src.theknife;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -503,7 +504,7 @@ private static void stampaRistoranti(List<String> ristoranti) {
  * @return      {@code true} se il Ristorante esiste nel file, {@code false} altrimenti.
  */
 public static boolean esisteRistorante(String nome, String luogo) {
-    try (BufferedReader br = new BufferedReader(new FileReader("../dati/ristoranti.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(Paths.get(System.getProperty("user.dir"), "dati", "ristoranti.txt").toString()))) {
         String line;
         while ((line = br.readLine()) != null) {
             String[] campi = line.split(";");

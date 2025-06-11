@@ -27,5 +27,3 @@ Trattoria Rustica;roberto;Italia;Bologna;Via Zamboni 12;44.4949;11.3426;2;No;No;
 Ristorante del Centro;elena;Italia;Firenze;Via dei Calzaiuoli 18;43.7696;11.2558;3;Sì;Sì;Italiana
 suiden mania;suiden;italia;Milano;piazza deturbo 4;1.2333212E7;232111.0;35;si;si;ganese
 conisocus;suiden;italia;milano;piazza liberta 12;13231.0;213244.0;150;si;si;moldava
-stercurianus;suiden;italia;milano;paiazz che 4;142.0;23423.0;56;no;no;rumena
-suiden hentai;suiden;italia;roma;piazza garibaldi schifoso 4;14324.0;234322.0;35;si;si;milanese

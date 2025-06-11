@@ -129,8 +129,8 @@ public class Mapper {
  *   <li>latitudine (double)</li>
  *   <li>longitudine (double)</li>
  *   <li>prezzo (int)</li>
- *   <li>disponibilità delivery ("Sì" per true)</li>
- *   <li>disponibilità prenotazione ("Sì" per true)</li>
+ *   <li>disponibilità delivery ("Si" per true)</li>
+ *   <li>disponibilità prenotazione ("Si" per true)</li>
  *   <li>tipo di cucina</li>
  * </ol>
  * 
@@ -154,8 +154,8 @@ public class Mapper {
         double longitudine = Double.parseDouble(campi[6].trim());
         int prezzo = Integer.parseInt(campi[7].trim());
 
-        boolean delivery = campi[8].trim().equalsIgnoreCase("Sì");
-        boolean prenotazione = campi[9].trim().equalsIgnoreCase("Sì");
+        boolean delivery = campi[8].trim().equalsIgnoreCase("Si");
+        boolean prenotazione = campi[9].trim().equalsIgnoreCase("Si");
         String tipoCucina = campi[10].trim();
 
         Ristorante r = new Ristorante();
