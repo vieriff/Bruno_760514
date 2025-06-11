@@ -41,19 +41,19 @@ public class GestioneTheKnife {
     /**
      * Percorso del file contenente i dati degli utenti.
      */
-    public static final String fileUtentiPath = Paths.get(System.getProperty("user.dir"), "dati", "utenti.txt").toString();
+    public static final String fileUtentiPath = Paths.get("..", "dati", "utenti.txt").normalize().toString();
 
 
     /**
      * Percorso del file contenente i dati dei ristoranti.
      */
-    public static final String fileRistorantiPath = Paths.get(System.getProperty("user.dir"), "dati", "ristoranti.txt").toString();
+    public static final String fileRistorantiPath = Paths.get("..", "dati", "ristoranti.txt").normalize().toString();
 
 
     /**
      * Percorso del file contenente i dati delle recensioni.
      */
-     public static final String fileRecensioniPath = Paths.get(System.getProperty("user.dir"), "dati", "recensioni.txt").toString();
+     public static final String fileRecensioniPath = Paths.get("..", "dati", "recensioni.txt").normalize().toString();
 
     
   /**
