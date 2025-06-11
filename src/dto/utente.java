@@ -18,15 +18,47 @@ import java.util.Calendar;
  */
 public class Utente {
 
-	private String nome;
-	private String cognome;
-	private String username;
-	private String password;
-	private Calendar data_nascita;
-	private String luogo_domicilio;
-	private String ruolo;
-	private Ristorante[] preferiti;
+    /**
+     * Nome dell'utente.
+     */
+    private String nome;
 
+    /**
+     * Cognome dell'utente.
+     */
+    private String cognome;
+
+    /**
+     * Username scelto dall'utente per accedere al sistema.
+     */
+    private String username;
+
+    /**
+     * Password associata all'account dell'utente.
+     */
+    private String password;
+
+    /**
+     * Data di nascita dell'utente.
+     */
+    private Calendar data_nascita;
+
+    /**
+     * Luogo di domicilio dell'utente (città o indirizzo generico).
+     */
+    private String luogo_domicilio;
+
+    /**
+     * Ruolo dell'utente nel sistema (es. "cliente", "ristoratore", "amministratore").
+     */
+    private String ruolo;
+
+    /**
+     * Elenco dei ristoranti preferiti dall'utente.
+     */
+    private Ristorante[] preferiti;
+
+    
 	/**
 	 * Restituisce il nome dell'utente.
 	 * 

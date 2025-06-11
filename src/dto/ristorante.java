@@ -16,16 +16,59 @@ package src.dto;
  */
 public class Ristorante {
 
+  /**
+     * Nome del ristorante.
+     */
     private String nome;
+
+    /**
+     * Nome utente del ristoratore che gestisce il ristorante.
+     */
     private String username_ristoratore;
+
+    /**
+     * Nazione in cui si trova il ristorante.
+     */
     private String nazione;
+
+    /**
+     * Città in cui si trova il ristorante.
+     */
     private String citta;
+
+    /**
+     * Indirizzo completo del ristorante.
+     */
     private String indirizzo;
+
+    /**
+     * Latitudine della posizione geografica del ristorante.
+     */
     private double latitudine;
+
+    /**
+     * Longitudine della posizione geografica del ristorante.
+     */
     private double longitudine;
+
+    /**
+     * Fascia di prezzo del ristorante (espressa in scala numerica, es. da 1 a 3).
+     */
     private int prezzo;
+
+    /**
+     * Indica se il ristorante offre il servizio di consegna a domicilio.
+     */
     private boolean disponibilita_delivery;
+
+    /**
+     * Indica se il ristorante accetta prenotazioni.
+     */
     private boolean disponibilita_prenotazione;
+
+    /**
+     * Tipo di cucina offerta dal ristorante (es. Italiana, Cinese, Messicana, ecc.).
+     */
     private String tipo_Cucina;
 
 

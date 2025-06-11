@@ -36,16 +36,32 @@ import src.mapper.Mapper;
  */
 public class GestioneTheKnife {
     
-	private static String getBaseDir() {
-    return System.getProperty("user.dir");
-}
+    /**
+     * Restituisce la directory di base del progetto, corrispondente alla directory di esecuzione.
+     *
+     * @return il percorso assoluto della directory di lavoro corrente
+     */
+    private static String getBaseDir() {
+        return System.getProperty("user.dir");
+    }
 
     // Path dinamici
+
+    /**
+     * Percorso del file contenente i dati degli utenti.
+     */
     public static final String fileUtentiPath = Paths.get(getBaseDir(), "dati", "utenti.txt").toString();
+
+    /**
+     * Percorso del file contenente i dati dei ristoranti.
+     */
     public static final String fileRistorantiPath = Paths.get(getBaseDir(), "dati", "ristoranti.txt").toString();
+
+    /**
+     * Percorso del file contenente i dati delle recensioni.
+     */
     public static final String fileRecensioniPath = Paths.get(getBaseDir(), "dati", "recensioni.txt").toString();
 
-    String path = getBaseDir();
     
   /**
  * Aggiunge un nuovo Ristorante al sistema, se i dati sono validi e non esiste gia un Ristorante con lo stesso nome e indirizzo.
@@ -1170,4 +1186,8 @@ public static void modificaRecensione(String username, String nomeRistorante, St
 
     System.out.println("Recensione modificata con successo.");
 }
+
+    public static String getFileRecensioniPath() {
+        return fileRecensioniPath;
+    }
 }

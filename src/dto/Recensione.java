@@ -17,10 +17,29 @@ import java.util.List;
  */
 public class Recensione{
 
+    /**
+     * Nome utente di chi ha scritto la recensione.
+     */
     private String username;
+
+    /**
+     * Nome del ristorante a cui si riferisce la recensione.
+     */
     private String nomeRistorante;
+
+    /**
+     * Valutazione numerica data al ristorante (ad esempio da 1 a 5).
+     */
     private int valutazione;
+
+    /**
+     * Testo della recensione scritto dall'utente.
+     */
     private String testo;
+
+    /**
+     * Risposta del ristoratore alla recensione, se presente.
+     */
     private String risposta;
     
      /**
