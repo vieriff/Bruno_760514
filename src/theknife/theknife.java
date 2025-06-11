@@ -503,7 +503,7 @@ private static void stampaRistoranti(List<String> ristoranti) {
  * @return      {@code true} se il Ristorante esiste nel file, {@code false} altrimenti.
  */
 public static boolean esisteRistorante(String nome, String luogo) {
-    try (BufferedReader br = new BufferedReader(new FileReader("dati/ristoranti.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("../dati/ristoranti.txt"))) {
         String line;
         while ((line = br.readLine()) != null) {
             String[] campi = line.split(";");

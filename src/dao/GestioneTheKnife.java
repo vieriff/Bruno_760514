@@ -959,7 +959,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
     Double stelleMin
 ) {
     List<String> risultati = new ArrayList<>();
-    File file = new File("dati/ristoranti.txt");
+    File file = new File(fileRistorantiPath);
 
     if (!file.exists()) {
         System.out.println("File dei ristoranti non trovato.");
@@ -1026,7 +1026,6 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
  * @return              La media delle stelle assegnate al Ristorante, o 0.0 se non sono presenti recensioni valide.
  */
     public static double calcolaMediaStelle(String nomeRistorante) {
-    String fileRecensioniPath = "dati/recensioni.txt"; // o path corretto
     double media = 0.0;
     int sommaVoti = 0;
     int conteggio = 0;
@@ -1064,11 +1063,11 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
  * @param luogoRis  Il luogo del Ristorante associato alla recensione.
  */
     public static void eliminaRecensione(String username, String nomeRis, String luogoRis) {
-    String filePath = "dati/recensioni.txt";
+
     List<String> recensioniAggiornate = new ArrayList<>();
     boolean eliminata = false;
 
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(fileRecensioniPath))) {
         String linea;
         while ((linea = br.readLine()) != null) {
             String[] parti = linea.split(",", 6);
@@ -1094,7 +1093,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
         return;
     }
 
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileRecensioniPath, false))) {
         for (String riga : recensioniAggiornate) {
             bw.write(riga);
             bw.newLine();
@@ -1120,7 +1119,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
  * @param nuovaRec       Il nuovo testo della recensione.
  */
 public static void modificaRecensione(String username, String nomeRistorante, String luogoRis, int voto, String nuovaRec) {
-    String fileRecensioniPath = "dati/recensioni.txt";
+
     File file = new File(fileRecensioniPath);
 
     if (!file.exists()) {
