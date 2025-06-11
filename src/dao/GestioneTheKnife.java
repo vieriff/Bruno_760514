@@ -1177,7 +1177,4 @@ public static void modificaRecensione(String username, String nomeRistorante, St
     System.out.println("Recensione modificata con successo.");
 }
 
-    public static String getFileRecensioniPath() {
-        return fileRecensioniPath;
-    }
 }

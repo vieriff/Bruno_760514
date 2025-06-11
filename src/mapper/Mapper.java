@@ -115,12 +115,29 @@ public class Mapper {
 		return result;
 	}
 	
-	 /**
-     * Mappa una stringa contenente i dati di un Ristorante in un oggetto {@link Ristorante}.
-     * 
-     * @param linea La stringa contenente i dati del Ristorante, separati da virgole.
-     * @return Un oggetto {@link Ristorante} con i dati mappati dalla stringa.
-     */
+/**
+ * Converte una stringa contenente i dati di un ristorante in un oggetto {@link Ristorante}.
+ * <p>
+ * La stringa in input deve contenere almeno 11 campi separati da punto e virgola (;), 
+ * con i dati nell'ordine seguente:
+ * <ol>
+ *   <li>nome</li>
+ *   <li>username ristoratore</li>
+ *   <li>nazione</li>
+ *   <li>città</li>
+ *   <li>indirizzo</li>
+ *   <li>latitudine (double)</li>
+ *   <li>longitudine (double)</li>
+ *   <li>prezzo (int)</li>
+ *   <li>disponibilità delivery ("Sì" per true)</li>
+ *   <li>disponibilità prenotazione ("Sì" per true)</li>
+ *   <li>tipo di cucina</li>
+ * </ol>
+ * 
+ * @param line La stringa con i dati del ristorante separati da punto e virgola.
+ * @return Un oggetto {@link Ristorante} popolato con i dati mappati dalla stringa, oppure
+ *         {@code null} se la stringa è nulla, vuota, incompleta o in caso di errore nel parsing.
+ */
 	public static Ristorante mapObjRistorante(String line) {
     if (line == null || line.trim().isEmpty()) return null;
 
