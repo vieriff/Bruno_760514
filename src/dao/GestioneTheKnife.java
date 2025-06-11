@@ -13,7 +13,6 @@ package src.dao;
  */
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,31 +35,22 @@ import src.mapper.Mapper;
  */
 public class GestioneTheKnife {
     
-    /**
-     * Restituisce la directory di base del progetto, corrispondente alla directory di esecuzione.
-     *
-     * @return il percorso assoluto della directory di lavoro corrente
-     */
-    private static String getBaseDir() {
-        return System.getProperty("user.dir");
-    }
-
     // Path dinamici
 
     /**
      * Percorso del file contenente i dati degli utenti.
      */
-    public static final String fileUtentiPath = Paths.get(getBaseDir(), "dati", "utenti.txt").toString();
+    public static final String fileUtentiPath = "../dati/utenti.txt";
 
     /**
      * Percorso del file contenente i dati dei ristoranti.
      */
-    public static final String fileRistorantiPath = Paths.get(getBaseDir(), "dati", "ristoranti.txt").toString();
+    public static final String fileRistorantiPath = "../dati/ristoranti.txt";
 
     /**
      * Percorso del file contenente i dati delle recensioni.
      */
-    public static final String fileRecensioniPath = Paths.get(getBaseDir(), "dati", "recensioni.txt").toString();
+    public static final String fileRecensioniPath = "../dati/recensioni.txt";
 
     
   /**
@@ -905,7 +895,7 @@ public static boolean aggiungiRecensione(String username, String nomeRistorante,
  * @return            {@code true} se l'utente è stato registrato con successo, {@code false} se l'username esiste gia o si è verificato un errore.
  */
     public static boolean registraUtente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo, String preferiti) {
-    File file = new File("dati/utenti.txt");
+    File file = new File(fileUtentiPath);
 
     try {
         // Crea file e directory se non esistono
