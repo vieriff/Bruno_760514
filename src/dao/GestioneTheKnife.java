@@ -13,6 +13,7 @@ package src.dao;
  */
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,12 +35,18 @@ import src.mapper.Mapper;
  * @version 1.0
  */
 public class GestioneTheKnife {
+    
+	private static String getBaseDir() {
+    return System.getProperty("user.dir");
+}
 
-	private static String fileRistorantiPath = "dati/ristoranti.txt";
-	private static String fileRecensioniPath = "dati/recensioni.txt";
-	private static String fileUtentiPath = "dati/utenti.txt";
+    // Path dinamici
+    public static final String fileUtentiPath = Paths.get(getBaseDir(), "dati", "utenti.txt").toString();
+    public static final String fileRistorantiPath = Paths.get(getBaseDir(), "dati", "ristoranti.txt").toString();
+    public static final String fileRecensioniPath = Paths.get(getBaseDir(), "dati", "recensioni.txt").toString();
 
-
+    String path = getBaseDir();
+    
   /**
  * Aggiunge un nuovo Ristorante al sistema, se i dati sono validi e non esiste gia un Ristorante con lo stesso nome e indirizzo.
  * <p>
