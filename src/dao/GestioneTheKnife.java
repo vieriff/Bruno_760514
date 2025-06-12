@@ -1179,4 +1179,33 @@ public static void modificaRecensione(String username, String nomeRistorante, St
     System.out.println("Recensione modificata con successo.");
 }
 
+/**
+ * Verifica se un Ristorante esiste nel file dei ristoranti, confrontando nome e luogo.
+ * Se il Ristorante viene trovato, restituisce {@code true} e stampa un messaggio di conferma.
+ *
+ * @param nome  Il nome del Ristorante da cercare.
+ * @param luogo La citta in cui si trova il Ristorante.
+ * @return      {@code true} se il Ristorante esiste nel file, {@code false} altrimenti.
+ */
+public static boolean esisteRistorante(String nome, String luogo) {
+    try (BufferedReader br = new BufferedReader(new FileReader(fileRistorantiPath))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] campi = line.split(";");
+            if (campi.length < 5) continue;
+
+            String nomeRistorante = campi[0].trim();
+            String citta = campi[3].trim();
+
+            if (nomeRistorante.equalsIgnoreCase(nome.trim()) && citta.equalsIgnoreCase(luogo.trim())) {
+                System.out.println("Ristorante trovato!");
+                return true;
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Errore lettura file ristoranti: " + e.getMessage());
+    }
+    return false;
+}
+
 }

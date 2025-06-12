@@ -8,10 +8,6 @@ package src.theknife;
 
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -208,7 +204,7 @@ public class Theknife {
                     System.out.print("Luogo: ");
                     String luogo = scanner.nextLine().trim();
 
-                    if (!esisteRistorante(nome, luogo)) {
+                    if (!GestioneTheKnife.esisteRistorante(nome, luogo)) {
                         System.out.println("Errore: il Ristorante indicato non esiste.");
                     } else {
                         boolean aggiunto = GestioneTheKnife.aggiungiPreferito(username, nome, luogo);
@@ -495,32 +491,5 @@ private static void stampaRistoranti(List<String> ristoranti) {
             return null;
         }
     }
-/**
- * Verifica se un Ristorante esiste nel file dei ristoranti, confrontando nome e luogo.
- * Se il Ristorante viene trovato, restituisce {@code true} e stampa un messaggio di conferma.
- *
- * @param nome  Il nome del Ristorante da cercare.
- * @param luogo La citta in cui si trova il Ristorante.
- * @return      {@code true} se il Ristorante esiste nel file, {@code false} altrimenti.
- */
-public static boolean esisteRistorante(String nome, String luogo) {
-    try (BufferedReader br = new BufferedReader(new FileReader(Paths.get(System.getProperty("user.dir"), "dati", "ristoranti.txt").toString()))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] campi = line.split(";");
-            if (campi.length < 5) continue;
 
-            String nomeRistorante = campi[0].trim();
-            String citta = campi[3].trim();
-
-            if (nomeRistorante.equalsIgnoreCase(nome.trim()) && citta.equalsIgnoreCase(luogo.trim())) {
-                System.out.println("Ristorante trovato!");
-                return true;
-            }
-        }
-    } catch (IOException e) {
-        System.err.println("Errore lettura file ristoranti: " + e.getMessage());
-    }
-    return false;
-}
 }
